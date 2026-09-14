@@ -569,3 +569,187 @@ footer span:first-child {
     margin-right: 18px;
   }
 }
+/* M4.2 — representation decision lanes */
+
+.candidate-row {
+  transition: background 120ms ease;
+}
+
+.candidate-row td {
+  position: relative;
+}
+
+.candidate-verified {
+  background: #0c1210;
+}
+
+.candidate-excluded {
+  background: #101114;
+}
+
+.candidate-excluded td {
+  color: #77818a;
+}
+
+.candidate-winner {
+  background: #0c1711;
+  box-shadow: inset 3px 0 0 #8dffb3;
+}
+
+.candidate-winner td {
+  border-bottom-color: #294132;
+}
+
+.candidate-identity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.candidate-symbol {
+  color: #edf4f0;
+  font-size: 16px;
+  letter-spacing: -.02em;
+}
+
+.candidate-issuer {
+  color: #73808a;
+  font: 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.candidate-mint {
+  display: block;
+  margin-top: 10px;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #55616b;
+  background: transparent;
+  font-size: 9px;
+}
+
+.candidate-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 7px;
+  border: 1px solid;
+  font: 700 8px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+}
+
+.verified-badge {
+  color: #8dffb3;
+  border-color: #31553d;
+  background: #0c1911;
+}
+
+.excluded-badge {
+  color: #e99a9a;
+  border-color: #5d3434;
+  background: #1a1010;
+}
+
+.winner-badge {
+  color: #08110a;
+  border-color: #8dffb3;
+  background: #8dffb3;
+}
+
+.candidate-copy {
+  max-width: 190px;
+  margin: 9px 0 0;
+  color: #6d7882;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.metric-value {
+  display: block;
+  color: #dce5ec;
+  font: 600 13px ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.candidate-excluded .metric-value {
+  color: #89929a;
+}
+
+.candidate-winner .metric-value {
+  color: #b7ffcb;
+}
+
+.metric-label {
+  display: block;
+  margin-top: 6px;
+  color: #59656f;
+  font: 9px ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.evidence-headline {
+  display: block;
+  margin-bottom: 9px;
+  color: #b6c0c9;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.candidate-winner .evidence-headline {
+  color: #b7ffcb;
+}
+
+.reason-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-width: 390px;
+}
+
+.reason-chip,
+.reason-more {
+  display: inline-block;
+  padding: 4px 6px;
+  border: 1px solid #2b343d;
+  background: #0b0f13;
+  color: #77838d;
+  font: 8px/1.35 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.candidate-excluded .reason-chip {
+  border-color: #422d2d;
+  color: #a87575;
+}
+
+.candidate-winner .reason-chip {
+  border-color: #294533;
+  color: #82c795;
+}
+
+.reason-more {
+  color: #5f6a74;
+}
+
+.candidate-details {
+  margin-top: 10px;
+}
+
+.candidate-details summary {
+  color: #59656f;
+  font-size: 9px;
+}
+
+.candidate-details pre {
+  min-width: 340px;
+  max-height: 300px;
+}
+
+@media (max-width: 650px) {
+  .candidate-mint {
+    max-width: 150px;
+  }
+
+  .candidate-details pre {
+    min-width: 240px;
+  }
+}
