@@ -1,0 +1,31 @@
+{
+  "id": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+  "timezone": "America/New_York",
+  "validFrom": "2026-01-01",
+  "validUntilExclusive": "2026-12-06",
+  "regularOpenMinute": 570,
+  "regularCloseMinute": 960,
+  "extendedOpenMinute": 240,
+  "extendedCloseMinute": 1200,
+  "holidays": {
+    "2026-01-01": "New Year's Day",
+    "2026-01-19": "Martin Luther King Jr. Day",
+    "2026-02-16": "Presidents Day",
+    "2026-04-03": "Good Friday",
+    "2026-05-25": "Memorial Day",
+    "2026-06-19": "Juneteenth",
+    "2026-07-03": "Independence Day observed",
+    "2026-09-07": "Labor Day",
+    "2026-11-26": "Thanksgiving",
+    "2026-12-25": "Christmas"
+  },
+  "earlyCloses": {"2026-11-27": 780, "2026-12-24": 780},
+  "earlyCloseExtendedEndMinute": null,
+  "sources": [
+    "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+    "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+    "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+  ],
+  "sourceReviewedDate": "2026-09-13",
+  "basis": "Manually transcribed published Nasdaq cash-equity holiday and session definitions; America/New_York civil time includes DST. Unannounced emergency closures are outside this scheduled calendar. Early-close extended hours require a specific exchange notice. Fail closed from the announced December 6 overnight-session change until a new calendar version is installed."
+}

@@ -1,0 +1,93 @@
+{
+  "checkedAt": "2026-09-13T07:26:28.512Z",
+  "testsPassed": 123,
+  "testsFailed": 0,
+  "previousTestsPreserved": 97,
+  "preservedFiles": [
+    "test/engine.test.mjs",
+    "test/live-contracts.test.mjs",
+    "test/providers.test.mjs",
+    "test/reference.test.mjs",
+    "test/strict.test.mjs",
+    "evidence/demo.json",
+    "evidence/live-2026-09-12.json",
+    "evidence/live-final-2026-09-12.json",
+    "evidence/milestone-1.1-cli-result-2026-09-13.json",
+    "evidence/milestone-1.1-cli-result.json",
+    "evidence/milestone-1.1-live-2026-09-12.json",
+    "evidence/milestone-1.1-live-2026-09-13.json",
+    "evidence/milestone-1.1-synthetic-survivor.json",
+    "evidence/milestone-1.1-verification.json",
+    "evidence/pyth-usdc-access-2026-09-13.json",
+    "evidence/tesla-access-probes.json",
+    "evidence/tesla-cli-result.json",
+    "evidence/tesla-demo-probe.json",
+    "evidence/tesla-live-2026-09-13.json",
+    "evidence/tesla-verification.json"
+  ],
+  "replayedBundles": [
+    "demo.json",
+    "live-2026-09-12.json",
+    "live-final-2026-09-12.json",
+    "milestone-1.1-live-2026-09-12.json",
+    "milestone-1.1-live-2026-09-13.json",
+    "milestone-1.1-synthetic-survivor.json",
+    "session-live-2026-09-13.json",
+    "tesla-live-2026-09-13.json"
+  ],
+  "credentialScan": "PASSED",
+  "calendarSourceCaptures": [
+    {
+      "id": "nasdaq-calendar",
+      "source": "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+      "status": 200,
+      "sha256": "140b4cfffabdd54854a9318c82295db8f62824f9a74445c5460d932df7161c9a"
+    },
+    {
+      "id": "nasdaq-december-change",
+      "source": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46",
+      "status": 200,
+      "sha256": "f7b0740d4f1cd4b9a26b20cefa736aef05895733e9716aef8905c26d7a1e2fcf"
+    },
+    {
+      "id": "nasdaq-hours",
+      "source": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+      "status": 200,
+      "sha256": "03fa998a801972db785bad19b7816669d0ab22056f04b600441b779d5150b183"
+    }
+  ],
+  "liveSnapshotSha256": "1d54cf6f6697e526f59bc675e5710ded24a59a266a71bf3dda15bcc8614a6236",
+  "winner": "TSLAx",
+  "executionClassification": "BEST_EXECUTION_CLOSED_MARKET",
+  "marketState": "UNDERLYING_WEEKEND",
+  "quoteAgesMs": {
+    "TSLAx": 1322,
+    "TSLAon": 1320
+  },
+  "milestone1Complete": true,
+  "filesChanged": [
+    ".env.example",
+    "README.md",
+    "BUILD_LOG.md",
+    "MILESTONE_1_2.md",
+    "package.json",
+    "package-lock.json",
+    "data/nasdaq-calendar-2026-v1.json",
+    "src/engine.mjs",
+    "src/engine-v1.mjs",
+    "src/engine-v2.mjs",
+    "src/engine-v4.mjs",
+    "src/collect.mjs",
+    "src/market-session.mjs",
+    "src/session-reference.mjs",
+    "fixtures/session.mjs",
+    "test/session.test.mjs",
+    "preservation/pre-session-sha256.json",
+    "evidence/session-baseline-tests.txt",
+    "evidence/session-tests.txt",
+    "evidence/session-calendar-sources.json",
+    "evidence/session-live-2026-09-13.json",
+    "evidence/session-cli-result.json",
+    "evidence/session-verification.json"
+  ]
+}

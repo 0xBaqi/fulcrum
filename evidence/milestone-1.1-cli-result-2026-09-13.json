@@ -1,0 +1,1233 @@
+{
+  "evidenceFile": "evidence/milestone-1.1-live-2026-09-13.json",
+  "engineVersion": "0.1.1",
+  "snapshotSha256": "b6b57defd1cfd8b6d5275d5ce885885f80728694532aa83af07fb8ead46a030c",
+  "mode": "live",
+  "asOfMs": 1789256868643,
+  "status": "NO_WINNER",
+  "winner": null,
+  "reasonCodes": [
+    "NO_VERIFIED_REPRESENTATION"
+  ],
+  "ranking": [],
+  "rankingIsProvisional": false,
+  "excluded": [
+    {
+      "symbol": "NVDAx",
+      "reasonCodes": [
+        "PYTH_FEED_NOT_ENTITLED",
+        "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN",
+        "REFERENCE_IDENTITY_MISMATCH",
+        "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+        "REFERENCE_NVDA_INVALID",
+        "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+        "REFERENCE_USDC_INVALID"
+      ]
+    },
+    {
+      "symbol": "NVDAon",
+      "reasonCodes": [
+        "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+        "CORPORATE_ACTION_STATUS_UNKNOWN",
+        "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+        "ISSUER_STATUS_UNKNOWN",
+        "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+        "METADATA_TIMESTAMP_UNVERIFIED",
+        "PYTH_FEED_NOT_ENTITLED",
+        "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN",
+        "REFERENCE_IDENTITY_MISMATCH",
+        "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+        "REFERENCE_NVDA_INVALID",
+        "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+        "REFERENCE_USDC_INVALID"
+      ]
+    }
+  ],
+  "comparisonGates": [],
+  "objective": "Maximize slippage-protected NVIDIA-equivalent shares for equal USDC input; excludes wallet-dependent network fees.",
+  "executionReady": false,
+  "executionReasonCodes": [
+    "WALLET_ELIGIBILITY_NOT_EVALUATED",
+    "REQUOTE_AND_SIMULATE_REQUIRED",
+    "NETWORK_FEES_NOT_COMPARED"
+  ],
+  "candidates": [
+    {
+      "symbol": "NVDAx",
+      "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+      "eligible": false,
+      "reasonCodes": [
+        "PYTH_FEED_NOT_ENTITLED",
+        "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN",
+        "REFERENCE_IDENTITY_MISMATCH",
+        "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+        "REFERENCE_NVDA_INVALID",
+        "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+        "REFERENCE_USDC_INVALID"
+      ],
+      "normalized": {
+        "expectedShares": "0.456871919073",
+        "minimumShares": "0.454587549510",
+        "minimumSharesExact": {
+          "numerator": "1420586092221567918339",
+          "denominator": "3125000000000000000000"
+        },
+        "usdcPerMinimumShare": "219.979627923359",
+        "sharesPerToken": "1.001701196801074"
+      },
+      "route": {
+        "router": "dflow",
+        "swapType": "aggregator",
+        "requestId": "01a09805-220f-77ff-9d41-6be8a54b33ba",
+        "transactionAvailable": false
+      },
+      "gates": [
+        {
+          "id": "REFERENCE_NVDA",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "PYTH_FEED_NOT_ENTITLED",
+            "REFERENCE_IDENTITY_MISMATCH",
+            "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+            "REFERENCE_NVDA_INVALID"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a"
+          ],
+          "observedAt": [
+            1789256868641
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            }
+          ]
+        },
+        {
+          "id": "REFERENCE_USDC",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "PYTH_FEED_NOT_ENTITLED",
+            "REFERENCE_IDENTITY_MISMATCH",
+            "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+            "REFERENCE_USDC_INVALID"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a"
+          ],
+          "observedAt": [
+            1789256868641
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            }
+          ]
+        },
+        {
+          "id": "IDENTITY",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx"
+          ],
+          "observedAt": [
+            1789256866716
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "xstocks-asset",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+              "observedAt": 1789256866716,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "d1ab8a5e076fca37209f4b8e64044047fb1b4a423e7cc937272c3e20a0550939"
+            }
+          ]
+        },
+        {
+          "id": "METADATA_FRESHNESS",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana"
+          ],
+          "observedAt": [
+            1789256866716,
+            1789256866879
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "xstocks-asset",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+              "observedAt": 1789256866716,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "d1ab8a5e076fca37209f4b8e64044047fb1b4a423e7cc937272c3e20a0550939"
+            },
+            {
+              "evidenceId": "xstocks-multiplier",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+              "observedAt": 1789256866879,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256867000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "9e0763f9b5234a4889a889e55e1e50754f4f49cd3fd932999ebe35e369d7c6dd"
+            }
+          ]
+        },
+        {
+          "id": "ISSUER_STATUS",
+          "mandatory": true,
+          "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx"
+          ],
+          "observedAt": [
+            1789256866716
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "xstocks-asset",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+              "observedAt": 1789256866716,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "d1ab8a5e076fca37209f4b8e64044047fb1b4a423e7cc937272c3e20a0550939"
+            }
+          ]
+        },
+        {
+          "id": "CORPORATE_ACTION",
+          "mandatory": true,
+          "scope": "issuer current/pending multiplier and onchain activation window",
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+            "solana-mints",
+            "solana-blocktime"
+          ],
+          "observedAt": [
+            1789256866879,
+            1789256866650,
+            1789256867695
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "xstocks-multiplier",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+              "observedAt": 1789256866879,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256867000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "9e0763f9b5234a4889a889e55e1e50754f4f49cd3fd932999ebe35e369d7c6dd"
+            },
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            }
+          ]
+        },
+        {
+          "id": "CHAIN",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "solana-mints",
+            "solana-blocktime"
+          ],
+          "observedAt": [
+            1789256866650,
+            1789256867695
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            }
+          ]
+        },
+        {
+          "id": "QUOTE_VALIDITY",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868635
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            }
+          ]
+        },
+        {
+          "id": "QUOTE_FRESHNESS",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868635
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            }
+          ]
+        },
+        {
+          "id": "SLIPPAGE",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868635
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            }
+          ]
+        },
+        {
+          "id": "PRICE_IMPACT",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868635
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            }
+          ]
+        },
+        {
+          "id": "NORMALIZATION",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+            "solana-mints",
+            "solana-blocktime",
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256866716,
+            1789256866879,
+            1789256866650,
+            1789256867695,
+            1789256868635
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "xstocks-asset",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+              "observedAt": 1789256866716,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "d1ab8a5e076fca37209f4b8e64044047fb1b4a423e7cc937272c3e20a0550939"
+            },
+            {
+              "evidenceId": "xstocks-multiplier",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+              "observedAt": 1789256866879,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256867000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "9e0763f9b5234a4889a889e55e1e50754f4f49cd3fd932999ebe35e369d7c6dd"
+            },
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            },
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            }
+          ]
+        },
+        {
+          "id": "REFERENCE_DEVIATION",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+            "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+            "solana-mints",
+            "solana-blocktime"
+          ],
+          "observedAt": [
+            1789256868641,
+            1789256868641,
+            1789256868635,
+            1789256866716,
+            1789256866879,
+            1789256866650,
+            1789256867695
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            },
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            },
+            {
+              "evidenceId": "quote-NVDAx",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868635,
+              "publishedAt": 1789256867697,
+              "sourceTimestamp": 1789256867697,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "eb9baf51dee1a35f00df3346debc3fc1666f279995f4ddd5a5e071d1f4c9e645"
+            },
+            {
+              "evidenceId": "xstocks-asset",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx",
+              "observedAt": 1789256866716,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "d1ab8a5e076fca37209f4b8e64044047fb1b4a423e7cc937272c3e20a0550939"
+            },
+            {
+              "evidenceId": "xstocks-multiplier",
+              "source": "https://api.xstocks.fi/api/v2/public/assets/NVDAx/multiplier?network=Solana",
+              "observedAt": 1789256866879,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256867000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "9e0763f9b5234a4889a889e55e1e50754f4f49cd3fd932999ebe35e369d7c6dd"
+            },
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "NVDAon",
+      "mint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
+      "eligible": false,
+      "reasonCodes": [
+        "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+        "CORPORATE_ACTION_STATUS_UNKNOWN",
+        "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+        "ISSUER_STATUS_UNKNOWN",
+        "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+        "METADATA_TIMESTAMP_UNVERIFIED",
+        "PYTH_FEED_NOT_ENTITLED",
+        "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN",
+        "REFERENCE_IDENTITY_MISMATCH",
+        "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+        "REFERENCE_NVDA_INVALID",
+        "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+        "REFERENCE_USDC_INVALID"
+      ],
+      "normalized": {
+        "expectedShares": "0.456179927251",
+        "minimumShares": "0.456179927251",
+        "minimumSharesExact": {
+          "numerator": "912359854503942796344617",
+          "denominator": "2000000000000000000000000"
+        },
+        "usdcPerMinimumShare": "219.211749632212",
+        "sharesPerToken": "1.0017152487959897"
+      },
+      "route": {
+        "router": "jupiterz",
+        "swapType": "rfq",
+        "requestId": "01a09805-21f8-72f7-bbd5-1c05a08e7de0",
+        "transactionAvailable": false
+      },
+      "gates": [
+        {
+          "id": "REFERENCE_NVDA",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "PYTH_FEED_NOT_ENTITLED",
+            "REFERENCE_IDENTITY_MISMATCH",
+            "REFERENCE_NVDA_EVIDENCE_UNKNOWN",
+            "REFERENCE_NVDA_INVALID"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a"
+          ],
+          "observedAt": [
+            1789256868641
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            }
+          ]
+        },
+        {
+          "id": "REFERENCE_USDC",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "PYTH_FEED_NOT_ENTITLED",
+            "REFERENCE_IDENTITY_MISMATCH",
+            "REFERENCE_USDC_EVIDENCE_UNKNOWN",
+            "REFERENCE_USDC_INVALID"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a"
+          ],
+          "observedAt": [
+            1789256868641
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            }
+          ]
+        },
+        {
+          "id": "IDENTITY",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://app.ondo.finance/assets/NVDAon"
+          ],
+          "observedAt": [
+            1789256867393
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            }
+          ]
+        },
+        {
+          "id": "METADATA_FRESHNESS",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+            "METADATA_TIMESTAMP_UNVERIFIED"
+          ],
+          "source": [
+            "https://app.ondo.finance/assets/NVDAon"
+          ],
+          "observedAt": [
+            1789256867393
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            }
+          ]
+        },
+        {
+          "id": "ISSUER_STATUS",
+          "mandatory": true,
+          "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+            "ISSUER_STATUS_UNKNOWN"
+          ],
+          "source": [
+            "https://app.ondo.finance/assets/NVDAon"
+          ],
+          "observedAt": [
+            1789256867393
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            }
+          ]
+        },
+        {
+          "id": "CORPORATE_ACTION",
+          "mandatory": true,
+          "scope": "issuer explicit corporate-action status; public listing is insufficient",
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+            "CORPORATE_ACTION_STATUS_UNKNOWN"
+          ],
+          "source": [
+            "https://app.ondo.finance/assets/NVDAon"
+          ],
+          "observedAt": [
+            1789256867393
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            }
+          ]
+        },
+        {
+          "id": "CHAIN",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "solana-mints",
+            "solana-blocktime"
+          ],
+          "observedAt": [
+            1789256866650,
+            1789256867695
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            }
+          ]
+        },
+        {
+          "id": "QUOTE_VALIDITY",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868634
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            }
+          ]
+        },
+        {
+          "id": "QUOTE_FRESHNESS",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868634
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            }
+          ]
+        },
+        {
+          "id": "SLIPPAGE",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868634
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            }
+          ]
+        },
+        {
+          "id": "PRICE_IMPACT",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256868634
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            }
+          ]
+        },
+        {
+          "id": "NORMALIZATION",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "PASS",
+          "reasonCodes": [],
+          "source": [
+            "https://app.ondo.finance/assets/NVDAon",
+            "solana-mints",
+            "solana-blocktime",
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50"
+          ],
+          "observedAt": [
+            1789256867393,
+            1789256866650,
+            1789256867695,
+            1789256868634
+          ],
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "evidence": [
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            },
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            },
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            }
+          ]
+        },
+        {
+          "id": "REFERENCE_DEVIATION",
+          "mandatory": true,
+          "scope": null,
+          "outcome": "UNKNOWN",
+          "reasonCodes": [
+            "REFERENCE_DEVIATION_EVIDENCE_UNKNOWN"
+          ],
+          "source": [
+            "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+            "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+            "https://app.ondo.finance/assets/NVDAon",
+            "solana-mints",
+            "solana-blocktime"
+          ],
+          "observedAt": [
+            1789256868641,
+            1789256868641,
+            1789256868634,
+            1789256867393,
+            1789256866650,
+            1789256867695
+          ],
+          "freshnessStatus": "UNKNOWN",
+          "verificationStatus": "UNKNOWN",
+          "evidence": [
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            },
+            {
+              "evidenceId": "pyth-latest",
+              "source": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest?ids%5B%5D=0xb1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593&ids%5B%5D=0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+              "observedAt": 1789256868641,
+              "publishedAt": null,
+              "sourceTimestamp": null,
+              "timestampBasis": "UNKNOWN",
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+              "responseSha256": "ff02ab55d4bcc8b27f3012d0d3f96b38c77c54bd65084a5e766045007a362377"
+            },
+            {
+              "evidenceId": "quote-NVDAon",
+              "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo&amount=100000000&slippageBps=50",
+              "observedAt": 1789256868634,
+              "publishedAt": 1789256867705,
+              "sourceTimestamp": 1789256867705,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+              "responseSha256": "c2fcf5aae78d6bcd6c742d3833126c916f641958bcf68b95de76866b1b93c5cc"
+            },
+            {
+              "evidenceId": "ondo-page",
+              "source": "https://app.ondo.finance/assets/NVDAon",
+              "observedAt": 1789256867393,
+              "publishedAt": null,
+              "sourceTimestamp": 1789256866000,
+              "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+              "responseSha256": "724b54f66e8201df24edc6ac59d17fa181030955df1968b85b5f6997c182f6cb"
+            },
+            {
+              "evidenceId": "solana-mints",
+              "source": "solana-mints",
+              "observedAt": 1789256866650,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+              "responseSha256": "39356a162c57930d2a05b887fecdad45f35c2e1e794a3861c380da03c66997c3"
+            },
+            {
+              "evidenceId": "solana-blocktime",
+              "source": "solana-blocktime",
+              "observedAt": 1789256867695,
+              "publishedAt": 1789256865000,
+              "sourceTimestamp": 1789256865000,
+              "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+              "responseSha256": "40945ef55498da28b5c9ae2c8f3a44aa4d7685f07b99102cd7a4d85209021749"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

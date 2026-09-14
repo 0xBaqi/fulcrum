@@ -1,0 +1,15 @@
+import {PublicKey} from '@solana/web3.js';
+import {inflateSync} from 'node:zlib';
+import {writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {createHttp} from '../src/providers.mjs';
+const program=new PublicKey('JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4');
+const [base]=PublicKey.findProgramAddressSync([],program),address=await PublicKey.createWithSeed(base,'anchor:idl',program);
+const http=createHttp({timeoutMs:20000});
+const e=await http.get('jupiter-onchain-idl',process.env.SOLANA_RPC_URL||'https://api.mainnet-beta.solana.com',{privateUrl:true,body:{jsonrpc:'2.0',id:1,method:'getAccountInfo',params:[address.toBase58(),{encoding:'base64',commitment:'finalized'}]}});
+await mkdir('data/execution',{recursive:true});await writeFile('data/execution/jupiter-idl-evidence.json',JSON.stringify(e,null,2));
+const account=e.data.result?.value;if(account?.owner!==program.toBase58())throw Error('JUPITER_IDL_OWNER_UNVERIFIED');
+const bytes=Buffer.from(account.data[0],'base64'),length=bytes.readUInt32LE(40),raw=inflateSync(bytes.subarray(44,44+length)).toString('utf8'),idl=JSON.parse(raw);
+await writeFile('data/execution/jupiter-current-idl.json',raw);
+await writeFile('data/execution/jupiter-idl-source.json',JSON.stringify({program:program.toBase58(),idlAddress:address.toBase58(),slot:e.data.result.context.slot,observedAt:e.receivedAt,sha256:createHash('sha256').update(raw).digest('hex'),source:'FINALIZED_SOLANA_PROGRAM_OWNED_ANCHOR_IDL'},null,2));
+console.log(JSON.stringify(idl.instructions.filter(x=>/route.*v2|shared.*route/i.test(x.name)),null,2));

@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {VersionedTransaction} from '@solana/web3.js';
+import {fixture,harness,wallet,testKey} from '../fixtures/execution.mjs';
+import {rehash} from '../fixtures/strict.mjs';
+import {parseOndoApi,verifyChain,exactJson} from '../src/providers.mjs';
+import {resolve} from '../src/registry.mjs';
+import {materialGuard} from '../src/execution/guard.mjs';
+import {bundleSnapshot,executionPipeline} from '../src/execution/pipeline.mjs';
+import {connectWallet} from '../src/execution/wallet.mjs';
+import {sealReceipt,replayReceipt} from '../src/execution/receipt.mjs';
+function changedWinner(){
+ const s=fixture().snapshot,a=resolve('TSLA')[1],now=s.asOfMs,addresses={symbol:a.symbol,addresses:[{networkChainId:'solana-900',address:a.mint,decimals:a.decimals}]},market={primaryMarket:{symbol:a.symbol,sharesMultiplier:s.candidates[1].metadata.sharesPerToken},underlyingMarket:{ticker:'TSLA'},timestamp:now-1000};
+ for(const [id,source,body] of [['ondo-addresses','https://api.gm.ondo.finance/v1/assets/TSLAon/addresses',addresses],['ondo-market','https://api.gm.ondo.finance/v1/assets/TSLAon/market',market],['ondo-status','https://api.gm.ondo.finance/v1/status/assets',[]]])s.evidence.push(rehash({id,source,synthetic:true,status:200,startedAt:now-1100,receivedAt:now-1000,responseHeaders:{date:new Date(now-1000).toUTCString(),age:'0'},responseText:JSON.stringify(body),request:null}));
+ const rpc=JSON.parse(s.evidence.find(e=>e.id==='solana-mints').responseText);
+ s.candidates[1].metadata=verifyChain(parseOndoApi(addresses,exactJson(JSON.stringify(market)),[],now-1000,a),rpc,1,now);
+ return bundleSnapshot(s);
+}
+test('new strict winner blocks the previously reviewed representation',()=>{const a=fixture(),b=changedWinner();assert.equal(b.result.winner,'TSLAon',JSON.stringify(b.result.excluded));assert.throws(()=>materialGuard(a,b,a.snapshot.candidates[0].quote,a.snapshot.asOfMs),/WINNING_REPRESENTATION_CHANGED/);});
+for(const [name,options,code] of [['simulation output too low',{simBelow:true},'SIMULATED_RECEIVED_AMOUNT_BELOW_MINIMUM'],['simulation SOL drain',{solDrain:true},'SIMULATED_SOL_COST_LIMIT_EXCEEDED'],['expired while signing',{signSlow:true},'QUOTE_EXPIRED']])test(name,async()=>{const h=harness(options),r=await h.pipeline.prepare(h.analysis,wallet);if(r.status==='READY_FOR_SIGNATURE')await h.pipeline.submit(r,{signTransaction:h.signTransaction,authorizeBroadcast:true});assert.equal(r.status,'BLOCKED');assert.ok(r.reasonCodes.includes(code),JSON.stringify(r.reasonCodes));assert.ok(!h.calls.includes('sendTransaction'));});
+test('confirmed on-chain failure never reports success',async()=>{const h=harness({confirmedFail:true}),r=await h.pipeline.prepare(h.analysis,wallet);await h.pipeline.submit(r,{signTransaction:h.signTransaction,authorizeBroadcast:true});assert.equal(r.status,'CONFIRMED_FAILED');assert.equal(r.actualReceivedAmount,null);});
+test('confirmation timeout preserves signature for read-only reconciliation',async()=>{const options={pending:true},h=harness(options),r=await h.pipeline.prepare(h.analysis,wallet);await h.pipeline.submit(r,{signTransaction:h.signTransaction,authorizeBroadcast:true});assert.equal(r.status,'CONFIRMATION_PENDING');assert.ok(r.signature);options.pending=false;await h.pipeline.reconcile(r);assert.equal(r.status,'SUCCEEDED');assert.equal(h.calls.filter(x=>x==='sendTransaction').length,1);});
+test('uncertain broadcast is reconciled without resubmission',async()=>{const h=harness({broadcastFail:true}),r=await h.pipeline.prepare(h.analysis,wallet);await h.pipeline.submit(r,{signTransaction:h.signTransaction,authorizeBroadcast:true});assert.equal(r.status,'BROADCAST_UNKNOWN');await h.pipeline.reconcile(r);assert.equal(r.status,'SUCCEEDED');assert.equal(h.calls.filter(x=>x==='sendTransaction').length,1);});
+test('successful receipt replay recomputes received amount',async()=>{const h=harness(),r=await h.pipeline.prepare(h.analysis,wallet);await h.pipeline.submit(r,{signTransaction:h.signTransaction,authorizeBroadcast:true});const first=JSON.stringify(sealReceipt(r));assert.equal(JSON.stringify(sealReceipt(replayReceipt(JSON.parse(first)))),first);r.balances.actualReceivedAmount='999999999';r.actualReceivedAmount='999999999';assert.throws(()=>replayReceipt(sealReceipt(r)),/RECEIPT_SUCCESS_UNVERIFIED/);});
+test('production rejects synthetic analysis before external calls',async()=>{const r=await executionPipeline({persist:async()=>{}}).prepare(fixture(),wallet);assert.ok(r.reasonCodes.includes('SYNTHETIC_ANALYSIS_FORBIDDEN'));});
+test('missing wallet remains an explicit blocker',async()=>{const h=harness(),r=await h.pipeline.prepare(h.analysis,null);assert.deepEqual(r.reasonCodes,['WALLET_PUBLIC_KEY_REQUIRED']);assert.equal(h.calls.length,0);});
+test('wallet connection and signing use only the adapter authority',async()=>{let signed=false;const adapter={publicKey:testKey.publicKey,connect:async()=>{},signTransaction:async tx=>{signed=true;tx.sign([testKey]);return tx;}};const bridge=await connectWallet(adapter,VersionedTransaction);assert.equal(bridge.publicKey,wallet);const h=harness(),r=await h.pipeline.prepare(h.analysis,wallet);await bridge.signTransaction(r.transaction.unsignedBase64);assert.equal(signed,true);adapter.publicKey=null;await assert.rejects(bridge.signTransaction(r.transaction.unsignedBase64),/WALLET_CHANGED/);});

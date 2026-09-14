@@ -1,0 +1,28 @@
+HTTP_STEP 1 GET http://127.0.0.1:59400/api/bootstrap
+HTTP_STATUS 1 200
+HTTP_STEP 2 POST http://127.0.0.1:59400/api/analyses
+HTTP_STATUS 2 202
+HTTP_STEP 3 GET http://127.0.0.1:59400/api/jobs/7cc86fed-1745-43dc-844b-1f3dec9d5e7e
+HTTP_STATUS 3 200
+HTTP_STEP 4 POST http://127.0.0.1:59400/api/analyses
+HTTP_STATUS 4 403
+HTTP_STEP 5 POST http://127.0.0.1:59400/api/analyses
+HTTP_STATUS 5 403
+HTTP_STEP 6 POST http://127.0.0.1:59400/api/analyses
+HTTP_STATUS 6 400
+HTTP_STEP 7 POST http://127.0.0.1:59400/api/broadcast
+HTTP_STATUS 7 404
+HTTP_STEP 8 GET http://127.0.0.1:59400/.env
+HTTP_STATUS 8 404
+HTTP_STEP 9 GET http://127.0.0.1:59400/
+HTTP_STATUS 9 200
+✔ HTTP boundary supports replay and rejects cross-origin, mint injection and broadcast (1505.6755ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4009.9537
+

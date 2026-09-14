@@ -1,0 +1,15 @@
+{
+  "browser": "Microsoft Edge, headless",
+  "livePathCompleted": true,
+  "jobId": "f858c7c3-b1d7-4ede-9a25-15dd057c9835",
+  "state": "SIMULATION_BLOCKED",
+  "reasonCodes": [
+    "FINAL_REQUOTE_PASSED",
+    "INSUFFICIENT_USDC",
+    "TRANSACTION_INSPECTED",
+    "TRANSACTION_SIMULATION_ATTEMPTED",
+    "TRANSACTION_SIMULATION_FAILED"
+  ],
+  "pageErrors": [],
+  "replayExecutionDisabled": true
+}

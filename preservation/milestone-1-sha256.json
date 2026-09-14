@@ -1,0 +1,26 @@
+[
+  {
+    "path": "test/engine.test.mjs",
+    "sha256": "3aebc2f2a7639229eaf543b50147cf639534fffc3209a1e2b872f2bdd34bdc1e"
+  },
+  {
+    "path": "test/live-contracts.test.mjs",
+    "sha256": "606159c6dd0890d0545e66492653054e239852d54172af6a12c62eaff5aa5cf7"
+  },
+  {
+    "path": "test/providers.test.mjs",
+    "sha256": "70185eae55c2524ec18e60571857f1834777a77e7a301a3436c09bef762f8060"
+  },
+  {
+    "path": "evidence/demo.json",
+    "sha256": "7afad507390c9f932ba7a38e0354b696f643b08fa8709da6c9fecf6c1934117a"
+  },
+  {
+    "path": "evidence/live-2026-09-12.json",
+    "sha256": "5503cf25908ae9c0173f2cf6723767ccb966bc1054fdbf029a3492d72a09984a"
+  },
+  {
+    "path": "evidence/live-final-2026-09-12.json",
+    "sha256": "25eb220571f52880c1937fa1ab399c846d1a46f756ae86398850940af865f264"
+  }
+]

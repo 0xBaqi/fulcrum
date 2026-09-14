@@ -1,0 +1,22 @@
+{
+  "test/engine.test.mjs": "3aebc2f2a7639229eaf543b50147cf639534fffc3209a1e2b872f2bdd34bdc1e",
+  "test/live-contracts.test.mjs": "606159c6dd0890d0545e66492653054e239852d54172af6a12c62eaff5aa5cf7",
+  "test/providers.test.mjs": "70185eae55c2524ec18e60571857f1834777a77e7a301a3436c09bef762f8060",
+  "test/reference.test.mjs": "d5b14b148a8721f307573c8f8617efe14a43d9e06ab777bd113a6468a7234477",
+  "test/strict.test.mjs": "d669b7ddc11922008fe347ead631d9f60fbb832bf7192bc29d5ce6efa1dfd1b8",
+  "evidence/demo.json": "7afad507390c9f932ba7a38e0354b696f643b08fa8709da6c9fecf6c1934117a",
+  "evidence/live-2026-09-12.json": "5503cf25908ae9c0173f2cf6723767ccb966bc1054fdbf029a3492d72a09984a",
+  "evidence/live-final-2026-09-12.json": "25eb220571f52880c1937fa1ab399c846d1a46f756ae86398850940af865f264",
+  "evidence/milestone-1.1-cli-result-2026-09-13.json": "0ee804c35c9529a9bdbafe901098e81299764fba5c401ddba9d838ae3af68786",
+  "evidence/milestone-1.1-cli-result.json": "2d21e410799c3f7ece5209e89b057963a06a0f31c742fad51922a2a9f7f6a456",
+  "evidence/milestone-1.1-live-2026-09-12.json": "85afe213763d1c574a804d2be7cc2dff79f5729d99a29d30cdbb8a65b0840c57",
+  "evidence/milestone-1.1-live-2026-09-13.json": "dc48e0012541aac003658a97f949ea32e786e37963bef48fdee6163607ba239e",
+  "evidence/milestone-1.1-synthetic-survivor.json": "d7a22b7120ccf076d12434f12488d2cdef2a15438d307d47feb06c68bf5a3c2e",
+  "evidence/milestone-1.1-verification.json": "7bd6d181db61db0b27c2af25a13fcef91e8198a2f9effb0847e75a63aa709622",
+  "evidence/pyth-usdc-access-2026-09-13.json": "0135dc3fac34502cc678491105119f04c65e45ce36736274f84d2145be4c9502",
+  "evidence/tesla-access-probes.json": "231beaf473b04c59d903f0a93f3ce235ee17dad95c2d75e9eb1213c15530607c",
+  "evidence/tesla-cli-result.json": "ee6b2e0019b577084f8fb0263203791e1b27b36951f62d2701880271a76e456e",
+  "evidence/tesla-demo-probe.json": "9ef0c454400c9873ac0408fb9951c56cf01622f4f4cc26e8bff19a68c1608bf6",
+  "evidence/tesla-live-2026-09-13.json": "c9d560cf717ebf957b758869690f84ef8a27b7dafe10f863e52e8902fd4161c0",
+  "evidence/tesla-verification.json": "d2beada97eefd5867c684535d7873c0ee36084a2ca29314fb250589d670f19f4"
+}

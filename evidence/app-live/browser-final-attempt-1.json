@@ -1,0 +1,4250 @@
+{
+  "id": "f858c7c3-b1d7-4ede-9a25-15dd057c9835",
+  "intent": {
+    "underlying": "TSLA",
+    "name": "Tesla",
+    "inputAsset": "USDC",
+    "amount": "1",
+    "amountRaw": "1000000",
+    "mode": "LIVE",
+    "captureId": null
+  },
+  "state": "SIMULATION_BLOCKED",
+  "createdAt": 1789324028204,
+  "events": [
+    {
+      "state": "RESOLVING",
+      "at": 1789324028204,
+      "reasonCodes": []
+    },
+    {
+      "state": "QUOTING",
+      "at": 1789324028204,
+      "reasonCodes": []
+    },
+    {
+      "state": "VALIDATING",
+      "at": 1789324049016,
+      "reasonCodes": []
+    },
+    {
+      "state": "STRICT_WINNER",
+      "at": 1789324049079,
+      "reasonCodes": [
+        "ALL_MANDATORY_GATES_PASSED",
+        "CLOSED_MARKET_REFERENCE",
+        "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+        "NOT_CURRENT_FAIR_VALUE",
+        "REPRESENTATIONS_EXCLUDED",
+        "SINGLE_VERIFIED_SURVIVOR"
+      ]
+    },
+    {
+      "state": "READY_FOR_EXECUTION",
+      "at": 1789324049417,
+      "reasonCodes": [
+        "WALLET_BOUND_PREPARATION_REQUESTED"
+      ]
+    },
+    {
+      "state": "REQUOTING",
+      "at": 1789324049417,
+      "reasonCodes": []
+    },
+    {
+      "state": "SIMULATION_BLOCKED",
+      "at": 1789324055358,
+      "reasonCodes": [
+        "FINAL_REQUOTE_PASSED",
+        "INSUFFICIENT_USDC",
+        "TRANSACTION_INSPECTED",
+        "TRANSACTION_SIMULATION_ATTEMPTED",
+        "TRANSACTION_SIMULATION_FAILED"
+      ]
+    }
+  ],
+  "reasonCodes": [
+    "FINAL_REQUOTE_PASSED",
+    "INSUFFICIENT_USDC",
+    "TRANSACTION_INSPECTED",
+    "TRANSACTION_SIMULATION_ATTEMPTED",
+    "TRANSACTION_SIMULATION_FAILED"
+  ],
+  "resolved": [
+    {
+      "underlying": "TSLA",
+      "underlyingIsin": "US88160R1014",
+      "symbol": "TSLAx",
+      "issuer": "xStocks",
+      "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+      "decimals": 8,
+      "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx"
+    },
+    {
+      "underlying": "TSLA",
+      "underlyingIsin": "US88160R1014",
+      "symbol": "TSLAon",
+      "issuer": "Ondo",
+      "mint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+      "decimals": 9,
+      "source": "https://app.ondo.finance/assets/TSLAon"
+    }
+  ],
+  "decision": {
+    "underlying": "TSLA",
+    "inputAmountRaw": "1000000",
+    "asOfMs": 1789324049015,
+    "mode": "LIVE",
+    "isLive": true,
+    "executionClassification": "BEST_EXECUTION_CLOSED_MARKET",
+    "marketState": "UNDERLYING_WEEKEND",
+    "marketSession": {
+      "id": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+      "sha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc",
+      "timezone": "America/New_York",
+      "localDate": "2026-09-13",
+      "localMinute": 867,
+      "source": [
+        "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+        "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+        "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+      ],
+      "definitionReviewedDate": "2026-09-13",
+      "verificationStatus": "VERIFIED",
+      "basis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+      "holiday": null,
+      "state": "UNDERLYING_WEEKEND",
+      "reasonCodes": [],
+      "lastCompletedRegularSession": {
+        "date": "2026-09-11",
+        "regularOpen": 1789133400000,
+        "regularClose": 1789156800000,
+        "extendedOpen": 1789113600000,
+        "extendedClose": 1789171200000,
+        "earlyClose": false
+      }
+    },
+    "reference": {
+      "provider": "yahoo-chart",
+      "symbol": "Equity.US.TSLA/USD",
+      "currency": "USD",
+      "price": "365.44",
+      "confidence": null,
+      "confidenceStatus": "UNKNOWN",
+      "publishedAt": 1789156800000,
+      "observedAt": 1789324048617,
+      "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+      "evidenceId": "reference-yahoo-TSLA",
+      "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+      "priceKind": "REGULAR_MARKET_LAST_TRADE",
+      "delay": {
+        "status": "UNKNOWN",
+        "seconds": null,
+        "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+      },
+      "marketSession": {
+        "atObservation": "closed",
+        "priceSession": "regular",
+        "timezone": "America/New_York",
+        "periods": {
+          "pre": {
+            "timezone": "EDT",
+            "end": "1789133400",
+            "start": "1789113600",
+            "gmtoffset": "-14400"
+          },
+          "regular": {
+            "timezone": "EDT",
+            "end": "1789156800",
+            "start": "1789133400",
+            "gmtoffset": "-14400"
+          },
+          "post": {
+            "timezone": "EDT",
+            "end": "1789171200",
+            "start": "1789156800",
+            "gmtoffset": "-14400"
+          }
+        }
+      },
+      "limitations": [
+        "NO_PROVIDER_CONFIDENCE_INTERVAL",
+        "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+      ],
+      "ageMs": 167249015,
+      "observedAgeMs": 398,
+      "classification": "LAST_MARKET_REFERENCE",
+      "isCurrentFairValue": false,
+      "usage": "ECONOMIC_ANCHOR_AND_DISLOCATION_ONLY",
+      "qualified": true
+    },
+    "references": {
+      "USDC": {
+        "provider": "yahoo-chart",
+        "symbol": "Crypto.USDC/USD",
+        "currency": "USD",
+        "price": "0.9998961",
+        "confidence": null,
+        "confidenceStatus": "UNKNOWN",
+        "publishedAt": 1789323964000,
+        "observedAt": 1789324048498,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+        "evidenceId": "reference-yahoo-USDC",
+        "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+        "priceKind": "REGULAR_MARKET_LAST_TRADE",
+        "delay": {
+          "status": "UNKNOWN",
+          "seconds": null,
+          "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+        },
+        "marketSession": {
+          "atObservation": "regular",
+          "priceSession": "continuous",
+          "timezone": "UTC",
+          "periods": {
+            "pre": {
+              "timezone": "UTC",
+              "start": "1789257600",
+              "end": "1789257600",
+              "gmtoffset": "0"
+            },
+            "regular": {
+              "timezone": "UTC",
+              "start": "1789257600",
+              "end": "1789343940",
+              "gmtoffset": "0"
+            },
+            "post": {
+              "timezone": "UTC",
+              "start": "1789343940",
+              "end": "1789343940",
+              "gmtoffset": "0"
+            }
+          }
+        },
+        "limitations": [
+          "NO_PROVIDER_CONFIDENCE_INTERVAL",
+          "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+        ]
+      },
+      "TSLA": {
+        "provider": "yahoo-chart",
+        "symbol": "Equity.US.TSLA/USD",
+        "currency": "USD",
+        "price": "365.44",
+        "confidence": null,
+        "confidenceStatus": "UNKNOWN",
+        "publishedAt": 1789156800000,
+        "observedAt": 1789324048617,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+        "evidenceId": "reference-yahoo-TSLA",
+        "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+        "priceKind": "REGULAR_MARKET_LAST_TRADE",
+        "delay": {
+          "status": "UNKNOWN",
+          "seconds": null,
+          "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+        },
+        "marketSession": {
+          "atObservation": "closed",
+          "priceSession": "regular",
+          "timezone": "America/New_York",
+          "periods": {
+            "pre": {
+              "timezone": "EDT",
+              "end": "1789133400",
+              "start": "1789113600",
+              "gmtoffset": "-14400"
+            },
+            "regular": {
+              "timezone": "EDT",
+              "end": "1789156800",
+              "start": "1789133400",
+              "gmtoffset": "-14400"
+            },
+            "post": {
+              "timezone": "EDT",
+              "end": "1789171200",
+              "start": "1789156800",
+              "gmtoffset": "-14400"
+            }
+          }
+        },
+        "limitations": [
+          "NO_PROVIDER_CONFIDENCE_INTERVAL",
+          "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+        ]
+      }
+    },
+    "usdcReporting": {
+      "denomination": "USDC",
+      "requiredForRelativeRanking": false,
+      "guardStatus": "WITHIN_THRESHOLD",
+      "conversionAvailable": true,
+      "price": "0.9998961",
+      "publishedAt": 1789323964000,
+      "ageMs": 85015,
+      "thresholdBps": 100,
+      "maxAgeMs": 900000,
+      "deviationBps": "1.039000",
+      "confidenceStatus": "UNKNOWN",
+      "evidence": [
+        {
+          "evidenceId": "reference-yahoo-USDC",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+          "observedAt": 1789324048498,
+          "publishedAt": 1789323964000,
+          "sourceTimestamp": 1789323964000,
+          "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+          "freshnessStatus": "FRESH",
+          "verificationStatus": "VERIFIED",
+          "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+          "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+          "delay": {
+            "status": "UNKNOWN",
+            "seconds": null,
+            "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+          },
+          "marketSession": {
+            "atObservation": "regular",
+            "priceSession": "continuous",
+            "timezone": "UTC",
+            "periods": {
+              "pre": {
+                "timezone": "UTC",
+                "start": "1789257600",
+                "end": "1789257600",
+                "gmtoffset": "0"
+              },
+              "regular": {
+                "timezone": "UTC",
+                "start": "1789257600",
+                "end": "1789343940",
+                "gmtoffset": "0"
+              },
+              "post": {
+                "timezone": "UTC",
+                "start": "1789343940",
+                "end": "1789343940",
+                "gmtoffset": "0"
+              }
+            }
+          },
+          "confidenceStatus": "UNKNOWN"
+        }
+      ],
+      "warningCodes": []
+    },
+    "winner": "TSLAx",
+    "reasonCodes": [
+      "ALL_MANDATORY_GATES_PASSED",
+      "CLOSED_MARKET_REFERENCE",
+      "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+      "NOT_CURRENT_FAIR_VALUE",
+      "REPRESENTATIONS_EXCLUDED",
+      "SINGLE_VERIFIED_SURVIVOR"
+    ],
+    "exclusions": [
+      {
+        "symbol": "TSLAon",
+        "reasonCodes": [
+          "CHAIN_EVIDENCE_UNVERIFIED",
+          "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+          "CORPORATE_ACTION_EVIDENCE_UNVERIFIED",
+          "IDENTITY_EVIDENCE_UNKNOWN",
+          "IDENTITY_EVIDENCE_UNVERIFIED",
+          "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+          "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+          "METADATA_FRESHNESS_EVIDENCE_UNVERIFIED",
+          "METADATA_UNAVAILABLE",
+          "NORMALIZATION_EVIDENCE_UNKNOWN",
+          "NORMALIZATION_EVIDENCE_UNVERIFIED"
+        ]
+      }
+    ],
+    "comparisonGates": [],
+    "executionReadiness": {
+      "preparationAvailable": true,
+      "signingAvailable": false,
+      "broadcastAvailable": false
+    },
+    "candidates": [
+      {
+        "symbol": "TSLAx",
+        "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+        "issuer": "xStocks",
+        "identityVerified": true,
+        "eligible": true,
+        "quote": {
+          "startedAt": 1789324047598,
+          "receivedAt": 1789324048289,
+          "raw": {
+            "swapType": "aggregator",
+            "inAmount": "1000000",
+            "outAmount": "275304",
+            "otherAmountThreshold": "273927",
+            "swapMode": "ExactIn",
+            "slippageBps": 50,
+            "priceImpactPct": "0.005660544991292701",
+            "routePlan": [
+              {
+                "percent": 100,
+                "bps": 10000,
+                "usdValue": 0.9998879492768671,
+                "swapInfo": {
+                  "ammKey": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+                  "label": "Riptide",
+                  "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                  "outputMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+                  "inAmount": "1000000",
+                  "outAmount": "275579"
+                }
+              }
+            ],
+            "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "feeBps": 10,
+            "platformFee": {
+              "feeBps": 10,
+              "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            },
+            "signatureFeeLamports": 0,
+            "signatureFeePayer": null,
+            "prioritizationFeeLamports": 0,
+            "prioritizationFeePayer": null,
+            "rentFeeLamports": 0,
+            "rentFeePayer": null,
+            "transaction": null,
+            "gasless": false,
+            "jitOptimized": false,
+            "taker": null,
+            "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "outputMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+            "router": "metis",
+            "guaranteedPrice": false,
+            "requestId": "01a09c06-3c37-71c5-b4ab-d249355e1312",
+            "inUsdValue": 0.999887949276867,
+            "outUsdValue": 1.00554786,
+            "swapUsdValue": 0.999887949276867,
+            "priceImpact": 0.5660544991292701,
+            "mode": "manual",
+            "totalTime": 82
+          },
+          "evidenceId": "quote-TSLAx"
+        },
+        "minimumOutputRaw": "273927",
+        "economicExposure": {
+          "expectedShares": "0.002753040000",
+          "minimumShares": "0.002739270000",
+          "minimumSharesExact": {
+            "numerator": "273927",
+            "denominator": "100000000"
+          },
+          "usdcPerMinimumShare": "365.060764364228",
+          "sharesPerToken": "1",
+          "anchorDislocationBps": "11.415429"
+        },
+        "gates": [
+          {
+            "id": "REFERENCE_TSLA",
+            "mandatory": true,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "warningCodes": [
+              "CLOSED_MARKET_REFERENCE",
+              "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+              "NOT_CURRENT_FAIR_VALUE"
+            ],
+            "scope": "LAST_MARKET_REFERENCE",
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+              "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+              "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+              "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+            ],
+            "observedAt": [
+              1789324048617,
+              null
+            ],
+            "freshnessStatus": "QUALIFIED_LAST_MARKET",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-TSLA",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048617,
+                "publishedAt": 1789156800000,
+                "sourceTimestamp": 1789156800000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "STALE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "closed",
+                  "priceSession": "regular",
+                  "timezone": "America/New_York",
+                  "periods": {
+                    "pre": {
+                      "timezone": "EDT",
+                      "end": "1789133400",
+                      "start": "1789113600",
+                      "gmtoffset": "-14400"
+                    },
+                    "regular": {
+                      "timezone": "EDT",
+                      "end": "1789156800",
+                      "start": "1789133400",
+                      "gmtoffset": "-14400"
+                    },
+                    "post": {
+                      "timezone": "EDT",
+                      "end": "1789171200",
+                      "start": "1789156800",
+                      "gmtoffset": "-14400"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+                "source": [
+                  "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                  "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                  "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+                ],
+                "observedAt": null,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "VERSIONED_EXCHANGE_CALENDAR",
+                "freshnessStatus": "VALID_FOR_DATE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+                "responseSha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc"
+              }
+            ]
+          },
+          {
+            "id": "USDC_DEPEG_GUARD",
+            "mandatory": true,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "warningCodes": [],
+            "scope": "COMMON_USDC_INPUT_DEPEG_GUARD",
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true"
+            ],
+            "observedAt": [
+              1789324048498
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-USDC",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048498,
+                "publishedAt": 1789323964000,
+                "sourceTimestamp": 1789323964000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "regular",
+                  "priceSession": "continuous",
+                  "timezone": "UTC",
+                  "periods": {
+                    "pre": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789257600",
+                      "gmtoffset": "0"
+                    },
+                    "regular": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    },
+                    "post": {
+                      "timezone": "UTC",
+                      "start": "1789343940",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              }
+            ]
+          },
+          {
+            "id": "IDENTITY",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx"
+            ],
+            "observedAt": [
+              1789324030034
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "xstocks-asset",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "observedAt": 1789324030034,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+              }
+            ]
+          },
+          {
+            "id": "METADATA_FRESHNESS",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana"
+            ],
+            "observedAt": [
+              1789324030034,
+              1789324029624
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "xstocks-asset",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "observedAt": 1789324030034,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+              },
+              {
+                "evidenceId": "xstocks-multiplier",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "observedAt": 1789324029624,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+              }
+            ]
+          },
+          {
+            "id": "ISSUER_STATUS",
+            "mandatory": true,
+            "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx"
+            ],
+            "observedAt": [
+              1789324030034
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "xstocks-asset",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "observedAt": 1789324030034,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+              }
+            ]
+          },
+          {
+            "id": "CORPORATE_ACTION",
+            "mandatory": true,
+            "scope": "issuer current/pending multiplier and onchain activation window",
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              1789324029624,
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "xstocks-multiplier",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "observedAt": 1789324029624,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          },
+          {
+            "id": "CHAIN",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          },
+          {
+            "id": "QUOTE_VALIDITY",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048289
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              }
+            ]
+          },
+          {
+            "id": "QUOTE_FRESHNESS",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048289
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              }
+            ]
+          },
+          {
+            "id": "SLIPPAGE",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048289
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              }
+            ]
+          },
+          {
+            "id": "PRICE_IMPACT",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048289
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              }
+            ]
+          },
+          {
+            "id": "NORMALIZATION",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+              "solana-mints",
+              "solana-blocktime",
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324030034,
+              1789324029624,
+              1789324030717,
+              1789324047597,
+              1789324048289
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "xstocks-asset",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "observedAt": 1789324030034,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+              },
+              {
+                "evidenceId": "xstocks-multiplier",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "observedAt": 1789324029624,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              },
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              }
+            ]
+          },
+          {
+            "id": "ANCHOR_DISLOCATION",
+            "mandatory": false,
+            "scope": "ECONOMIC_ANCHOR_NOT_CURRENT_FAIR_VALUE",
+            "outcome": "INFORMATIONAL",
+            "reasonCodes": [],
+            "warningCodes": [
+              "CLOSED_MARKET_REFERENCE",
+              "NOT_CURRENT_FAIR_VALUE"
+            ],
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+              "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+              "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              1789324048617,
+              1789324048498,
+              1789324048289,
+              1789324030034,
+              1789324029624,
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "LAST_MARKET_REFERENCE",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-TSLA",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048617,
+                "publishedAt": 1789156800000,
+                "sourceTimestamp": 1789156800000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "STALE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "closed",
+                  "priceSession": "regular",
+                  "timezone": "America/New_York",
+                  "periods": {
+                    "pre": {
+                      "timezone": "EDT",
+                      "end": "1789133400",
+                      "start": "1789113600",
+                      "gmtoffset": "-14400"
+                    },
+                    "regular": {
+                      "timezone": "EDT",
+                      "end": "1789156800",
+                      "start": "1789133400",
+                      "gmtoffset": "-14400"
+                    },
+                    "post": {
+                      "timezone": "EDT",
+                      "end": "1789171200",
+                      "start": "1789156800",
+                      "gmtoffset": "-14400"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "reference-yahoo-USDC",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048498,
+                "publishedAt": 1789323964000,
+                "sourceTimestamp": 1789323964000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "regular",
+                  "priceSession": "continuous",
+                  "timezone": "UTC",
+                  "periods": {
+                    "pre": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789257600",
+                      "gmtoffset": "0"
+                    },
+                    "regular": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    },
+                    "post": {
+                      "timezone": "UTC",
+                      "start": "1789343940",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "quote-TSLAx",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048289,
+                "publishedAt": 1789324047598,
+                "sourceTimestamp": 1789324047598,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+              },
+              {
+                "evidenceId": "xstocks-asset",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "observedAt": 1789324030034,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+              },
+              {
+                "evidenceId": "xstocks-multiplier",
+                "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "observedAt": 1789324029624,
+                "publishedAt": null,
+                "sourceTimestamp": 1789324030000,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          }
+        ],
+        "reasonCodes": []
+      },
+      {
+        "symbol": "TSLAon",
+        "mint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+        "issuer": "Ondo",
+        "identityVerified": false,
+        "eligible": false,
+        "quote": {
+          "startedAt": 1789324047600,
+          "receivedAt": 1789324048314,
+          "raw": {
+            "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "outputMint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+            "inAmount": "1000000",
+            "outAmount": "2747711",
+            "otherAmountThreshold": "2747711",
+            "swapMode": "ExactIn",
+            "slippageBps": 0,
+            "priceImpactPct": "0.0037139096193914926",
+            "routePlan": [
+              {
+                "percent": 100,
+                "bps": 10000,
+                "usdValue": 0.9998879492768671,
+                "swapInfo": {
+                  "ammKey": "9BB7Tt5uE5VdRsxA5XRqrjwNaq8XtgAUQW8czA6ymUPG",
+                  "label": "JupiterZ",
+                  "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                  "outputMint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+                  "inAmount": "1000000",
+                  "outAmount": "2747711"
+                }
+              }
+            ],
+            "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "feeBps": 10,
+            "transaction": null,
+            "gasless": true,
+            "jitOptimized": false,
+            "signatureFeeLamports": 0,
+            "signatureFeePayer": null,
+            "prioritizationFeeLamports": 0,
+            "prioritizationFeePayer": null,
+            "rentFeeLamports": 0,
+            "rentFeePayer": null,
+            "requestId": "01a09c06-3c54-7360-a30c-673004f7537a",
+            "swapType": "rfq",
+            "router": "jupiterz",
+            "guaranteedPrice": true,
+            "quoteId": "720f3546-f50a-58dd-8008-829c6fd94bcc",
+            "maker": "9BB7Tt5uE5VdRsxA5XRqrjwNaq8XtgAUQW8czA6ymUPG",
+            "taker": null,
+            "platformFee": {
+              "feeBps": 10,
+              "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            },
+            "inUsdValue": 0.999887949276867,
+            "outUsdValue": 1.00360144275,
+            "swapUsdValue": 0.999887949276867,
+            "priceImpact": 0.3713909619391493,
+            "mode": "manual",
+            "totalTime": 107
+          },
+          "evidenceId": "quote-TSLAon"
+        },
+        "minimumOutputRaw": "2747711",
+        "economicExposure": null,
+        "gates": [
+          {
+            "id": "REFERENCE_TSLA",
+            "mandatory": true,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "warningCodes": [
+              "CLOSED_MARKET_REFERENCE",
+              "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+              "NOT_CURRENT_FAIR_VALUE"
+            ],
+            "scope": "LAST_MARKET_REFERENCE",
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+              "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+              "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+              "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+            ],
+            "observedAt": [
+              1789324048617,
+              null
+            ],
+            "freshnessStatus": "QUALIFIED_LAST_MARKET",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-TSLA",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048617,
+                "publishedAt": 1789156800000,
+                "sourceTimestamp": 1789156800000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "STALE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "closed",
+                  "priceSession": "regular",
+                  "timezone": "America/New_York",
+                  "periods": {
+                    "pre": {
+                      "timezone": "EDT",
+                      "end": "1789133400",
+                      "start": "1789113600",
+                      "gmtoffset": "-14400"
+                    },
+                    "regular": {
+                      "timezone": "EDT",
+                      "end": "1789156800",
+                      "start": "1789133400",
+                      "gmtoffset": "-14400"
+                    },
+                    "post": {
+                      "timezone": "EDT",
+                      "end": "1789171200",
+                      "start": "1789156800",
+                      "gmtoffset": "-14400"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+                "source": [
+                  "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                  "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                  "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+                ],
+                "observedAt": null,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "VERSIONED_EXCHANGE_CALENDAR",
+                "freshnessStatus": "VALID_FOR_DATE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+                "responseSha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc"
+              }
+            ]
+          },
+          {
+            "id": "USDC_DEPEG_GUARD",
+            "mandatory": true,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "warningCodes": [],
+            "scope": "COMMON_USDC_INPUT_DEPEG_GUARD",
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true"
+            ],
+            "observedAt": [
+              1789324048498
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-USDC",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048498,
+                "publishedAt": 1789323964000,
+                "sourceTimestamp": 1789323964000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "regular",
+                  "priceSession": "continuous",
+                  "timezone": "UTC",
+                  "periods": {
+                    "pre": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789257600",
+                      "gmtoffset": "0"
+                    },
+                    "regular": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    },
+                    "post": {
+                      "timezone": "UTC",
+                      "start": "1789343940",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              }
+            ]
+          },
+          {
+            "id": "IDENTITY",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "UNKNOWN",
+            "reasonCodes": [
+              "IDENTITY_EVIDENCE_UNKNOWN",
+              "IDENTITY_EVIDENCE_UNVERIFIED",
+              "METADATA_UNAVAILABLE"
+            ],
+            "source": [
+              "https://app.ondo.finance/assets/TSLAon"
+            ],
+            "observedAt": [
+              1789324040374
+            ],
+            "freshnessStatus": "UNKNOWN",
+            "verificationStatus": "UNVERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "ondo-page",
+                "source": "https://app.ondo.finance/assets/TSLAon",
+                "observedAt": 1789324040374,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              }
+            ]
+          },
+          {
+            "id": "METADATA_FRESHNESS",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "UNKNOWN",
+            "reasonCodes": [
+              "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+              "METADATA_FRESHNESS_EVIDENCE_UNVERIFIED",
+              "METADATA_UNAVAILABLE"
+            ],
+            "source": [
+              "https://app.ondo.finance/assets/TSLAon"
+            ],
+            "observedAt": [
+              1789324040374
+            ],
+            "freshnessStatus": "UNKNOWN",
+            "verificationStatus": "UNVERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "ondo-page",
+                "source": "https://app.ondo.finance/assets/TSLAon",
+                "observedAt": 1789324040374,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              }
+            ]
+          },
+          {
+            "id": "ISSUER_STATUS",
+            "mandatory": true,
+            "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+            "outcome": "UNKNOWN",
+            "reasonCodes": [
+              "ISSUER_STATUS_EVIDENCE_UNKNOWN"
+            ],
+            "source": [
+              "https://api.gm.ondo.finance/v1/status/assets"
+            ],
+            "observedAt": [
+              null
+            ],
+            "freshnessStatus": "UNKNOWN",
+            "verificationStatus": "UNKNOWN",
+            "evidence": [
+              {
+                "evidenceId": "ondo-status",
+                "source": "https://api.gm.ondo.finance/v1/status/assets",
+                "observedAt": null,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNKNOWN",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              }
+            ]
+          },
+          {
+            "id": "CORPORATE_ACTION",
+            "mandatory": true,
+            "scope": "issuer explicit corporate-action status; public listing is insufficient",
+            "outcome": "UNKNOWN",
+            "reasonCodes": [
+              "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+              "CORPORATE_ACTION_EVIDENCE_UNVERIFIED"
+            ],
+            "source": [
+              "https://api.gm.ondo.finance/v1/status/assets",
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              null,
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "UNKNOWN",
+            "verificationStatus": "UNVERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "ondo-status",
+                "source": "https://api.gm.ondo.finance/v1/status/assets",
+                "observedAt": null,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNKNOWN",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          },
+          {
+            "id": "CHAIN",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "FAIL",
+            "reasonCodes": [
+              "CHAIN_EVIDENCE_UNVERIFIED"
+            ],
+            "source": [
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "UNVERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          },
+          {
+            "id": "QUOTE_VALIDITY",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048314
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              }
+            ]
+          },
+          {
+            "id": "QUOTE_FRESHNESS",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048314
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              }
+            ]
+          },
+          {
+            "id": "SLIPPAGE",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048314
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              }
+            ]
+          },
+          {
+            "id": "PRICE_IMPACT",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "PASS",
+            "reasonCodes": [],
+            "source": [
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324048314
+            ],
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              }
+            ]
+          },
+          {
+            "id": "NORMALIZATION",
+            "mandatory": true,
+            "scope": null,
+            "outcome": "UNKNOWN",
+            "reasonCodes": [
+              "NORMALIZATION_EVIDENCE_UNKNOWN",
+              "NORMALIZATION_EVIDENCE_UNVERIFIED"
+            ],
+            "source": [
+              "https://app.ondo.finance/assets/TSLAon",
+              "solana-mints",
+              "solana-blocktime",
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+            ],
+            "observedAt": [
+              1789324040374,
+              1789324030717,
+              1789324047597,
+              1789324048314
+            ],
+            "freshnessStatus": "UNKNOWN",
+            "verificationStatus": "UNVERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "ondo-page",
+                "source": "https://app.ondo.finance/assets/TSLAon",
+                "observedAt": 1789324040374,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              },
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              }
+            ]
+          },
+          {
+            "id": "ANCHOR_DISLOCATION",
+            "mandatory": false,
+            "scope": "ECONOMIC_ANCHOR_NOT_CURRENT_FAIR_VALUE",
+            "outcome": "INFORMATIONAL",
+            "reasonCodes": [],
+            "warningCodes": [
+              "CLOSED_MARKET_REFERENCE",
+              "NOT_CURRENT_FAIR_VALUE"
+            ],
+            "source": [
+              "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+              "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+              "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+              "https://app.ondo.finance/assets/TSLAon",
+              "solana-mints",
+              "solana-blocktime"
+            ],
+            "observedAt": [
+              1789324048617,
+              1789324048498,
+              1789324048314,
+              1789324040374,
+              1789324030717,
+              1789324047597
+            ],
+            "freshnessStatus": "LAST_MARKET_REFERENCE",
+            "verificationStatus": "VERIFIED",
+            "evidence": [
+              {
+                "evidenceId": "reference-yahoo-TSLA",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048617,
+                "publishedAt": 1789156800000,
+                "sourceTimestamp": 1789156800000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "STALE",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "closed",
+                  "priceSession": "regular",
+                  "timezone": "America/New_York",
+                  "periods": {
+                    "pre": {
+                      "timezone": "EDT",
+                      "end": "1789133400",
+                      "start": "1789113600",
+                      "gmtoffset": "-14400"
+                    },
+                    "regular": {
+                      "timezone": "EDT",
+                      "end": "1789156800",
+                      "start": "1789133400",
+                      "gmtoffset": "-14400"
+                    },
+                    "post": {
+                      "timezone": "EDT",
+                      "end": "1789171200",
+                      "start": "1789156800",
+                      "gmtoffset": "-14400"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "reference-yahoo-USDC",
+                "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "observedAt": 1789324048498,
+                "publishedAt": 1789323964000,
+                "sourceTimestamp": 1789323964000,
+                "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                "delay": {
+                  "status": "UNKNOWN",
+                  "seconds": null,
+                  "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                },
+                "marketSession": {
+                  "atObservation": "regular",
+                  "priceSession": "continuous",
+                  "timezone": "UTC",
+                  "periods": {
+                    "pre": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789257600",
+                      "gmtoffset": "0"
+                    },
+                    "regular": {
+                      "timezone": "UTC",
+                      "start": "1789257600",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    },
+                    "post": {
+                      "timezone": "UTC",
+                      "start": "1789343940",
+                      "end": "1789343940",
+                      "gmtoffset": "0"
+                    }
+                  }
+                },
+                "confidenceStatus": "UNKNOWN"
+              },
+              {
+                "evidenceId": "quote-TSLAon",
+                "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "observedAt": 1789324048314,
+                "publishedAt": 1789324047600,
+                "sourceTimestamp": 1789324047600,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "VERIFIED",
+                "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+              },
+              {
+                "evidenceId": "ondo-page",
+                "source": "https://app.ondo.finance/assets/TSLAon",
+                "observedAt": 1789324040374,
+                "publishedAt": null,
+                "sourceTimestamp": null,
+                "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                "freshnessStatus": "UNKNOWN",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                "responseSha256": null
+              },
+              {
+                "evidenceId": "solana-mints",
+                "source": "solana-mints",
+                "observedAt": 1789324030717,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+              },
+              {
+                "evidenceId": "solana-blocktime",
+                "source": "solana-blocktime",
+                "observedAt": 1789324047597,
+                "publishedAt": 1789324031000,
+                "sourceTimestamp": 1789324031000,
+                "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                "freshnessStatus": "FRESH",
+                "verificationStatus": "UNVERIFIED",
+                "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+              }
+            ]
+          }
+        ],
+        "reasonCodes": [
+          "CHAIN_EVIDENCE_UNVERIFIED",
+          "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+          "CORPORATE_ACTION_EVIDENCE_UNVERIFIED",
+          "IDENTITY_EVIDENCE_UNKNOWN",
+          "IDENTITY_EVIDENCE_UNVERIFIED",
+          "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+          "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+          "METADATA_FRESHNESS_EVIDENCE_UNVERIFIED",
+          "METADATA_UNAVAILABLE",
+          "NORMALIZATION_EVIDENCE_UNKNOWN",
+          "NORMALIZATION_EVIDENCE_UNVERIFIED"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ondo-page",
+        "source": "https://app.ondo.finance/assets/TSLAon",
+        "startedAt": 1789324028265,
+        "receivedAt": 1789324040374,
+        "error": {
+          "code": 23
+        }
+      },
+      {
+        "id": "quote-TSLAon",
+        "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+        "startedAt": 1789324047600,
+        "receivedAt": 1789324048314,
+        "status": 200,
+        "responseSha256": "58711b1fc8c635f9c5b9ffea3097d16c6497fae5e4ef8d2bd9452f584661ac42"
+      },
+      {
+        "id": "quote-TSLAx",
+        "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+        "startedAt": 1789324047598,
+        "receivedAt": 1789324048289,
+        "status": 200,
+        "responseSha256": "b16c4b153620fa76c82145c1d9051d6f61722550429847cb1daed868f5778f34"
+      },
+      {
+        "id": "reference-yahoo-TSLA",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+        "startedAt": 1789324047603,
+        "receivedAt": 1789324048617,
+        "status": 200,
+        "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff"
+      },
+      {
+        "id": "reference-yahoo-USDC",
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+        "startedAt": 1789324047605,
+        "receivedAt": 1789324048498,
+        "status": 200,
+        "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628"
+      },
+      {
+        "id": "solana-blocktime",
+        "source": "solana-blocktime",
+        "startedAt": 1789324040374,
+        "receivedAt": 1789324047597,
+        "status": 200,
+        "responseSha256": "f9622e1d173d59ca500d1f254b842450bad97a19535bdd5e79787ed2d633929e"
+      },
+      {
+        "id": "solana-mints",
+        "source": "solana-mints",
+        "startedAt": 1789324028206,
+        "receivedAt": 1789324030717,
+        "status": 200,
+        "responseSha256": "fcc2661f431e6f2c857e10c6abcf35d6085090438a405f136b4474f0a205d821"
+      },
+      {
+        "id": "xstocks-asset",
+        "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+        "startedAt": 1789324028228,
+        "receivedAt": 1789324030034,
+        "status": 200,
+        "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+      },
+      {
+        "id": "xstocks-multiplier",
+        "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+        "startedAt": 1789324028262,
+        "receivedAt": 1789324029624,
+        "status": 200,
+        "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+      }
+    ],
+    "warnings": [
+      {
+        "provider": "ondo",
+        "code": "ONDO_API_KEY_MISSING"
+      },
+      {
+        "provider": "ondo",
+        "code": 23,
+        "evidenceId": "ondo-page"
+      }
+    ]
+  },
+  "execution": {
+    "status": "BLOCKED",
+    "finalComparison": {
+      "underlying": "TSLA",
+      "inputAmountRaw": "1000000",
+      "asOfMs": 1789324053014,
+      "mode": "LIVE",
+      "isLive": true,
+      "executionClassification": "BEST_EXECUTION_CLOSED_MARKET",
+      "marketState": "UNDERLYING_WEEKEND",
+      "marketSession": {
+        "id": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+        "sha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc",
+        "timezone": "America/New_York",
+        "localDate": "2026-09-13",
+        "localMinute": 867,
+        "source": [
+          "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+          "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+          "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+        ],
+        "definitionReviewedDate": "2026-09-13",
+        "verificationStatus": "VERIFIED",
+        "basis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+        "holiday": null,
+        "state": "UNDERLYING_WEEKEND",
+        "reasonCodes": [],
+        "lastCompletedRegularSession": {
+          "date": "2026-09-11",
+          "regularOpen": 1789133400000,
+          "regularClose": 1789156800000,
+          "extendedOpen": 1789113600000,
+          "extendedClose": 1789171200000,
+          "earlyClose": false
+        }
+      },
+      "reference": {
+        "provider": "yahoo-chart",
+        "symbol": "Equity.US.TSLA/USD",
+        "currency": "USD",
+        "price": "365.44",
+        "confidence": null,
+        "confidenceStatus": "UNKNOWN",
+        "publishedAt": 1789156800000,
+        "observedAt": 1789324051718,
+        "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+        "evidenceId": "reference-yahoo-TSLA",
+        "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+        "priceKind": "REGULAR_MARKET_LAST_TRADE",
+        "delay": {
+          "status": "UNKNOWN",
+          "seconds": null,
+          "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+        },
+        "marketSession": {
+          "atObservation": "closed",
+          "priceSession": "regular",
+          "timezone": "America/New_York",
+          "periods": {
+            "pre": {
+              "timezone": "EDT",
+              "end": "1789133400",
+              "start": "1789113600",
+              "gmtoffset": "-14400"
+            },
+            "regular": {
+              "timezone": "EDT",
+              "end": "1789156800",
+              "start": "1789133400",
+              "gmtoffset": "-14400"
+            },
+            "post": {
+              "timezone": "EDT",
+              "end": "1789171200",
+              "start": "1789156800",
+              "gmtoffset": "-14400"
+            }
+          }
+        },
+        "limitations": [
+          "NO_PROVIDER_CONFIDENCE_INTERVAL",
+          "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+        ],
+        "ageMs": 167253014,
+        "observedAgeMs": 1296,
+        "classification": "LAST_MARKET_REFERENCE",
+        "isCurrentFairValue": false,
+        "usage": "ECONOMIC_ANCHOR_AND_DISLOCATION_ONLY",
+        "qualified": true
+      },
+      "references": {
+        "USDC": {
+          "provider": "yahoo-chart",
+          "symbol": "Crypto.USDC/USD",
+          "currency": "USD",
+          "price": "0.9998961",
+          "confidence": null,
+          "confidenceStatus": "UNKNOWN",
+          "publishedAt": 1789323964000,
+          "observedAt": 1789324051556,
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+          "evidenceId": "reference-yahoo-USDC",
+          "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+          "priceKind": "REGULAR_MARKET_LAST_TRADE",
+          "delay": {
+            "status": "UNKNOWN",
+            "seconds": null,
+            "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+          },
+          "marketSession": {
+            "atObservation": "regular",
+            "priceSession": "continuous",
+            "timezone": "UTC",
+            "periods": {
+              "pre": {
+                "timezone": "UTC",
+                "start": "1789257600",
+                "end": "1789257600",
+                "gmtoffset": "0"
+              },
+              "regular": {
+                "timezone": "UTC",
+                "start": "1789257600",
+                "end": "1789343940",
+                "gmtoffset": "0"
+              },
+              "post": {
+                "timezone": "UTC",
+                "start": "1789343940",
+                "end": "1789343940",
+                "gmtoffset": "0"
+              }
+            }
+          },
+          "limitations": [
+            "NO_PROVIDER_CONFIDENCE_INTERVAL",
+            "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+          ]
+        },
+        "TSLA": {
+          "provider": "yahoo-chart",
+          "symbol": "Equity.US.TSLA/USD",
+          "currency": "USD",
+          "price": "365.44",
+          "confidence": null,
+          "confidenceStatus": "UNKNOWN",
+          "publishedAt": 1789156800000,
+          "observedAt": 1789324051718,
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+          "evidenceId": "reference-yahoo-TSLA",
+          "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+          "priceKind": "REGULAR_MARKET_LAST_TRADE",
+          "delay": {
+            "status": "UNKNOWN",
+            "seconds": null,
+            "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+          },
+          "marketSession": {
+            "atObservation": "closed",
+            "priceSession": "regular",
+            "timezone": "America/New_York",
+            "periods": {
+              "pre": {
+                "timezone": "EDT",
+                "end": "1789133400",
+                "start": "1789113600",
+                "gmtoffset": "-14400"
+              },
+              "regular": {
+                "timezone": "EDT",
+                "end": "1789156800",
+                "start": "1789133400",
+                "gmtoffset": "-14400"
+              },
+              "post": {
+                "timezone": "EDT",
+                "end": "1789171200",
+                "start": "1789156800",
+                "gmtoffset": "-14400"
+              }
+            }
+          },
+          "limitations": [
+            "NO_PROVIDER_CONFIDENCE_INTERVAL",
+            "PUBLIC_CHART_ENDPOINT_NO_AVAILABILITY_GUARANTEE"
+          ]
+        }
+      },
+      "usdcReporting": {
+        "denomination": "USDC",
+        "requiredForRelativeRanking": false,
+        "guardStatus": "WITHIN_THRESHOLD",
+        "conversionAvailable": true,
+        "price": "0.9998961",
+        "publishedAt": 1789323964000,
+        "ageMs": 89014,
+        "thresholdBps": 100,
+        "maxAgeMs": 900000,
+        "deviationBps": "1.039000",
+        "confidenceStatus": "UNKNOWN",
+        "evidence": [
+          {
+            "evidenceId": "reference-yahoo-USDC",
+            "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+            "observedAt": 1789324051556,
+            "publishedAt": 1789323964000,
+            "sourceTimestamp": 1789323964000,
+            "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+            "freshnessStatus": "FRESH",
+            "verificationStatus": "VERIFIED",
+            "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+            "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+            "delay": {
+              "status": "UNKNOWN",
+              "seconds": null,
+              "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+            },
+            "marketSession": {
+              "atObservation": "regular",
+              "priceSession": "continuous",
+              "timezone": "UTC",
+              "periods": {
+                "pre": {
+                  "timezone": "UTC",
+                  "start": "1789257600",
+                  "end": "1789257600",
+                  "gmtoffset": "0"
+                },
+                "regular": {
+                  "timezone": "UTC",
+                  "start": "1789257600",
+                  "end": "1789343940",
+                  "gmtoffset": "0"
+                },
+                "post": {
+                  "timezone": "UTC",
+                  "start": "1789343940",
+                  "end": "1789343940",
+                  "gmtoffset": "0"
+                }
+              }
+            },
+            "confidenceStatus": "UNKNOWN"
+          }
+        ],
+        "warningCodes": []
+      },
+      "winner": "TSLAx",
+      "reasonCodes": [
+        "ALL_MANDATORY_GATES_PASSED",
+        "CLOSED_MARKET_REFERENCE",
+        "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+        "NOT_CURRENT_FAIR_VALUE",
+        "REPRESENTATIONS_EXCLUDED",
+        "SINGLE_VERIFIED_SURVIVOR"
+      ],
+      "exclusions": [
+        {
+          "symbol": "TSLAon",
+          "reasonCodes": [
+            "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+            "CORPORATE_ACTION_STATUS_UNKNOWN",
+            "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+            "ISSUER_STATUS_UNKNOWN",
+            "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+            "METADATA_TIMESTAMP_UNVERIFIED"
+          ]
+        }
+      ],
+      "comparisonGates": [],
+      "executionReadiness": {
+        "preparationAvailable": true,
+        "signingAvailable": false,
+        "broadcastAvailable": false
+      },
+      "candidates": [
+        {
+          "symbol": "TSLAx",
+          "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+          "issuer": "xStocks",
+          "identityVerified": true,
+          "eligible": true,
+          "quote": {
+            "startedAt": 1789324051367,
+            "receivedAt": 1789324051619,
+            "raw": {
+              "swapType": "aggregator",
+              "inAmount": "1000000",
+              "outAmount": "275290",
+              "otherAmountThreshold": "273913",
+              "swapMode": "ExactIn",
+              "slippageBps": 50,
+              "priceImpactPct": "0.005609404260936791",
+              "routePlan": [
+                {
+                  "percent": 100,
+                  "bps": 10000,
+                  "usdValue": 0.9998879492768671,
+                  "swapInfo": {
+                    "ammKey": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+                    "label": "Riptide",
+                    "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "outputMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+                    "inAmount": "1000000",
+                    "outAmount": "275565"
+                  }
+                }
+              ],
+              "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "feeBps": 10,
+              "platformFee": {
+                "feeBps": 10,
+                "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              },
+              "signatureFeeLamports": 0,
+              "signatureFeePayer": null,
+              "prioritizationFeeLamports": 0,
+              "prioritizationFeePayer": null,
+              "rentFeeLamports": 0,
+              "rentFeePayer": null,
+              "transaction": null,
+              "gasless": false,
+              "jitOptimized": false,
+              "taker": null,
+              "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "outputMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+              "router": "metis",
+              "guaranteedPrice": false,
+              "requestId": "01a09c06-49e2-763b-8aae-f0e950e51ad9",
+              "inUsdValue": 0.999887949276867,
+              "outUsdValue": 1.005496725,
+              "swapUsdValue": 0.999887949276867,
+              "priceImpact": 0.5609404260936791,
+              "mode": "manual",
+              "totalTime": 68
+            },
+            "evidenceId": "quote-TSLAx"
+          },
+          "minimumOutputRaw": "273913",
+          "economicExposure": {
+            "expectedShares": "0.002752900000",
+            "minimumShares": "0.002739130000",
+            "minimumSharesExact": {
+              "numerator": "273913",
+              "denominator": "100000000"
+            },
+            "usdcPerMinimumShare": "365.079423028479",
+            "sharesPerToken": "1",
+            "anchorDislocationBps": "10.904901"
+          },
+          "gates": [
+            {
+              "id": "REFERENCE_TSLA",
+              "mandatory": true,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "warningCodes": [
+                "CLOSED_MARKET_REFERENCE",
+                "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+                "NOT_CURRENT_FAIR_VALUE"
+              ],
+              "scope": "LAST_MARKET_REFERENCE",
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+              ],
+              "observedAt": [
+                1789324051718,
+                null
+              ],
+              "freshnessStatus": "QUALIFIED_LAST_MARKET",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-TSLA",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051718,
+                  "publishedAt": 1789156800000,
+                  "sourceTimestamp": 1789156800000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "STALE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "closed",
+                    "priceSession": "regular",
+                    "timezone": "America/New_York",
+                    "periods": {
+                      "pre": {
+                        "timezone": "EDT",
+                        "end": "1789133400",
+                        "start": "1789113600",
+                        "gmtoffset": "-14400"
+                      },
+                      "regular": {
+                        "timezone": "EDT",
+                        "end": "1789156800",
+                        "start": "1789133400",
+                        "gmtoffset": "-14400"
+                      },
+                      "post": {
+                        "timezone": "EDT",
+                        "end": "1789171200",
+                        "start": "1789156800",
+                        "gmtoffset": "-14400"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+                  "source": [
+                    "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                    "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                    "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+                  ],
+                  "observedAt": null,
+                  "publishedAt": null,
+                  "sourceTimestamp": null,
+                  "timestampBasis": "VERSIONED_EXCHANGE_CALENDAR",
+                  "freshnessStatus": "VALID_FOR_DATE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+                  "responseSha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc"
+                }
+              ]
+            },
+            {
+              "id": "USDC_DEPEG_GUARD",
+              "mandatory": true,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "warningCodes": [],
+              "scope": "COMMON_USDC_INPUT_DEPEG_GUARD",
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true"
+              ],
+              "observedAt": [
+                1789324051556
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-USDC",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051556,
+                  "publishedAt": 1789323964000,
+                  "sourceTimestamp": 1789323964000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "regular",
+                    "priceSession": "continuous",
+                    "timezone": "UTC",
+                    "periods": {
+                      "pre": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789257600",
+                        "gmtoffset": "0"
+                      },
+                      "regular": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      },
+                      "post": {
+                        "timezone": "UTC",
+                        "start": "1789343940",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                }
+              ]
+            },
+            {
+              "id": "IDENTITY",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx"
+              ],
+              "observedAt": [
+                1789324050131
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "xstocks-asset",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                  "observedAt": 1789324050131,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+                }
+              ]
+            },
+            {
+              "id": "METADATA_FRESHNESS",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana"
+              ],
+              "observedAt": [
+                1789324050131,
+                1789324051195
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "xstocks-asset",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                  "observedAt": 1789324050131,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+                },
+                {
+                  "evidenceId": "xstocks-multiplier",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                  "observedAt": 1789324051195,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324052000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+                }
+              ]
+            },
+            {
+              "id": "ISSUER_STATUS",
+              "mandatory": true,
+              "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx"
+              ],
+              "observedAt": [
+                1789324050131
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "xstocks-asset",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                  "observedAt": 1789324050131,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+                }
+              ]
+            },
+            {
+              "id": "CORPORATE_ACTION",
+              "mandatory": true,
+              "scope": "issuer current/pending multiplier and onchain activation window",
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "solana-mints",
+                "solana-blocktime"
+              ],
+              "observedAt": [
+                1789324051195,
+                1789324049795,
+                1789324051366
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "xstocks-multiplier",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                  "observedAt": 1789324051195,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324052000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+                },
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                }
+              ]
+            },
+            {
+              "id": "CHAIN",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "solana-mints",
+                "solana-blocktime"
+              ],
+              "observedAt": [
+                1789324049795,
+                1789324051366
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                }
+              ]
+            },
+            {
+              "id": "QUOTE_VALIDITY",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051619
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                }
+              ]
+            },
+            {
+              "id": "QUOTE_FRESHNESS",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051619
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                }
+              ]
+            },
+            {
+              "id": "SLIPPAGE",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051619
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                }
+              ]
+            },
+            {
+              "id": "PRICE_IMPACT",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051619
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                }
+              ]
+            },
+            {
+              "id": "NORMALIZATION",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "solana-mints",
+                "solana-blocktime",
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324050131,
+                1789324051195,
+                1789324049795,
+                1789324051366,
+                1789324051619
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "xstocks-asset",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                  "observedAt": 1789324050131,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+                },
+                {
+                  "evidenceId": "xstocks-multiplier",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                  "observedAt": 1789324051195,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324052000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+                },
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                },
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                }
+              ]
+            },
+            {
+              "id": "ANCHOR_DISLOCATION",
+              "mandatory": false,
+              "scope": "ECONOMIC_ANCHOR_NOT_CURRENT_FAIR_VALUE",
+              "outcome": "INFORMATIONAL",
+              "reasonCodes": [],
+              "warningCodes": [
+                "CLOSED_MARKET_REFERENCE",
+                "NOT_CURRENT_FAIR_VALUE"
+              ],
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                "solana-mints",
+                "solana-blocktime"
+              ],
+              "observedAt": [
+                1789324051718,
+                1789324051556,
+                1789324051619,
+                1789324050131,
+                1789324051195,
+                1789324049795,
+                1789324051366
+              ],
+              "freshnessStatus": "LAST_MARKET_REFERENCE",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-TSLA",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051718,
+                  "publishedAt": 1789156800000,
+                  "sourceTimestamp": 1789156800000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "STALE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "closed",
+                    "priceSession": "regular",
+                    "timezone": "America/New_York",
+                    "periods": {
+                      "pre": {
+                        "timezone": "EDT",
+                        "end": "1789133400",
+                        "start": "1789113600",
+                        "gmtoffset": "-14400"
+                      },
+                      "regular": {
+                        "timezone": "EDT",
+                        "end": "1789156800",
+                        "start": "1789133400",
+                        "gmtoffset": "-14400"
+                      },
+                      "post": {
+                        "timezone": "EDT",
+                        "end": "1789171200",
+                        "start": "1789156800",
+                        "gmtoffset": "-14400"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "reference-yahoo-USDC",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051556,
+                  "publishedAt": 1789323964000,
+                  "sourceTimestamp": 1789323964000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "regular",
+                    "priceSession": "continuous",
+                    "timezone": "UTC",
+                    "periods": {
+                      "pre": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789257600",
+                        "gmtoffset": "0"
+                      },
+                      "regular": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      },
+                      "post": {
+                        "timezone": "UTC",
+                        "start": "1789343940",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "quote-TSLAx",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051619,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+                },
+                {
+                  "evidenceId": "xstocks-asset",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+                  "observedAt": 1789324050131,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+                },
+                {
+                  "evidenceId": "xstocks-multiplier",
+                  "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+                  "observedAt": 1789324051195,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324052000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+                },
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                }
+              ]
+            }
+          ],
+          "reasonCodes": []
+        },
+        {
+          "symbol": "TSLAon",
+          "mint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+          "issuer": "Ondo",
+          "identityVerified": true,
+          "eligible": false,
+          "quote": {
+            "startedAt": 1789324051367,
+            "receivedAt": 1789324051610,
+            "raw": {
+              "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "outputMint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+              "inAmount": "1000000",
+              "outAmount": "2747711",
+              "otherAmountThreshold": "2747711",
+              "swapMode": "ExactIn",
+              "slippageBps": 0,
+              "priceImpactPct": "0.0037139096193914926",
+              "routePlan": [
+                {
+                  "percent": 100,
+                  "bps": 10000,
+                  "usdValue": 0.9998879492768671,
+                  "swapInfo": {
+                    "ammKey": "9BB7Tt5uE5VdRsxA5XRqrjwNaq8XtgAUQW8czA6ymUPG",
+                    "label": "JupiterZ",
+                    "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "outputMint": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
+                    "inAmount": "1000000",
+                    "outAmount": "2747711"
+                  }
+                }
+              ],
+              "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              "feeBps": 10,
+              "transaction": null,
+              "gasless": true,
+              "jitOptimized": false,
+              "signatureFeeLamports": 0,
+              "signatureFeePayer": null,
+              "prioritizationFeeLamports": 0,
+              "prioritizationFeePayer": null,
+              "rentFeeLamports": 0,
+              "rentFeePayer": null,
+              "requestId": "01a09c06-49e0-7518-b659-1cf0f3046a43",
+              "swapType": "rfq",
+              "router": "jupiterz",
+              "guaranteedPrice": true,
+              "quoteId": "ceeb3a5a-faa6-551c-9fdd-718818802edc",
+              "maker": "9BB7Tt5uE5VdRsxA5XRqrjwNaq8XtgAUQW8czA6ymUPG",
+              "taker": null,
+              "platformFee": {
+                "feeBps": 10,
+                "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+              },
+              "inUsdValue": 0.999887949276867,
+              "outUsdValue": 1.00360144275,
+              "swapUsdValue": 0.999887949276867,
+              "priceImpact": 0.3713909619391493,
+              "mode": "manual",
+              "totalTime": 63
+            },
+            "evidenceId": "quote-TSLAon"
+          },
+          "minimumOutputRaw": "2747711",
+          "economicExposure": {
+            "expectedShares": "0.002747711000",
+            "minimumShares": "0.002747711000",
+            "minimumSharesExact": {
+              "numerator": "2747711",
+              "denominator": "1000000000"
+            },
+            "usdcPerMinimumShare": "363.939293470092",
+            "sharesPerToken": "1",
+            "anchorDislocationBps": "42.100476"
+          },
+          "gates": [
+            {
+              "id": "REFERENCE_TSLA",
+              "mandatory": true,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "warningCodes": [
+                "CLOSED_MARKET_REFERENCE",
+                "LAST_MARKET_CONFIDENCE_UNAVAILABLE",
+                "NOT_CURRENT_FAIR_VALUE"
+              ],
+              "scope": "LAST_MARKET_REFERENCE",
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+              ],
+              "observedAt": [
+                1789324051718,
+                null
+              ],
+              "freshnessStatus": "QUALIFIED_LAST_MARKET",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-TSLA",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051718,
+                  "publishedAt": 1789156800000,
+                  "sourceTimestamp": 1789156800000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "STALE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "closed",
+                    "priceSession": "regular",
+                    "timezone": "America/New_York",
+                    "periods": {
+                      "pre": {
+                        "timezone": "EDT",
+                        "end": "1789133400",
+                        "start": "1789113600",
+                        "gmtoffset": "-14400"
+                      },
+                      "regular": {
+                        "timezone": "EDT",
+                        "end": "1789156800",
+                        "start": "1789133400",
+                        "gmtoffset": "-14400"
+                      },
+                      "post": {
+                        "timezone": "EDT",
+                        "end": "1789171200",
+                        "start": "1789156800",
+                        "gmtoffset": "-14400"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "NASDAQ-US-EQUITIES-2026-PRE-OVERNIGHT-v1",
+                  "source": [
+                    "https://www.nasdaqtrader.com/Trader.aspx?id=calendar",
+                    "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+                    "https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2026-46"
+                  ],
+                  "observedAt": null,
+                  "publishedAt": null,
+                  "sourceTimestamp": null,
+                  "timestampBasis": "VERSIONED_EXCHANGE_CALENDAR",
+                  "freshnessStatus": "VALID_FOR_DATE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "PUBLISHED_SCHEDULE_NOT_REALTIME_HALT_STATUS",
+                  "responseSha256": "cce825f65ae5dff0fc67f3d263045c3b87267db568f30671a58a03109ff9f9fc"
+                }
+              ]
+            },
+            {
+              "id": "USDC_DEPEG_GUARD",
+              "mandatory": true,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "warningCodes": [],
+              "scope": "COMMON_USDC_INPUT_DEPEG_GUARD",
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true"
+              ],
+              "observedAt": [
+                1789324051556
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-USDC",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051556,
+                  "publishedAt": 1789323964000,
+                  "sourceTimestamp": 1789323964000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "regular",
+                    "priceSession": "continuous",
+                    "timezone": "UTC",
+                    "periods": {
+                      "pre": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789257600",
+                        "gmtoffset": "0"
+                      },
+                      "regular": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      },
+                      "post": {
+                        "timezone": "UTC",
+                        "start": "1789343940",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                }
+              ]
+            },
+            {
+              "id": "IDENTITY",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://app.ondo.finance/assets/TSLAon"
+              ],
+              "observedAt": [
+                1789324050896
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                }
+              ]
+            },
+            {
+              "id": "METADATA_FRESHNESS",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "UNKNOWN",
+              "reasonCodes": [
+                "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+                "METADATA_TIMESTAMP_UNVERIFIED"
+              ],
+              "source": [
+                "https://app.ondo.finance/assets/TSLAon"
+              ],
+              "observedAt": [
+                1789324050896
+              ],
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "evidence": [
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": null,
+                  "timestampBasis": "UNKNOWN",
+                  "freshnessStatus": "UNKNOWN",
+                  "verificationStatus": "UNKNOWN",
+                  "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                }
+              ]
+            },
+            {
+              "id": "ISSUER_STATUS",
+              "mandatory": true,
+              "scope": "issuer reported halt; not user eligibility or primary-market opening hours",
+              "outcome": "UNKNOWN",
+              "reasonCodes": [
+                "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+                "ISSUER_STATUS_UNKNOWN"
+              ],
+              "source": [
+                "https://app.ondo.finance/assets/TSLAon"
+              ],
+              "observedAt": [
+                1789324050896
+              ],
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "evidence": [
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": null,
+                  "timestampBasis": "UNKNOWN",
+                  "freshnessStatus": "UNKNOWN",
+                  "verificationStatus": "UNKNOWN",
+                  "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                }
+              ]
+            },
+            {
+              "id": "CORPORATE_ACTION",
+              "mandatory": true,
+              "scope": "issuer explicit corporate-action status; public listing is insufficient",
+              "outcome": "UNKNOWN",
+              "reasonCodes": [
+                "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+                "CORPORATE_ACTION_STATUS_UNKNOWN"
+              ],
+              "source": [
+                "https://app.ondo.finance/assets/TSLAon"
+              ],
+              "observedAt": [
+                1789324050896
+              ],
+              "freshnessStatus": "UNKNOWN",
+              "verificationStatus": "UNKNOWN",
+              "evidence": [
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": null,
+                  "timestampBasis": "UNKNOWN",
+                  "freshnessStatus": "UNKNOWN",
+                  "verificationStatus": "UNKNOWN",
+                  "verificationBasis": "SOURCE_DOES_NOT_ESTABLISH_THIS_CLAIM",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                }
+              ]
+            },
+            {
+              "id": "CHAIN",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "solana-mints",
+                "solana-blocktime"
+              ],
+              "observedAt": [
+                1789324049795,
+                1789324051366
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                }
+              ]
+            },
+            {
+              "id": "QUOTE_VALIDITY",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051610
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                }
+              ]
+            },
+            {
+              "id": "QUOTE_FRESHNESS",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051610
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                }
+              ]
+            },
+            {
+              "id": "SLIPPAGE",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051610
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                }
+              ]
+            },
+            {
+              "id": "PRICE_IMPACT",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324051610
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                }
+              ]
+            },
+            {
+              "id": "NORMALIZATION",
+              "mandatory": true,
+              "scope": null,
+              "outcome": "PASS",
+              "reasonCodes": [],
+              "source": [
+                "https://app.ondo.finance/assets/TSLAon",
+                "solana-mints",
+                "solana-blocktime",
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50"
+              ],
+              "observedAt": [
+                1789324050896,
+                1789324049795,
+                1789324051366,
+                1789324051610
+              ],
+              "freshnessStatus": "FRESH",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                },
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                },
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                }
+              ]
+            },
+            {
+              "id": "ANCHOR_DISLOCATION",
+              "mandatory": false,
+              "scope": "ECONOMIC_ANCHOR_NOT_CURRENT_FAIR_VALUE",
+              "outcome": "INFORMATIONAL",
+              "reasonCodes": [],
+              "warningCodes": [
+                "CLOSED_MARKET_REFERENCE",
+                "NOT_CURRENT_FAIR_VALUE"
+              ],
+              "source": [
+                "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                "https://app.ondo.finance/assets/TSLAon",
+                "solana-mints",
+                "solana-blocktime"
+              ],
+              "observedAt": [
+                1789324051718,
+                1789324051556,
+                1789324051610,
+                1789324050896,
+                1789324049795,
+                1789324051366
+              ],
+              "freshnessStatus": "LAST_MARKET_REFERENCE",
+              "verificationStatus": "VERIFIED",
+              "evidence": [
+                {
+                  "evidenceId": "reference-yahoo-TSLA",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051718,
+                  "publishedAt": 1789156800000,
+                  "sourceTimestamp": 1789156800000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "STALE",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "closed",
+                    "priceSession": "regular",
+                    "timezone": "America/New_York",
+                    "periods": {
+                      "pre": {
+                        "timezone": "EDT",
+                        "end": "1789133400",
+                        "start": "1789113600",
+                        "gmtoffset": "-14400"
+                      },
+                      "regular": {
+                        "timezone": "EDT",
+                        "end": "1789156800",
+                        "start": "1789133400",
+                        "gmtoffset": "-14400"
+                      },
+                      "post": {
+                        "timezone": "EDT",
+                        "end": "1789171200",
+                        "start": "1789156800",
+                        "gmtoffset": "-14400"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "reference-yahoo-USDC",
+                  "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+                  "observedAt": 1789324051556,
+                  "publishedAt": 1789323964000,
+                  "sourceTimestamp": 1789323964000,
+                  "timestampBasis": "SOURCE_REGULAR_MARKET_TIME",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "APPROVED_PROVIDER_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED",
+                  "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628",
+                  "delay": {
+                    "status": "UNKNOWN",
+                    "seconds": null,
+                    "label": "POTENTIALLY_DELAYED_NOT_CERTIFIED_REALTIME"
+                  },
+                  "marketSession": {
+                    "atObservation": "regular",
+                    "priceSession": "continuous",
+                    "timezone": "UTC",
+                    "periods": {
+                      "pre": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789257600",
+                        "gmtoffset": "0"
+                      },
+                      "regular": {
+                        "timezone": "UTC",
+                        "start": "1789257600",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      },
+                      "post": {
+                        "timezone": "UTC",
+                        "start": "1789343940",
+                        "end": "1789343940",
+                        "gmtoffset": "0"
+                      }
+                    }
+                  },
+                  "confidenceStatus": "UNKNOWN"
+                },
+                {
+                  "evidenceId": "quote-TSLAon",
+                  "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+                  "observedAt": 1789324051610,
+                  "publishedAt": 1789324051367,
+                  "sourceTimestamp": 1789324051367,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "JUPITER_ORDER_RESPONSE_MATCH_AND_LOCAL_REQUEST_TIME_NOT_EXECUTION_GUARANTEE",
+                  "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+                },
+                {
+                  "evidenceId": "ondo-page",
+                  "source": "https://app.ondo.finance/assets/TSLAon",
+                  "observedAt": 1789324050896,
+                  "publishedAt": null,
+                  "sourceTimestamp": 1789324051000,
+                  "timestampBasis": "HTTP_SERVER_DATE_MINUS_CACHE_AGE_CURRENT_STATE_OBSERVATION",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "HTTPS_RESPONSE_AND_SCHEMA",
+                  "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+                },
+                {
+                  "evidenceId": "solana-mints",
+                  "source": "solana-mints",
+                  "observedAt": 1789324049795,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONFIRMED_MINT_AND_BLOCK_TIME",
+                  "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+                },
+                {
+                  "evidenceId": "solana-blocktime",
+                  "source": "solana-blocktime",
+                  "observedAt": 1789324051366,
+                  "publishedAt": 1789324050000,
+                  "sourceTimestamp": 1789324050000,
+                  "timestampBasis": "EXPLICIT_SOURCE_OR_REQUEST_TIMESTAMP",
+                  "freshnessStatus": "FRESH",
+                  "verificationStatus": "VERIFIED",
+                  "verificationBasis": "SOLANA_CONTEXT_SLOT_BLOCK_TIME",
+                  "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+                }
+              ]
+            }
+          ],
+          "reasonCodes": [
+            "CORPORATE_ACTION_EVIDENCE_UNKNOWN",
+            "CORPORATE_ACTION_STATUS_UNKNOWN",
+            "ISSUER_STATUS_EVIDENCE_UNKNOWN",
+            "ISSUER_STATUS_UNKNOWN",
+            "METADATA_FRESHNESS_EVIDENCE_UNKNOWN",
+            "METADATA_TIMESTAMP_UNVERIFIED"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "ondo-page",
+          "source": "https://app.ondo.finance/assets/TSLAon",
+          "startedAt": 1789324049570,
+          "receivedAt": 1789324050896,
+          "status": 200,
+          "responseSha256": "a8452535a6328c5053c5b344f007a65578837abc6a7bf91a468276c15afdd60f"
+        },
+        {
+          "id": "quote-TSLAon",
+          "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo&amount=1000000&slippageBps=50",
+          "startedAt": 1789324051367,
+          "receivedAt": 1789324051610,
+          "status": 200,
+          "responseSha256": "12f0a71649eb69dd24d895a791af82844fbe85a469580e8f2d98d81c277f5a5a"
+        },
+        {
+          "id": "quote-TSLAx",
+          "source": "https://api.jup.ag/swap/v2/order?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB&amount=1000000&slippageBps=50",
+          "startedAt": 1789324051367,
+          "receivedAt": 1789324051619,
+          "status": 200,
+          "responseSha256": "78576179f35f287aa236d2308e3d38665d233ebb74a5762e3df98b2d853bac31"
+        },
+        {
+          "id": "reference-yahoo-TSLA",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?interval=1m&range=1d&includePrePost=true",
+          "startedAt": 1789324051368,
+          "receivedAt": 1789324051718,
+          "status": 200,
+          "responseSha256": "354d1b4578a22e6470d11c94d6a028cc896d9ec99e8efb58db73db0748b4c1ff"
+        },
+        {
+          "id": "reference-yahoo-USDC",
+          "source": "https://query1.finance.yahoo.com/v8/finance/chart/USDC-USD?interval=1m&range=1d&includePrePost=true",
+          "startedAt": 1789324051368,
+          "receivedAt": 1789324051556,
+          "status": 200,
+          "responseSha256": "01e7ee531e620527d34c91198f1995a8f4b196391d92733e9d043fcff9c30628"
+        },
+        {
+          "id": "solana-blocktime",
+          "source": "solana-blocktime",
+          "startedAt": 1789324051195,
+          "receivedAt": 1789324051366,
+          "status": 200,
+          "responseSha256": "040415532cd9250c1467cb174636005729d732a31a18a1f99931ff8d453b29cf"
+        },
+        {
+          "id": "solana-mints",
+          "source": "solana-mints",
+          "startedAt": 1789324049564,
+          "receivedAt": 1789324049795,
+          "status": 200,
+          "responseSha256": "7c4e22bf3a00fb7357b0016a041419f4c7d09f75c6110c050be0ee9e5de5862e"
+        },
+        {
+          "id": "xstocks-asset",
+          "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx",
+          "startedAt": 1789324049566,
+          "receivedAt": 1789324050131,
+          "status": 200,
+          "responseSha256": "bfbd3677ac5541eeb16937b3fab5b323c02c38381804d5ddb5024dc6a180edfd"
+        },
+        {
+          "id": "xstocks-multiplier",
+          "source": "https://api.xstocks.fi/api/v2/public/assets/TSLAx/multiplier?network=Solana",
+          "startedAt": 1789324049568,
+          "receivedAt": 1789324051195,
+          "status": 200,
+          "responseSha256": "84d7f61a014a16c9e7d49a9d7d646e6f73bd9ffa36ab4bd4f6a9e8f9f90f8b14"
+        }
+      ],
+      "warnings": [
+        {
+          "provider": "ondo",
+          "code": "ONDO_API_KEY_MISSING"
+        }
+      ]
+    },
+    "walletPublicKey": "DJMzc3nnV1eELWXRK1ZUzhUtEASuizaJe8FRMgGry76u",
+    "reasonCodes": [
+      "FINAL_REQUOTE_PASSED",
+      "INSUFFICIENT_USDC",
+      "TRANSACTION_INSPECTED",
+      "TRANSACTION_SIMULATION_ATTEMPTED",
+      "TRANSACTION_SIMULATION_FAILED"
+    ],
+    "materialChange": {
+      "allowed": true,
+      "reasonCodes": [
+        "FINAL_REQUOTE_PASSED"
+      ],
+      "analyzedMinimumOutput": "273927",
+      "comparisonMinimumOutput": "273913",
+      "finalMinimumOutput": "274188",
+      "degradationBps": "-9.528085949",
+      "degradationExact": {
+        "numerator": "-870000",
+        "denominator": "91309"
+      },
+      "comparisonDegradationBps": "-10.039684133",
+      "maxDegradationBps": 50,
+      "analyzedQuoteTimestamp": 1789324047598,
+      "finalQuoteTimestamp": 1789324053339,
+      "winningMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+      "winningRepresentation": "TSLAx"
+    },
+    "inspection": {
+      "verified": true,
+      "inputAccount": "3Aid25phdCbBoF5SRSfMoHBFYF893BRWhBMexBd4Vteb",
+      "outputAccount": "EZm9z2TiVExk49UhypBttQZrj194bdK4MPRfWKNTFuuY",
+      "tokenProgram": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+      "instruction": "route_v2",
+      "idlSha256": "3f0edbf2d65ec7be16b655348bcf63af70f3e64d19c68d9535048808167cc460",
+      "minimumOutput": "274188"
+    },
+    "transactionMessageSha256": "a0c515de4a57a1bac59ef71485a1b21b27fd50f29f3b622e7bf87b01c1898282",
+    "preBalances": {
+      "input": "0",
+      "output": "0",
+      "solLamports": 5153833,
+      "slot": 446771132
+    },
+    "networkFeeLamports": 19000,
+    "simulation": {
+      "context": {
+        "apiVersion": "4.3.0-rc.0",
+        "slot": 446771134
+      },
+      "value": {
+        "accounts": [
+          null,
+          null,
+          null
+        ],
+        "err": {
+          "InstructionError": [
+            3,
+            {
+              "Custom": 6025
+            }
+          ]
+        },
+        "fee": 19000,
+        "innerInstructions": null,
+        "loadedAccountsDataSize": 4833623,
+        "loadedAddresses": {
+          "readonly": [
+            "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+            "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "riptK81hDxhe5pW5jSzSM9iRA8azgEgLJ4dXkPtBS7j",
+            "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+            "Sysvar1nstructions1111111111111111111111111",
+            "jitodontfront111111111111111111111111111111"
+          ],
+          "writable": [
+            "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+            "2x2ZZnao9FwvHi6AabUuwCeqK1P2zRLddoMgz5q8Dm6F",
+            "CKUd5BRCYSmixBVfFGHN23XTvP28gLcquzVZDc4gWTeR"
+          ]
+        },
+        "logs": [
+          "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+          "Program ComputeBudget111111111111111111111111111111 success",
+          "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+          "Program ComputeBudget111111111111111111111111111111 success",
+          "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]",
+          "Program log: CreateIdempotent",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [2]",
+          "Program log: Instruction: GetAccountDataSize",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 2116 of 1388435 compute units",
+          "Program return: TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb swAAAAAAAAA=",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+          "Program 11111111111111111111111111111111 invoke [2]",
+          "Program 11111111111111111111111111111111 success",
+          "Program log: Initialize the associated token account",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [2]",
+          "Program log: Instruction: InitializeImmutableOwner",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 736 of 1381497 compute units",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [2]",
+          "Program log: Instruction: InitializeAccount3",
+          "Program log: Warning: Mint has a permanent delegate, so tokens in this account may be seized at any time",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 3682 of 1378425 compute units",
+          "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+          "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 25240 of 1399700 compute units",
+          "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success",
+          "Program JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4 invoke [1]",
+          "Program log: Instruction: RouteV2",
+          "Program JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4 consumed 1007 of 1374460 compute units",
+          "Program JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4 failed: custom program error: 0x1789"
+        ],
+        "postBalances": [
+          5134833,
+          0,
+          0,
+          1,
+          3388612899,
+          1,
+          6943115527,
+          6711053,
+          8018920,
+          2136720,
+          2039280,
+          1002410158,
+          70128638,
+          534317173503,
+          200653906,
+          1360441,
+          523015135,
+          0,
+          0
+        ],
+        "postTokenBalances": [
+          {
+            "accountIndex": 9,
+            "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+            "owner": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+            "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+            "uiTokenAmount": {
+              "amount": "38041431366",
+              "decimals": 8,
+              "uiAmount": 380.41431366,
+              "uiAmountString": "380.41431366"
+            }
+          },
+          {
+            "accountIndex": 10,
+            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "owner": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "uiTokenAmount": {
+              "amount": "73423185737",
+              "decimals": 6,
+              "uiAmount": 73423.185737,
+              "uiAmountString": "73423.185737"
+            }
+          }
+        ],
+        "preBalances": [
+          5153833,
+          0,
+          0,
+          1,
+          3388612899,
+          1,
+          6943115527,
+          6711053,
+          8018920,
+          2136720,
+          2039280,
+          1002410158,
+          70128638,
+          534317173503,
+          200653906,
+          1360441,
+          523015135,
+          0,
+          0
+        ],
+        "preTokenBalances": [
+          {
+            "accountIndex": 9,
+            "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+            "owner": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+            "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+            "uiTokenAmount": {
+              "amount": "38041431366",
+              "decimals": 8,
+              "uiAmount": 380.41431366,
+              "uiAmountString": "380.41431366"
+            }
+          },
+          {
+            "accountIndex": 10,
+            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "owner": "HxNaPy1oYA8xkyg2GSSzcF3VwEX5bH6Mo6BLLAHF3Ack",
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "uiTokenAmount": {
+              "amount": "73423185737",
+              "decimals": 6,
+              "uiAmount": 73423.185737,
+              "uiAmountString": "73423.185737"
+            }
+          }
+        ],
+        "replacementBlockhash": null,
+        "returnData": null,
+        "unitsConsumed": 26547
+      }
+    },
+    "signature": null,
+    "actualReceivedAmount": null,
+    "events": [
+      {
+        "index": 0,
+        "previousHash": null,
+        "at": 1789324053683,
+        "status": "REQUOTED",
+        "reasonCodes": [
+          "FINAL_REQUOTE_PASSED"
+        ],
+        "details": {},
+        "sha256": "c75d1c43e9e168e8488a8616717d1d4816cba84f6d7183a6f66761d39eb662b7"
+      },
+      {
+        "index": 1,
+        "previousHash": "c75d1c43e9e168e8488a8616717d1d4816cba84f6d7183a6f66761d39eb662b7",
+        "at": 1789324054446,
+        "status": "CONSTRUCTED",
+        "reasonCodes": [
+          "TRANSACTION_INSPECTED"
+        ],
+        "details": {},
+        "sha256": "f53bb3a949ca42832b174dfd0a8e296908a2448490616ba328df63c9d1749fc2"
+      },
+      {
+        "index": 2,
+        "previousHash": "f53bb3a949ca42832b174dfd0a8e296908a2448490616ba328df63c9d1749fc2",
+        "at": 1789324055272,
+        "status": "SIMULATED",
+        "reasonCodes": [
+          "TRANSACTION_SIMULATION_ATTEMPTED"
+        ],
+        "details": {},
+        "sha256": "829b95e1c5c268a97c273c34566a8a4c2e80c114fee96462a907e4ca0c4527bf"
+      },
+      {
+        "index": 3,
+        "previousHash": "829b95e1c5c268a97c273c34566a8a4c2e80c114fee96462a907e4ca0c4527bf",
+        "at": 1789324055272,
+        "status": "BLOCKED",
+        "reasonCodes": [
+          "INSUFFICIENT_USDC",
+          "TRANSACTION_SIMULATION_FAILED"
+        ],
+        "details": {},
+        "sha256": "a0e20f1ae5b3ec5ebbf022a2c2fa3eb05d720f689745943f5b3b9408ad7c2882"
+      }
+    ],
+    "signingAvailable": false,
+    "broadcastAvailable": false
+  },
+  "replay": null,
+  "collectionTiming": [
+    {
+      "originalAsOfMs": 1789324048630,
+      "providerDateMs": 1789324049000,
+      "waitStartedAt": 1789324048630,
+      "evaluatedAt": 1789324049015,
+      "reasonCode": "WAITED_FOR_SOURCE_TIMESTAMP"
+    },
+    {
+      "originalAsOfMs": 1789324051732,
+      "providerDateMs": 1789324053000,
+      "waitStartedAt": 1789324051732,
+      "evaluatedAt": 1789324053014,
+      "reasonCode": "WAITED_FOR_SOURCE_TIMESTAMP"
+    }
+  ],
+  "error": null
+}

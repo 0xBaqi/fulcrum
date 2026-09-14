@@ -1,0 +1,206 @@
+{
+  "snapshotSha256": "ac490d905ee1fb5d52f2379b8d87798f4a2691e4d19d66e202e1536959c8a0b0",
+  "snapshot": {
+    "schemaVersion": 1,
+    "mode": "synthetic",
+    "asOfMs": 1789236000000,
+    "policy": {
+      "maxQuoteAgeMs": 15000,
+      "maxQuoteStartSkewMs": 250,
+      "maxQuoteReceiveSkewMs": 5000,
+      "maxMetadataAgeMs": 300000,
+      "maxReferenceAgeMs": 120000,
+      "maxConfidenceBps": 100,
+      "maxDeviationBps": 300,
+      "maxImpactBps": 100,
+      "maxSlippageBps": 50,
+      "actionWindowMs": 900000
+    },
+    "order": {
+      "underlying": "NVDA",
+      "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "amountRaw": "100000000"
+    },
+    "references": {
+      "NVDA": {
+        "symbol": "Equity.US.NVDA/USD",
+        "feedId": "b1073854ed24cbc755dc527418f52b7d271f6cc967bbf8d8129112b18860a593",
+        "price": "200",
+        "confidence": "0.01",
+        "publishedAt": 1789235999000
+      },
+      "USDC": {
+        "symbol": "Crypto.USDC/USD",
+        "feedId": "eaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+        "price": "1",
+        "confidence": "0.0001",
+        "publishedAt": 1789235999000
+      }
+    },
+    "candidates": [
+      {
+        "symbol": "NVDAx",
+        "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+        "metadata": {
+          "underlying": "NVDA",
+          "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+          "decimals": 8,
+          "identityVerified": true,
+          "chainVerified": true,
+          "sharesPerToken": "1",
+          "observedAt": 1789235999000,
+          "timestampQuality": "issuer-or-chain",
+          "halted": false,
+          "actionTimes": [],
+          "source": "synthetic"
+        },
+        "quote": {
+          "startedAt": 1789235999600,
+          "receivedAt": 1789235999900,
+          "raw": {
+            "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "outputMint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+            "inAmount": "100000000",
+            "outAmount": "50000000",
+            "otherAmountThreshold": "49750000",
+            "swapMode": "ExactIn",
+            "slippageBps": 50,
+            "priceImpactPct": "0.001",
+            "routePlan": [
+              {
+                "percent": 100,
+                "swapInfo": {
+                  "ammKey": "synthetic-pool",
+                  "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                  "outputMint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh"
+                }
+              }
+            ],
+            "requestId": "synthetic-NVDAx",
+            "swapType": "aggregator",
+            "router": "synthetic",
+            "transaction": null
+          }
+        }
+      },
+      {
+        "symbol": "NVDAon",
+        "mint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
+        "metadata": {
+          "underlying": "NVDA",
+          "mint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
+          "decimals": 9,
+          "identityVerified": true,
+          "chainVerified": true,
+          "sharesPerToken": "1.02",
+          "observedAt": 1789235999000,
+          "timestampQuality": "issuer-or-chain",
+          "halted": false,
+          "actionTimes": [],
+          "source": "synthetic"
+        },
+        "quote": {
+          "startedAt": 1789235999600,
+          "receivedAt": 1789235999900,
+          "raw": {
+            "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "outputMint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
+            "inAmount": "100000000",
+            "outAmount": "493000000",
+            "otherAmountThreshold": "490535000",
+            "swapMode": "ExactIn",
+            "slippageBps": 50,
+            "priceImpactPct": "0.001",
+            "routePlan": [
+              {
+                "percent": 100,
+                "swapInfo": {
+                  "ammKey": "synthetic-pool",
+                  "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                  "outputMint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo"
+                }
+              }
+            ],
+            "requestId": "synthetic-NVDAon",
+            "swapType": "aggregator",
+            "router": "synthetic",
+            "transaction": null
+          }
+        }
+      }
+    ],
+    "warnings": [],
+    "evidence": []
+  },
+  "result": {
+    "engineVersion": "0.1.0",
+    "snapshotSha256": "ac490d905ee1fb5d52f2379b8d87798f4a2691e4d19d66e202e1536959c8a0b0",
+    "mode": "synthetic",
+    "asOfMs": 1789236000000,
+    "status": "WINNER",
+    "winner": "NVDAon",
+    "reasonCodes": [
+      "MAXIMUM_MINIMUM_SHARE_EXPOSURE"
+    ],
+    "ranking": [
+      "NVDAon",
+      "NVDAx"
+    ],
+    "rankingIsProvisional": false,
+    "objective": "Maximize slippage-protected NVIDIA-equivalent shares for equal USDC input; excludes wallet-dependent network fees.",
+    "executionReady": false,
+    "executionReasonCodes": [
+      "WALLET_ELIGIBILITY_NOT_EVALUATED",
+      "REQUOTE_AND_SIMULATE_REQUIRED",
+      "NETWORK_FEES_NOT_COMPARED"
+    ],
+    "candidates": [
+      {
+        "symbol": "NVDAx",
+        "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+        "eligible": true,
+        "reasonCodes": [],
+        "normalized": {
+          "expectedShares": "0.500000000000",
+          "minimumShares": "0.497500000000",
+          "minimumSharesExact": {
+            "numerator": "199",
+            "denominator": "400"
+          },
+          "usdcPerMinimumShare": "201.005025125628",
+          "sharesPerToken": "1",
+          "referenceDeviationBps": "50.251256"
+        },
+        "route": {
+          "router": "synthetic",
+          "swapType": "aggregator",
+          "requestId": "synthetic-NVDAx",
+          "transactionAvailable": false
+        }
+      },
+      {
+        "symbol": "NVDAon",
+        "mint": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
+        "eligible": true,
+        "reasonCodes": [],
+        "normalized": {
+          "expectedShares": "0.502860000000",
+          "minimumShares": "0.500345700000",
+          "minimumSharesExact": {
+            "numerator": "5003457",
+            "denominator": "10000000"
+          },
+          "usdcPerMinimumShare": "199.861815540735",
+          "sharesPerToken": "1.02",
+          "referenceDeviationBps": "6.909222"
+        },
+        "route": {
+          "router": "synthetic",
+          "swapType": "aggregator",
+          "requestId": "synthetic-NVDAon",
+          "transactionAvailable": false
+        }
+      }
+    ]
+  }
+}

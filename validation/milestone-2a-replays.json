@@ -1,0 +1,65 @@
+[
+  {
+    "path": "evidence/demo.json",
+    "verified": true,
+    "status": "WINNER",
+    "winner": "NVDAon"
+  },
+  {
+    "path": "evidence/live-2026-09-12.json",
+    "verified": true,
+    "status": "NO_WINNER",
+    "winner": null
+  },
+  {
+    "path": "evidence/live-final-2026-09-12.json",
+    "verified": true,
+    "status": "NO_WINNER",
+    "winner": null
+  },
+  {
+    "path": "evidence/milestone-1.1-live-2026-09-12.json",
+    "verified": true,
+    "status": "NO_WINNER",
+    "winner": null
+  },
+  {
+    "path": "evidence/milestone-1.1-live-2026-09-13.json",
+    "verified": true,
+    "status": "NO_WINNER",
+    "winner": null
+  },
+  {
+    "path": "evidence/milestone-1.1-synthetic-survivor.json",
+    "verified": true,
+    "status": "WINNER",
+    "winner": "NVDAx"
+  },
+  {
+    "path": "evidence/session-live-2026-09-13.json",
+    "verified": true,
+    "status": "WINNER",
+    "winner": "TSLAx"
+  },
+  {
+    "path": "evidence/tesla-live-2026-09-13.json",
+    "verified": true,
+    "status": "NO_WINNER",
+    "winner": null
+  },
+  {
+    "path": "evidence/execution/m2a-live-2026-09-13.json.analysis.json",
+    "verified": true,
+    "status": "WINNER",
+    "winner": "TSLAx"
+  },
+  {
+    "path": "evidence/execution/m2a-live-2026-09-13.json",
+    "verified": true,
+    "status": "BLOCKED",
+    "reasonCodes": [
+      "WALLET_PUBLIC_KEY_REQUIRED"
+    ],
+    "signature": null
+  }
+]

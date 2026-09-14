@@ -1,0 +1,56 @@
+{
+  "testsPassed": 73,
+  "testsFailed": 0,
+  "originalFilesPreserved": 6,
+  "replays": [
+    {
+      "file": "demo.json",
+      "status": "WINNER",
+      "winner": "NVDAon",
+      "snapshotSha256": "ac490d905ee1fb5d52f2379b8d87798f4a2691e4d19d66e202e1536959c8a0b0",
+      "verified": true
+    },
+    {
+      "file": "live-2026-09-12.json",
+      "status": "NO_WINNER",
+      "winner": null,
+      "snapshotSha256": "8183e29d6c8c3950c0ef9f934e03fc4313fb01bfcb381f3a303a32f091e16adf",
+      "verified": true
+    },
+    {
+      "file": "live-final-2026-09-12.json",
+      "status": "NO_WINNER",
+      "winner": null,
+      "snapshotSha256": "7fe228eb5586e78f4f3689becfe0068862de7f3e301e14dd6e5eca7d3f58d3fa",
+      "verified": true
+    },
+    {
+      "file": "milestone-1.1-live-2026-09-12.json",
+      "status": "NO_WINNER",
+      "winner": null,
+      "snapshotSha256": "785e3e31d99914a1d305a3a39b5d32824935d7ee9c36e5ba6fd56ee84bbd42d0",
+      "verified": true
+    },
+    {
+      "file": "milestone-1.1-live-2026-09-13.json",
+      "status": "NO_WINNER",
+      "winner": null,
+      "snapshotSha256": "b6b57defd1cfd8b6d5275d5ce885885f80728694532aa83af07fb8ead46a030c",
+      "verified": true
+    },
+    {
+      "file": "milestone-1.1-synthetic-survivor.json",
+      "status": "WINNER",
+      "winner": "NVDAx",
+      "snapshotSha256": "da601b7f0cb0c6812f5e849c3a2a197d3b53766b40551f50d4ba4523d9e6eac5",
+      "verified": true
+    }
+  ],
+  "credentialScan": {
+    "passed": true,
+    "filesChecked": 35,
+    "configuredSecretsChecked": 1
+  },
+  "liveAcceptancePassed": false,
+  "liveSnapshotSha256": "b6b57defd1cfd8b6d5275d5ce885885f80728694532aa83af07fb8ead46a030c"
+}

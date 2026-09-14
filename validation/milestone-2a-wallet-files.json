@@ -1,0 +1,72 @@
+{
+  "files": [
+    {
+      "path": "src/execution/transaction.mjs",
+      "sha256": "3e6b7ddcf5896886cd997730109699b10c9adefbd81b3db01fdac3c9f2619985"
+    },
+    {
+      "path": "test/execution.test.mjs",
+      "sha256": "224757cd174c375d0ea951d83337e1d1696e9a1a64bc08743c93a6517aaaa0c1"
+    },
+    {
+      "path": "MILESTONE_2A.md",
+      "sha256": "33432e3388444510efd2969b91382a8415c55ecf14570fdf9b1d172c415a4f33"
+    },
+    {
+      "path": "MILESTONE_2A_WALLET.md",
+      "sha256": "f0530daa5ea0a23f2abae0420606d9d7e84fd81d5df095c2a323e3cd18ffc700"
+    },
+    {
+      "path": "BUILD_LOG.md",
+      "sha256": "1e022243b7c29d140c8fbdf38491a5e8e00fbcb7352dadb1f7310e613135491a"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-attempt3-2026-09-13.json",
+      "sha256": "2ae0720fc00cf858fedd36ea13dc3b97c854ec9d9a5774cb4265a107c7b2d85a"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-attempt3-2026-09-13.json.analysis.json",
+      "sha256": "2ca4283e443a2c32f25f22808266f63c28c2dace347b3bd0aab2f2e497fef18d"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-attempt4-2026-09-13.json",
+      "sha256": "43e1ed62222f88d23f227a424c703eff930fad255706b03b8d3798cd72d4d74e"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-attempt4-2026-09-13.json.analysis.json",
+      "sha256": "746f9ae4b6604804e365879e6c21da18c1e4a117ed33b2f5f3afcfe966fe9299"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-live-2026-09-13.json",
+      "sha256": "b842218c3b1c8786e3be6a7c073d22443f2a8604a026caefc232644cd9ffc0b8"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-live-2026-09-13.json.analysis.json",
+      "sha256": "536e8c4e5acbef4b9b1c2a7337d96c694325207c9fe5effffc67a40bcb2ff9d5"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-live-network-2026-09-13.json",
+      "sha256": "194ec3336e124f26e203ac7fdc2f734f0249e7142be4e7fdb60c4e2d20ce7c42"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-live-network-2026-09-13.json.analysis.json",
+      "sha256": "ceb07cf50063656bc6066ca989531f946a54e356ab818f75296f3bc3a3d38888"
+    },
+    {
+      "path": "evidence/execution/m2a-wallet-verification-2026-09-13.json",
+      "sha256": "df775d6dd659a23e75904e60486a3b60fb22a24e03f15fda07ce3acabc9ef272"
+    },
+    {
+      "path": "validation/milestone-2a-wallet-tests.txt",
+      "sha256": "bc08947f767b39da3e8ceef57590d9b850dd52e9b9cf712609db17dc756825df"
+    },
+    {
+      "path": "validation/milestone-2a-wallet-replays.json",
+      "sha256": "f104c8688e5d340bd029c3cc2d6fa50c34ba0ab54e4d0302e5aa528737dccc89"
+    },
+    {
+      "path": "validation/milestone-2a-wallet-files.json",
+      "sha256": null
+    }
+  ]
+}

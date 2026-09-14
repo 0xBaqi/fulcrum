@@ -1,0 +1,32 @@
+{
+  "id": "pyth-demo-probe",
+  "source": "https://docs.pyth.network/api/playground/stream",
+  "startedAt": 1789257907811,
+  "receivedAt": 1789257909573,
+  "status": 200,
+  "request": {
+    "accessToken": "",
+    "channel": "fixed_rate@200ms",
+    "deliveryFormat": "json",
+    "formats": [
+      "solana"
+    ],
+    "jsonBinaryEncoding": "hex",
+    "parsed": true,
+    "priceFeedIds": [
+      1435
+    ],
+    "properties": [
+      "price",
+      "confidence",
+      "exponent",
+      "marketSession",
+      "feedUpdateTimestamp"
+    ]
+  },
+  "responseHeaders": {
+    "date": "Sun, 13 Sep 2026 00:05:09 GMT"
+  },
+  "responseText": "event: error\ndata: {\"error\":\"WebSocket connection error\",\"timestamp\":\"2026-09-13T00:05:09.583Z\"}\n\nevent: close\ndata: {\"code\":1006,\"message\":\"\",\"reason\":\"websocket_closed\",\"timestamp\":\"2026-09-13T00:05:09.583Z\"}\n\n",
+  "responseSha256": "0ea64ea34d899259eac46e414812b7199436a552b89d22b7e1eaa4673cab562c"
+}

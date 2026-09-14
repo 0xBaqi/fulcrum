@@ -1,0 +1,82 @@
+{
+  "mode": "live",
+  "wallet": "DJMzc3nnV1eELWXRK1ZUzhUtEASuizaJe8FRMgGry76u",
+  "receiptPath": "evidence/execution/m2a-wallet-attempt4-2026-09-13.json",
+  "receiptReplayVerified": true,
+  "transactionUnsigned": true,
+  "rpcMethods": [
+    "getAccountInfo",
+    "getLatestBlockhash",
+    "getMultipleAccounts",
+    "getBalance",
+    "getFeeForMessage",
+    "simulateTransaction"
+  ],
+  "simulationError": {
+    "code": 6025,
+    "name": "InvalidTokenAccount",
+    "msg": "Invalid token account"
+  },
+  "sourceUsdcAccount": null,
+  "solBeforeLamports": 5153833,
+  "solAfterLamports": 5153833,
+  "postCheckSlot": 446713635,
+  "reasonCodes": [
+    "FINAL_REQUOTE_PASSED",
+    "INSUFFICIENT_USDC",
+    "TRANSACTION_INSPECTED",
+    "TRANSACTION_SIMULATION_ATTEMPTED",
+    "TRANSACTION_SIMULATION_FAILED"
+  ],
+  "materialChange": {
+    "allowed": true,
+    "reasonCodes": [
+      "FINAL_REQUOTE_PASSED"
+    ],
+    "analyzedMinimumOutput": "273354",
+    "comparisonMinimumOutput": "273354",
+    "finalMinimumOutput": "273628",
+    "degradationBps": "-10.023632359",
+    "degradationExact": {
+      "numerator": "-1370000",
+      "denominator": "136677"
+    },
+    "comparisonDegradationBps": "-10.023632359",
+    "maxDegradationBps": 50,
+    "analyzedQuoteTimestamp": 1789305576110,
+    "finalQuoteTimestamp": 1789305581723,
+    "winningMint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+    "winningRepresentation": "TSLAx"
+  },
+  "finalQuoteAgeAtSimulationMs": 2219,
+  "signature": null,
+  "actualReceivedAmount": null,
+  "postCheckEvidence": [
+    {
+      "id": "rpc-getBalance-1",
+      "source": "rpc-getBalance-1",
+      "startedAt": 1789305875127,
+      "receivedAt": 1789305878080,
+      "status": 200,
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "getBalance",
+        "params": [
+          "DJMzc3nnV1eELWXRK1ZUzhUtEASuizaJe8FRMgGry76u",
+          {
+            "commitment": "confirmed"
+          }
+        ]
+      },
+      "responseHeaders": {
+        "date": "Sun, 13 Sep 2026 13:24:39 GMT",
+        "age": null,
+        "cacheControl": null
+      },
+      "responseText": "{\"jsonrpc\":\"2.0\",\"result\":{\"context\":{\"apiVersion\":\"4.3.0-rc.0\",\"slot\":446713635},\"value\":5153833},\"id\":1}\n",
+      "responseSha256": "9f55149a581811b1c94b0ee168da89f0f0026a010e06698477cbc844579144b9",
+      "responseRedacted": false
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "note": "Exact milestone files; this inventory does not hash itself. Original M1 bytes are checked separately by preservation/pre-execution-sha256.json.",
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "0f15e6e221f598f1136df810e6a60169a6e510cade1d43b87f121ffebbf72347"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "6ee17ef8b6f289724cb7452dce4b178e2c08cbeccf3a5cbf415c96f5e7f688ee"
+    },
+    {
+      "path": "BUILD_LOG.md",
+      "sha256": "3b5be2cfeb27ff37f14239350a22d1ce5bd32a0bac40eaed8b7481949d8b8704"
+    },
+    {
+      "path": "MILESTONE_2A.md",
+      "sha256": "230f6bef20969d6d601d18b8ad49f47d09add31565c3b20f39c792de474b6a5d"
+    },
+    {
+      "path": "preservation/pre-execution-sha256.json",
+      "sha256": "a473e626c65b432ab0bfb4e630b81eff6e3a268f7e542b83c5bd47ae0e0167ef"
+    },
+    {
+      "path": "src/execution/cli.mjs",
+      "sha256": "4ca51e44b1b39ddea4383ef1ddc13f55291f24d4975b91acd37749025f457662"
+    },
+    {
+      "path": "src/execution/guard.mjs",
+      "sha256": "89d4642efba41a5bf8610f7727c63d74be9f2f3cec583bb2f334c2b973379e61"
+    },
+    {
+      "path": "src/execution/pipeline.mjs",
+      "sha256": "fd6fbb045c6bd31874e096fb1c88c3624b0238aeaa4266e6496a6073e9105d57"
+    },
+    {
+      "path": "src/execution/policy.mjs",
+      "sha256": "d29acada848b24db4d4c1a42599766c98377e7758368aeea8e1a1311a6618571"
+    },
+    {
+      "path": "src/execution/receipt.mjs",
+      "sha256": "7e9b8f018dd502972f08715ea529e298ba6fc58cd6b71ce53e7392f555e717e8"
+    },
+    {
+      "path": "src/execution/rpc.mjs",
+      "sha256": "aa0ae715eb68fef71d1a94a43605c8877ee658a288452276b773c6d7a99ff726"
+    },
+    {
+      "path": "src/execution/store.mjs",
+      "sha256": "f74b2ed4c5bf1e918a37d529d55eedd8b1bac9976cb6a6ba86089074385325dd"
+    },
+    {
+      "path": "src/execution/transaction.mjs",
+      "sha256": "0f96320495f3f13eeb82f30839c534fb7b82dde23a42651ed951e47788d38dc4"
+    },
+    {
+      "path": "src/execution/wallet.mjs",
+      "sha256": "157219f4047416b8c77f858657f40312448887cbba74bf3bd695032b14b31702"
+    },
+    {
+      "path": "fixtures/execution.mjs",
+      "sha256": "27f0f3ff03cf52b1df407ee84444825c51073f3d42fa342bb160584edd1af33a"
+    },
+    {
+      "path": "test/execution.test.mjs",
+      "sha256": "6684f99692e0c4277e9139309dc5d3cdc3ad52a55a58a5429ea94a6fe5993dff"
+    },
+    {
+      "path": "test/execution-safety.test.mjs",
+      "sha256": "99eb38663fb77fbcb0fce23f3b2f818a9717cb1d0104cbddbb8b7e3f760a473c"
+    },
+    {
+      "path": "scripts/capture-jupiter-idl.mjs",
+      "sha256": "56e4b60ec8aaa40f9e6397583ee3a4e449d2fe4fc377d5c04f562f0caeed288d"
+    },
+    {
+      "path": "data/execution/jupiter-current-idl.json",
+      "sha256": "3f0edbf2d65ec7be16b655348bcf63af70f3e64d19c68d9535048808167cc460"
+    },
+    {
+      "path": "data/execution/jupiter-idl-evidence.json",
+      "sha256": "d5f2c02b40288e2580ec101cabcb441541525d18aab9a89bf93a422ed4bc35ab"
+    },
+    {
+      "path": "data/execution/jupiter-idl-source.json",
+      "sha256": "3622aaa007029f4f1d71a326f6966662e46882d506f8a4fe26d17093b969119d"
+    },
+    {
+      "path": "evidence/execution/m2a-live-2026-09-13.json",
+      "sha256": "816ca273890f437aaf31b33540dc3a04c16598431f276b3989d9591a4bba63a0"
+    },
+    {
+      "path": "evidence/execution/m2a-live-2026-09-13.json.analysis.json",
+      "sha256": "aa2032556ded16488bdcea6c15bd21bc1c04fedb32338fd3cfbb19e3fed14bb7"
+    },
+    {
+      "path": "validation/milestone-2a-tests.txt",
+      "sha256": "6cdb1fa2740ffa3394da12443b445e104a4fe226b6b80931ca4f5d2b5d5aa4e9"
+    },
+    {
+      "path": "validation/milestone-2a-npm-audit.json",
+      "sha256": "6b16e9dcd8f8a4294c46102a2f26f796db150a6ac5f2553c48f8b4844709e565"
+    },
+    {
+      "path": "validation/milestone-2a-replays.json",
+      "sha256": "ec94fa02a2adba248002810692c0f0d3c0f00fb7af294232875a874e8a4b7bed"
+    },
+    {
+      "path": "validation/milestone-2a-files.json",
+      "sha256": null
+    }
+  ]
+}
