@@ -58,6 +58,74 @@ function mode(){const replay=$('mode').value==='REPLAY';$('capture-label').hidde
 function eligibility(){const ready=current?.state==='STRICT_WINNER'&&current.decision?.executionReadiness.preparationAvailable;const wallet=$('wallet').value.trim();$('prepare').disabled=!ready||!wallet;$('prepare-help').textContent=!ready?(current?.execution?'Preparation ended with '+current.state+'. Run a new analysis before retrying.':current?.state==='REQUOTING'?'Preparation is in progress.':'A live strict winner is required.'):!wallet?'Enter a public wallet address to prepare.':'Preparation obtains a fresh comparison and wallet-bound quote before inspection and simulation.';}
 function render(j){current=j;$('status').textContent=j.state;$('history').textContent=JSON.stringify(j.events,null,2);$('error').textContent=j.error?.code??'';
  if(j.decision){const d=j.decision;$('analysis').hidden=false;$('winner').textContent=d.winner?'Strict winner: '+d.winner:'No verified representation  -  preparation unavailable.';$('session').textContent='Underlying market: '+d.marketState+'  /  '+d.executionClassification;$('reference').textContent='Reference: '+d.reference?.classification+'  /  '+(d.reference?.isCurrentFairValue?'Current reference':'Economic anchor only; not current fair value')+'  /  age at analysis: '+(d.reference?.ageMs==null?'unknown':Math.round(d.reference.ageMs/1000)+' seconds');$('asof').textContent=(j.intent.mode==='REPLAY'?'Historical capture: ':'Live analysis captured: ')+stamp(d.asOfMs);$('readiness').textContent=j.state==='STRICT_WINNER'&&d.executionReadiness.preparationAvailable?'Strict decision passed. Wallet-bound preparation is available; this is not an executed trade.':'Preparation status: '+j.state+'. No trade has been executed.';
+ const decisionPanel=$('fulcrum-decision');
+const decisionBadge=$('decision-badge');
+const decisionTitle=$('decision-title');
+const decisionExplanation=$('decision-explanation');
+const decisionExposure=$('decision-exposure');
+const decisionWhy=$('decision-why');
+const decisionModeNote=$('decision-mode-note');
+
+decisionPanel.hidden=false;
+decisionWhy.replaceChildren();
+decisionExposure.replaceChildren();
+
+const winnerCandidate=d.candidates?.find(c=>c.symbol===d.winner);
+
+if(d.winner && winnerCandidate){
+  decisionPanel.className='fulcrum-decision decision-success';
+  decisionBadge.textContent='VERIFIED';
+  decisionTitle.textContent=`${winnerCandidate.symbol} / ${winnerCandidate.issuer}`;
+  decisionExplanation.textContent='Selected to represent this Tesla order.';
+
+  const value=document.createElement('strong');
+  value.textContent=winnerCandidate.economicExposure?.minimumShares??'Unavailable';
+
+  const label=document.createElement('span');
+  label.textContent='minimum protected TSLA exposure';
+
+  decisionExposure.append(value,label);
+
+  for(const text of [
+    'Identity and representation evidence passed mandatory verification.',
+    'This representation survived every required integrity gate.',
+    'Verification completed before economic ranking.'
+  ]){
+    const row=document.createElement('div');
+    row.className='decision-reason decision-reason-pass';
+    row.textContent=`✓ ${text}`;
+    decisionWhy.append(row);
+  }
+}else{
+  decisionPanel.className='fulcrum-decision decision-blocked';
+  decisionBadge.textContent='BLOCKED';
+  decisionTitle.textContent='No verified representation';
+  decisionExplanation.textContent='Fulcrum will not prepare this Tesla order.';
+
+  const label=document.createElement('span');
+  label.textContent='No execution route prepared';
+  decisionExposure.append(label);
+
+  for(const c of d.candidates??[]){
+    const row=document.createElement('div');
+    row.className='decision-reason decision-reason-fail';
+
+    const firstReason=c.reasonCodes?.[0]
+      ? reasonLabel(c.reasonCodes[0])
+      : 'Mandatory verification failed';
+
+    row.textContent=`× ${c.symbol}: ${firstReason}`;
+    decisionWhy.append(row);
+  }
+}
+
+ if($('mode').value==='REPLAY'){
+  decisionModeNote.textContent='Historical replay evidence. Execution is disabled.';
+  decisionModeNote.className='decision-mode-note replay-note';
+}else{
+  decisionModeNote.textContent='Live provider evidence. Execution requires a verified winner.';
+  decisionModeNote.className='decision-mode-note live-note';
+}
  $('candidates').replaceChildren();
 
 for(const c of d.candidates){
