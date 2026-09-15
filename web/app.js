@@ -57,6 +57,49 @@ async function api(path,body){const r=await fetch(path,body?{method:'POST',heade
 function mode(){const replay=$('mode').value==='REPLAY';$('capture-label').hidden=!replay;$('amount').disabled=replay;$('mode-label').className=replay?'replay':'';$('mode-label').textContent=replay?'REPLAY  /  Historical evidence. Execution is disabled.':'LIVE  /  Current providers. No fallback to replay.';if(replay){const c=catalog.find(c=>c.id===$('capture').value);if(c)$('amount').value=String(Number(c.amountRaw)/1e6);}current=null;$('prepare').disabled=true;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';generation++;}
 function eligibility(){const ready=current?.state==='STRICT_WINNER'&&current.decision?.executionReadiness.preparationAvailable;const wallet=$('wallet').value.trim();$('prepare').disabled=!ready||!wallet;$('prepare-help').textContent=!ready?(current?.execution?'Preparation ended with '+current.state+'. Run a new analysis before retrying.':current?.state==='REQUOTING'?'Preparation is in progress.':'A live strict winner is required.'):!wallet?'Enter a public wallet address to prepare.':'Preparation obtains a fresh comparison and wallet-bound quote before inspection and simulation.';}
 function render(j){current=j;$('status').textContent=j.state;$('history').textContent=JSON.stringify(j.events,null,2);$('error').textContent=j.error?.code??'';
+    const historySummary=$('history-summary');
+
+if(historySummary){
+  historySummary.replaceChildren();
+
+  const label=document.createElement('span');
+  label.className='audit-summary-label';
+  label.textContent='Flow';
+
+  const value=document.createElement('strong');
+
+  const stateLabels={
+    IDLE:'Idle',
+    RESOLVING:'Resolving',
+    QUOTING:'Quoting',
+    VALIDATING:'Validating',
+    STRICT_WINNER:'Strict winner',
+    NO_VERIFIED_REPRESENTATION:'No verified representation',
+    READY_FOR_EXECUTION:'Ready for execution',
+    REQUOTING:'Requoting',
+    EXECUTION_CHANGED:'Execution changed',
+    READY_FOR_SIGNATURE:'Ready for signature',
+    SIMULATION_BLOCKED:'Simulation blocked',
+    SUBMITTED:'Submitted',
+    CONFIRMED:'Confirmed',
+    FAILED:'Failed'
+  };
+
+  const states=(j.events??[])
+    .map(event=>event.state)
+    .filter(Boolean)
+    .filter((state,index,array)=>index===0||state!==array[index-1]);
+
+  if(states.length){
+    value.textContent=states
+      .map(state=>stateLabels[state]??state.replaceAll('_',' ').toLowerCase())
+      .join(' → ');
+  }else{
+    value.textContent=stateLabels[j.state]??j.state??'No state history';
+  }
+
+  historySummary.append(label,value);
+}
  if(j.decision){const d=j.decision;$('analysis').hidden=false;$('winner').textContent=d.winner?'Strict winner: '+d.winner:'No verified representation  -  preparation unavailable.';$('session').textContent='Underlying market: '+d.marketState+'  /  '+d.executionClassification;$('reference').textContent='Reference: '+d.reference?.classification+'  /  '+(d.reference?.isCurrentFairValue?'Current reference':'Economic anchor only; not current fair value')+'  /  age at analysis: '+(d.reference?.ageMs==null?'unknown':Math.round(d.reference.ageMs/1000)+' seconds');$('asof').textContent=(j.intent.mode==='REPLAY'?'Historical capture: ':'Live analysis captured: ')+stamp(d.asOfMs);$('readiness').textContent=j.state==='STRICT_WINNER'&&d.executionReadiness.preparationAvailable?'Strict decision passed. Wallet-bound preparation is available; this is not an executed trade.':'Preparation status: '+j.state+'. No trade has been executed.';
  const decisionPanel=$('fulcrum-decision');
 const decisionBadge=$('decision-badge');
@@ -125,6 +168,48 @@ if(d.winner && winnerCandidate){
 }else{
   decisionModeNote.textContent='Live provider evidence. Execution requires a verified winner.';
   decisionModeNote.className='decision-mode-note live-note';
+}
+const decisionSummary=$('decision-summary');
+
+if(decisionSummary){
+  decisionSummary.replaceChildren();
+
+  const label=document.createElement('span');
+  label.className='audit-summary-label';
+  label.textContent='Decision';
+
+  const value=document.createElement('strong');
+
+  if(d.winner){
+    const excluded=(d.candidates??[]).filter(c=>!c.eligible).length;
+    value.textContent=`${d.winner} selected · ${excluded} representation${excluded===1?'':'s'} excluded`;
+  }else{
+    value.textContent='No representation passed every mandatory gate';
+  }
+
+  decisionSummary.append(label,value);
+}
+const provenanceSummary=$('provenance-summary');
+
+if(provenanceSummary){
+  provenanceSummary.replaceChildren();
+
+  const label=document.createElement('span');
+  label.className='audit-summary-label';
+  label.textContent='Reference';
+
+  const value=document.createElement('strong');
+
+  const referenceKind=d.reference?.classification
+  ?? 'Unavailable';
+
+  if($('mode').value==='REPLAY'){
+    value.textContent=`${referenceKind} · historical replay evidence`;
+  }else{
+    value.textContent=`${referenceKind} · live provider evidence`;
+  }
+
+  provenanceSummary.append(label,value);
 }
  $('candidates').replaceChildren();
 

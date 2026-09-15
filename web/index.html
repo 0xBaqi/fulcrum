@@ -188,15 +188,33 @@
       </div>
 
       <div class="evidence-grid">
-        <details>
-          <summary>Decision gates / reason codes</summary>
-          <pre id="decision-details"></pre>
-        </details>
+       <details class="audit-card">
+  <summary>Decision evidence</summary>
 
-        <details>
-          <summary>Reference / provenance</summary>
-          <pre id="provenance"></pre>
-        </details>
+  <div id="decision-summary" class="audit-summary">
+    <span class="audit-summary-label">Decision</span>
+    <strong>Waiting for analysis</strong>
+  </div>
+
+  <details class="raw-evidence">
+    <summary>Show raw decision evidence</summary>
+    <pre id="decision-details"></pre>
+  </details>
+</details>
+
+<details class="audit-card">
+  <summary>Reference provenance</summary>
+
+  <div id="provenance-summary" class="audit-summary">
+    <span class="audit-summary-label">Reference</span>
+    <strong>Waiting for analysis</strong>
+  </div>
+
+  <details class="raw-evidence">
+    <summary>Show raw provenance</summary>
+    <pre id="provenance"></pre>
+  </details>
+</details> 
       </div>
     </section>
 
@@ -251,10 +269,19 @@
       </details>
     </section>
 
-    <details class="system-history">
-      <summary>System state history</summary>
-      <pre id="history">IDLE</pre>
-    </details>
+    <details class="audit-card system-history">
+  <summary>System state history</summary>
+
+  <div id="history-summary" class="audit-summary">
+    <span class="audit-summary-label">Flow</span>
+    <strong>Waiting for analysis</strong>
+  </div>
+
+  <details class="raw-evidence">
+    <summary>Show raw state evidence</summary>
+    <pre id="history"></pre>
+  </details>
+</details>
 
     <footer>
       <span>FULCRUM</span>

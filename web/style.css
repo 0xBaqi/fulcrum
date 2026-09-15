@@ -931,3 +931,35 @@ footer span:first-child {
     border-top: 1px solid #20272e;
   }
 }
+/* M4.4 — progressive audit disclosure */
+
+.audit-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 0.65rem 0 0.45rem;
+}
+
+.audit-summary-label {
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.audit-summary strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.raw-evidence {
+  margin-top: 0.35rem;
+}
+
+.raw-evidence > summary {
+  color: var(--muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
