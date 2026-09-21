@@ -1,9 +1,12 @@
+import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   pythValueToDecimal,
   pythProReferenceFromEvidence,
-  collectPythProReference
+  collectPythProReference,
+  pythProReferenceRequest,
+  pythProReferenceProof
 } from '../src/app/pyth-pro-reference.mjs';
 import {
   PYTH_PRO_FEEDS,
@@ -290,4 +293,84 @@ test('collectPythProReference uses authenticated POST evidence and returns norma
 
   assert.equal(result.evidence.id, 'reference-pyth-pro-TSLA');
   assert.equal(result.evidence.request, captured.options.body);
+});
+
+test('pythProReferenceProof verifies exact captured evidence and rejects tampering', () => {
+  const responseText = JSON.stringify({
+    parsed: {
+      timestampUs: '1790029070000000',
+      priceFeeds: [{
+        priceFeedId: 1435,
+        price: '37507500',
+        bestBidPrice: '37505000',
+        bestAskPrice: '37510000',
+        publisherCount: 11,
+        exponent: -5,
+        confidence: 5000,
+        marketSession: 'postMarket',
+        feedUpdateTimestamp: 1790029070000000
+      }]
+    }
+  });
+
+  const request = pythProReferenceRequest('TSLA');
+
+  const evidence = {
+    id: request.id,
+    source: request.url,
+    startedAt: 1790029070000,
+    receivedAt: 1790029070123,
+    status: 200,
+    request: request.body,
+    responseText,
+    responseSha256: createHash('sha256')
+      .update(responseText)
+      .digest('hex'),
+    responseRedacted: false
+  };
+
+  const reference =
+    pythProReferenceFromEvidence(evidence, 'TSLA');
+
+  const snapshot = {
+    asOfMs: 1790029070200,
+    references: {
+      TSLA: reference
+    },
+    evidence: [evidence]
+  };
+
+  assert.equal(
+    pythProReferenceProof(snapshot, 'TSLA')[0].verificationStatus,
+    'VERIFIED'
+  );
+
+  const tamperedResponse = structuredClone(snapshot);
+  tamperedResponse.evidence[0].responseText =
+    tamperedResponse.evidence[0].responseText.replace(
+      '37507500',
+      '99999999'
+    );
+
+  assert.equal(
+    pythProReferenceProof(tamperedResponse, 'TSLA')[0].verificationStatus,
+    'UNVERIFIED'
+  );
+
+  const tamperedRequest = structuredClone(snapshot);
+  tamperedRequest.evidence[0].request.priceFeedIds = [1847];
+
+  assert.equal(
+    pythProReferenceProof(tamperedRequest, 'TSLA')[0].verificationStatus,
+    'UNVERIFIED'
+  );
+
+  const futureCapture = structuredClone(snapshot);
+  futureCapture.evidence[0].receivedAt =
+    futureCapture.asOfMs + 1;
+
+  assert.equal(
+    pythProReferenceProof(futureCapture, 'TSLA')[0].verificationStatus,
+    'UNVERIFIED'
+  );
 });

@@ -1,3 +1,4 @@
+import {canonical} from '../engine-v1.mjs';
 import {createHash} from 'node:crypto';
 import {createHttp} from '../providers.mjs';
 import {
@@ -175,4 +176,90 @@ export async function collectPythProReference({
     reference: pythProReferenceFromEvidence(evidence, 'TSLA'),
     evidence
   });
+}
+
+export function pythProReferenceProof(snapshot, name = 'TSLA') {
+  const reference = snapshot?.references?.[name];
+
+  let evidence = null;
+  let verified = false;
+
+  try {
+    if (!reference || reference.provider !== 'pyth-pro') {
+      throw Error('REFERENCE_PROVIDER_UNAPPROVED');
+    }
+
+    const request = pythProReferenceRequest(name);
+
+    const rows = (snapshot.evidence ?? []).filter(
+      row => row.id === request.id
+    );
+
+    if (rows.length !== 1) {
+      throw Error('REFERENCE_EVIDENCE_AMBIGUOUS');
+    }
+
+    evidence = rows[0];
+
+    if (
+      evidence.source !== request.url ||
+      evidence.status !== 200 ||
+      evidence.responseRedacted
+    ) {
+      throw Error('REFERENCE_SOURCE_UNVERIFIED');
+    }
+
+    if (canonical(evidence.request) !== canonical(request.body)) {
+      throw Error('REFERENCE_REQUEST_MISMATCH');
+    }
+
+    if (
+      !Number.isSafeInteger(evidence.startedAt) ||
+      !Number.isSafeInteger(evidence.receivedAt) ||
+      evidence.startedAt <= 0 ||
+      evidence.receivedAt <= 0 ||
+      evidence.startedAt > evidence.receivedAt ||
+      !Number.isSafeInteger(snapshot.asOfMs) ||
+      evidence.receivedAt > snapshot.asOfMs
+    ) {
+      throw Error('REFERENCE_CAPTURE_INVALID');
+    }
+
+    const responseSha256 = createHash('sha256')
+      .update(evidence.responseText)
+      .digest('hex');
+
+    if (responseSha256 !== evidence.responseSha256) {
+      throw Error('REFERENCE_CAPTURE_INVALID');
+    }
+
+    const reconstructed =
+      pythProReferenceFromEvidence(evidence, name);
+
+    if (canonical(reconstructed) !== canonical(reference)) {
+      throw Error('REFERENCE_RECONSTRUCTION_MISMATCH');
+    }
+
+    verified = true;
+  } catch {
+    verified = false;
+  }
+
+  return Object.freeze([Object.freeze({
+    evidenceId: reference?.evidenceId ?? null,
+    source: evidence?.source ?? reference?.source ?? null,
+    observedAt: evidence?.receivedAt ?? null,
+    publishedAt: reference?.publishedAt ?? null,
+    sourceTimestamp: reference?.publishedAt ?? null,
+    timestampBasis: reference?.timestampBasis ?? 'UNKNOWN',
+
+    verificationStatus: verified ? 'VERIFIED' : reference ? 'UNVERIFIED' : 'UNKNOWN',
+    verificationBasis:
+      'APPROVED_PYTH_PRO_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED',
+
+    responseSha256: evidence?.responseSha256 ?? null,
+    delay: reference?.delay ?? null,
+    marketSession: reference?.marketSession ?? null,
+    confidenceStatus: reference?.confidenceStatus ?? 'UNKNOWN'
+  })]);
 }
