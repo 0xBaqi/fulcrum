@@ -4,15 +4,24 @@ import {fileURLToPath} from 'node:url';
 import {join} from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {PublicKey} from '@solana/web3.js';
-import {collect} from '../collect.mjs';
+import {
+  collectWithPythPro,
+  bundleSnapshotWithPythPro
+} from './live.mjs';
+
+import {
+  executionPipelineWithPythPro
+} from './execution-pipeline.mjs';
 import {replay} from '../cli.mjs';
-import {bundleSnapshot,executionPipeline} from '../execution/pipeline.mjs';
 import {intent,candidates} from './intent.mjs';
 import {decision,executionState,executionView,STATES} from './view.mjs';
 export const ROOT=fileURLToPath(new URL('../../',import.meta.url));
 export const CAPTURES=Object.freeze([{id:'tesla-100-session',path:'evidence/session-live-2026-09-13.json',label:'Tesla · 100 USDC · historical session-aware winner'},{id:'tesla-1-wallet',path:'evidence/execution/m2a-wallet-attempt4-2026-09-13.json.analysis.json',label:'Tesla · 1 USDC · historical wallet validation analysis'}]);
 const safeCode=e=>/^[A-Z][A-Z0-9_]{1,90}$/.test(e.code??e.message)?e.code??e.message:'UPSTREAM_FAILURE';
-export function appService({collector=collect,executor=executionPipeline,env={...process.env,PYTH_API_KEY:''},clock=Date.now,sleep,load=async path=>JSON.parse(await readFile(join(ROOT,path),'utf8')),persist=async(id,kind,data)=>{const dir=join(ROOT,'evidence/app-live');await mkdir(dir,{recursive:true});await writeFile(join(dir,id+'-'+kind+'.json'),JSON.stringify(data,null,2));}}={}){
+export function appService({
+  collector=collectWithPythPro,
+  executor=executionPipelineWithPythPro,
+  env=process.env,clock=Date.now,sleep,load=async path=>JSON.parse(await readFile(join(ROOT,path),'utf8')),persist=async(id,kind,data)=>{const dir=join(ROOT,'evidence/app-live');await mkdir(dir,{recursive:true});await writeFile(join(dir,id+'-'+kind+'.json'),JSON.stringify(data,null,2));}}={}){
  const jobs=new Map(),pending=new Map();let active=0;
  function set(j,state,codes=[]){if(!STATES.includes(state))throw Error('INVALID_STATE');j.state=state;j.reasonCodes=codes;j.events.push({state,at:clock(),reasonCodes:codes});}
  function view(j){return structuredClone({id:j.id,intent:j.intent,state:j.state,createdAt:j.createdAt,events:j.events,reasonCodes:j.reasonCodes,resolved:j.resolved,decision:j.decision??null,execution:j.execution??null,replay:j.replay??null,collectionTiming:j.collectionTiming??[],error:j.error??null});}
@@ -32,7 +41,7 @@ export function appService({collector=collect,executor=executionPipeline,env={..
    }else{
     set(j,'QUOTING');const s=await settledCollector(collector,{clock,sleep,onTiming:t=>{(j.collectionTiming??=[]).push(t);}})({underlying:i.underlying,amountRaw:i.amountRaw,env,clock});
     if(s.mode!=='live'||s.order.underlying!==i.underlying||s.order.amountRaw!==i.amountRaw)throw Error('LIVE_SOURCE_MISMATCH');
-    set(j,'VALIDATING');b=bundleSnapshot(s);await persist(j.id,'analysis',b);
+    set(j,'VALIDATING');b=bundleSnapshotWithPythPro(s);await persist(j.id,'analysis',b);
    }
    j.bundle=b;j.decision=decision(b,i.mode);set(j,b.result.status==='WINNER'?'STRICT_WINNER':'NO_VERIFIED_REPRESENTATION',b.result.reasonCodes);
   }catch(e){j.error={code:safeCode(e)};set(j,'FAILED',[j.error.code]);}finally{active--;}})();
