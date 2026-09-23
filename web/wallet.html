@@ -6,6 +6,6 @@
 <pre id="review">A fresh quote, account inspection and successful simulation are required.</pre>
 <label><input type="checkbox" id="authorize"> I authorize this reviewed 1 USDC → TSLAx trade, plus the displayed SOL costs, to be signed in my wallet and broadcast once.</label>
 <button id="sign" disabled>Approve in wallet and broadcast</button><button id="reconcile" disabled>Check confirmation</button>
-<p><small>Quotes expire after 15 seconds. If approval takes longer, the transaction is blocked; prepare a fresh quote. No private key or seed phrase is requested. An uncertain broadcast must be checked before any new trade.</small></p>
+<p><small>Wallet approval is bounded to two minutes; the Solana transaction may expire earlier. Fresh prices, balances, signed simulation and blockhash validity are checked before broadcast. If expired or materially changed, prepare again and approve a new transaction. No private key or seed phrase is requested. An uncertain broadcast must be checked before any new trade.</small></p>
 <a id="receipt" hidden>Download execution receipt</a>
 <script src="/web3.js"></script><script src="/wallet-standard.js"></script><script src="/wallet.js"></script></html>

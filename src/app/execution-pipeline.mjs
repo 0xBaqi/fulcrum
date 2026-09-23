@@ -5,8 +5,7 @@ import {USDC,TOKEN_2022} from '../registry.mjs';
 
 import {
   strictAsset,
-  materialGuard,
-  validateQuote
+  materialGuard
 } from './execution-guard.mjs';
 
 import {
@@ -39,6 +38,7 @@ import {
 } from './live.mjs';
 
 import {settledCollector} from './collection.mjs';
+import {AUTHORIZATION_POLICY,approvalWindow,revalidationGuard} from './authorization.mjs';
 
 export function executionPipelineWithPythPro({
   env=process.env,
@@ -92,6 +92,7 @@ r.comparison=bundleSnapshotWithPythPro(
    const guardedAt=clock();r.materialChange=materialGuard(analysis,r.comparison,r.finalQuote,guardedAt);transition(r,'REQUOTED',['FINAL_REQUOTE_PASSED'],guardedAt);
    const inspection=inspectBuild(e.data,wallet,asset,amount),tables=await Promise.all(Object.keys(e.data.addressesByLookupTableAddress??{}).map(a=>rpc.lookup(a)));
    const block=(await rpc.call('getLatestBlockhash',[{commitment:'confirmed'}])).value;
+   ensure(typeof block?.blockhash==='string'&&Number.isSafeInteger(block.lastValidBlockHeight)&&block.lastValidBlockHeight>0,'BLOCKHASH_VALIDITY_UNVERIFIED');
    const tx=construct(e.data,wallet,block.blockhash,tables);
    r.transaction={unsignedBase64:Buffer.from(tx.serialize()).toString('base64'),messageSha256:hash(Array.from(tx.message.serialize())),inspection,blockhash:block};transition(r,'CONSTRUCTED',['TRANSACTION_INSPECTED'],clock());await save(r);
    const accounts=await rpc.call('getMultipleAccounts',[[inspection.inputAccount,inspection.outputAccount],{encoding:'base64',commitment:'confirmed'}]);
@@ -108,7 +109,9 @@ r.comparison=bundleSnapshotWithPythPro(
     ensure(BigInt(afterOutput)-BigInt(output)>=BigInt(r.materialChange.finalMinimumOutput),'SIMULATED_RECEIVED_AMOUNT_BELOW_MINIMUM');
     ensure(Number.isSafeInteger(simulated[0].lamports)&&sol.value-simulated[0].lamports<=fee.value+P.maxAccountRentLamports,'SIMULATED_SOL_COST_LIMIT_EXCEEDED');
     r.simulatedBalances={input:afterInput,output:afterOutput,solLamports:simulated[0].lamports};
-    materialGuard(analysis,r.comparison,r.finalQuote,clock());transition(r,'READY_FOR_SIGNATURE',['TRANSACTION_SIMULATION_PASSED','SIMULATED_BALANCES_VERIFIED'],clock());
+    materialGuard(analysis,r.comparison,r.finalQuote,clock());
+    r.authorization={policy:{...AUTHORIZATION_POLICY},expiresAt:r.finalQuote.startedAt+AUTHORIZATION_POLICY.maxApprovalAgeMs};
+    transition(r,'READY_FOR_SIGNATURE',['TRANSACTION_SIMULATION_PASSED','SIMULATED_BALANCES_VERIFIED'],clock());
    }
   }catch(e){transition(r,'BLOCKED',[e.code??e.message],clock());}
   await save(r);return r;
@@ -129,15 +132,58 @@ r.comparison=bundleSnapshotWithPythPro(
   if(r.status==='READY_FOR_SIGNATURE')prepared.set(r,hash(r));return r;
  }
  const used=new WeakSet();
+ async function checkValidity(r){
+  const block=r.transaction.blockhash;
+  const [height,valid]=await Promise.all([
+   rpc.call('getBlockHeight',[{commitment:'confirmed'}]),
+   rpc.call('isBlockhashValid',[block.blockhash,{commitment:'confirmed'}])
+  ]);
+  ensure(Number.isSafeInteger(height)&&height>=0&&typeof valid?.value==='boolean','BLOCKHASH_VALIDITY_UNVERIFIED');
+  ensure(height<=block.lastValidBlockHeight&&valid.value,'BLOCKHASH_EXPIRED_REBUILD_REQUIRED');
+  return {checkedAt:clock(),blockHeight:height,lastValidBlockHeight:block.lastValidBlockHeight,blockhash:block.blockhash,valid:true};
+ }
  async function submit(r,{signTransaction,authorizeBroadcast=false}={}){
+  // A second call must not mutate a pending/successful first attempt's receipt.
+  ensure(!used.has(r),'EXECUTION_ALREADY_USED_OR_BLOCKED');
+  let broadcastStarted=false;
   try{
    ensure(allowBroadcast&&authorizeBroadcast,'BROADCAST_NOT_AUTHORIZED');ensure(r.status==='READY_FOR_SIGNATURE'&&!used.has(r)&&prepared.get(r)===hash(r),'EXECUTION_ALREADY_USED_OR_BLOCKED');used.add(r);
    const {asset}=strictAsset(r.analysis),amount=r.inputAmount,tx=VersionedTransaction.deserialize(Buffer.from(r.transaction.unsignedBase64,'base64'));
-   materialGuard(r.analysis,r.comparison,r.finalQuote,clock());
+   approvalWindow(r,clock());await checkValidity(r);
    let encoded;try{encoded=await signTransaction(r.transaction.unsignedBase64);}catch{ensure(false,'USER_SIGNATURE_REJECTED');}
-   const signed=signedTransaction(encoded,tx,r.walletPublicKey);materialGuard(r.analysis,r.comparison,r.finalQuote,clock());
-   const sim=await rpc.call('simulateTransaction',[encoded,{encoding:'base64',sigVerify:true,replaceRecentBlockhash:false,commitment:'confirmed'}]);r.signedSimulation=sim;ensure(sim.value?.err===null,'TRANSACTION_SIMULATION_FAILED');
-   validateQuote(r.finalQuote,asset,amount,clock());r.signature=base58(signed.signatures[0]);transition(r,'AUTHORIZED',['USER_SIGNATURE_VERIFIED'],clock());await save(r);
+   const signed=signedTransaction(encoded,tx,r.walletPublicKey);approvalWindow(r,clock());
+   const comparison=bundleSnapshotWithPythPro(await liveCollector({amountRaw:amount,underlying:'TSLA',env,clock}));
+   ensure(testOnly||comparison.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');
+   const params=new URLSearchParams({inputMint:USDC,outputMint:asset.mint,amount,taker:r.walletPublicKey,slippageBps:String(P.maxSlippageBps),platformFeeBps:'0',wrapAndUnwrapSol:'false',destinationTokenAccount:r.transaction.inspection.outputAccount,onlyDirectRoutes:'true'});
+   if(r.routing.excludedDexes.length)params.set('excludeDexes',r.routing.excludedDexes.join(','));
+   const e=await http.get('jupiter-prebroadcast-build','https://api.jup.ag/swap/v2/build?'+params,{headers:env.JUPITER_API_KEY?{'x-api-key':env.JUPITER_API_KEY}:{}});
+   const quote={startedAt:e.startedAt,receivedAt:e.receivedAt,raw:e.data,evidenceId:e.id};
+   revalidationGuard(r,comparison,quote,clock());
+   const inspection=r.transaction.inspection;
+   const before=await rpc.call('getMultipleAccounts',[[inspection.inputAccount,inspection.outputAccount],{encoding:'base64',commitment:'confirmed'}]);
+   const input=tokenBalance(before.value[0],r.walletPublicKey,USDC,TOKEN),output=tokenBalance(before.value[1],r.walletPublicKey,asset.mint,TOKEN_2022);
+   const sol=(await rpc.call('getBalance',[r.walletPublicKey,{commitment:'confirmed'}])).value;
+   const fee=(await rpc.call('getFeeForMessage',[Buffer.from(tx.message.serialize()).toString('base64'),{commitment:'confirmed'}])).value;
+   ensure(Number.isSafeInteger(fee)&&fee<=P.maxNetworkFeeLamports,'NETWORK_FEE_UNVERIFIED');
+   ensure(BigInt(input)>=BigInt(amount),'INSUFFICIENT_USDC');ensure(sol>=fee,'INSUFFICIENT_SOL');
+   r.signedSimulationStartedAt=clock();
+   const sim=await rpc.call('simulateTransaction',[encoded,{encoding:'base64',sigVerify:true,replaceRecentBlockhash:false,commitment:'confirmed',accounts:{encoding:'base64',addresses:[r.walletPublicKey,inspection.inputAccount,inspection.outputAccount]}}]);r.signedSimulation=sim;ensure(sim.value?.err===null,'TRANSACTION_SIMULATION_FAILED');
+   const accounts=sim.value.accounts;ensure(accounts?.length===3&&accounts.every(Boolean),'SIMULATED_BALANCES_UNVERIFIABLE');
+   const afterInput=tokenBalance(accounts[1],r.walletPublicKey,USDC,TOKEN),afterOutput=tokenBalance(accounts[2],r.walletPublicKey,asset.mint,TOKEN_2022);
+   ensure(BigInt(input)-BigInt(afterInput)===BigInt(amount),'SIMULATED_INPUT_AMOUNT_MISMATCH');
+   ensure(BigInt(afterOutput)-BigInt(output)>=BigInt(r.materialChange.finalMinimumOutput),'SIMULATED_RECEIVED_AMOUNT_BELOW_MINIMUM');
+   ensure(Number.isSafeInteger(accounts[0].lamports)&&sol-accounts[0].lamports<=fee+P.maxAccountRentLamports,'SIMULATED_SOL_COST_LIMIT_EXCEEDED');
+   const validity=await checkValidity(r),at=clock(),guard=revalidationGuard(r,comparison,quote,at);
+   r.preBroadcast={comparison,quote,at,guard,validity,preBalances:{input,output,solLamports:sol},simulatedBalances:{input:afterInput,output:afterOutput,solLamports:accounts[0].lamports},networkFeeLamports:fee};
+   r.signature=base58(signed.signatures[0]);
+   transition(r,'REVALIDATED',['FRESH_MARKET_REVALIDATION_PASSED','SIGNED_SIMULATED_BALANCES_VERIFIED','BLOCKHASH_VALID'],at);await save(r);
+   // Persistence and RPC can take time: recheck freshness and chain validity
+   // at the send boundary, always preserving the exact wallet-signed bytes.
+   r.preBroadcast.sendValidity=await checkValidity(r);
+   const sendAt=clock();revalidationGuard(r,comparison,quote,sendAt);
+   ensure(sendAt-r.signedSimulationStartedAt<=P.maxFinalQuoteAgeMs,'SIGNED_SIMULATION_EXPIRED');
+   r.preBroadcast.sendCheckedAt=sendAt;r.signature=base58(signed.signatures[0]);transition(r,'AUTHORIZED',['USER_SIGNATURE_VERIFIED'],sendAt);
+   broadcastStarted=true;
    try{const signature=await rpc.call('sendTransaction',[encoded,{encoding:'base64',skipPreflight:false,preflightCommitment:'confirmed',maxRetries:0}]);ensure(signature===r.signature,'TRANSACTION_SIGNATURE_MISMATCH');}catch{transition(r,'BROADCAST_UNKNOWN',['TRANSACTION_BROADCAST_FAILED'],clock());await save(r);return r;}
    transition(r,'BROADCAST',['TRANSACTION_BROADCAST'],clock());await save(r);
    const deadline=clock()+P.confirmationTimeoutMs;
@@ -146,7 +192,7 @@ r.comparison=bundleSnapshotWithPythPro(
      transition(r,r.balances.verified?'SUCCEEDED':'CONFIRMED_BELOW_MINIMUM',['TRANSACTION_CONFIRMED',r.balances.verified?'RECEIVED_AMOUNT_VERIFIED':'RECEIVED_AMOUNT_BELOW_MINIMUM'],clock());await save(r);return r;
     }await sleep(P.confirmationPollMs);}
    transition(r,'CONFIRMATION_PENDING',['TRANSACTION_CONFIRMATION_TIMEOUT'],clock());
-  }catch(e){transition(r,r.signature?'VERIFICATION_BLOCKED':'BLOCKED',[e.code??e.message],clock());}
+  }catch(e){if(!broadcastStarted)r.signature=null;transition(r,r.signature?'VERIFICATION_BLOCKED':'BLOCKED',[e.code??e.message],clock());}
   await save(r);return r;
  }
  async function reconcile(r){

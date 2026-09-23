@@ -3,6 +3,7 @@ import {strictAsset,materialGuard} from './execution-guard.mjs';
 import {EXECUTION_POLICY,ensure} from '../execution/policy.mjs';
 import {VersionedTransaction} from '@solana/web3.js';
 import {verifyConfirmed} from '../execution/transaction.mjs';
+import {revalidationGuard,AUTHORIZATION_POLICY} from './authorization.mjs';
 export function newReceipt(analysis,walletPublicKey,at){
  const {asset}=strictAsset(analysis);
  return {receiptSchemaVersion:1,mode:analysis.snapshot.mode,policy:{...EXECUTION_POLICY},underlying:'TSLA',inputAsset:analysis.snapshot.order.inputMint,inputAmount:analysis.snapshot.order.amountRaw,winningRepresentation:asset.symbol,winningMint:asset.mint,issuer:asset.issuer,walletPublicKey:walletPublicKey??null,analysis,comparison:null,finalQuote:null,materialChange:null,transaction:null,simulation:null,confirmation:null,balances:null,actualReceivedAmount:null,signature:null,status:'CREATED',reasonCodes:[],events:[],evidence:[],createdAt:at};
@@ -22,6 +23,14 @@ export function replayReceipt(bundle){
  ensure(canonical(r.reasonCodes)===canonical([...new Set(r.events.flatMap(e=>e.reasonCodes))].sort()),'RECEIPT_REASON_CODES_MISMATCH');
  if(r.materialChange){const event=r.events.find(e=>e.reasonCodes.includes('FINAL_REQUOTE_PASSED'));ensure(event,'RECEIPT_GUARD_EVENT_MISSING');const guard=materialGuard(r.analysis,r.comparison,r.finalQuote,event.at,r.policy);ensure(canonical(guard)===canonical(r.materialChange),'RECEIPT_GUARD_MISMATCH');}
  if(['SUCCEEDED','CONFIRMED_BELOW_MINIMUM'].includes(r.status)){
+  if(r.authorization){
+   ensure(canonical(r.authorization.policy)===canonical(AUTHORIZATION_POLICY)&&r.preBroadcast,'RECEIPT_REVALIDATION_MISSING');
+   const p=r.preBroadcast;
+   ensure(canonical(revalidationGuard(r,p.comparison,p.quote,p.at))===canonical(p.guard),'RECEIPT_REVALIDATION_MISMATCH');
+   revalidationGuard(r,p.comparison,p.quote,p.sendCheckedAt);
+   ensure(Number.isSafeInteger(p.sendCheckedAt)&&p.sendCheckedAt>=p.at&&p.sendCheckedAt-r.signedSimulationStartedAt<=EXECUTION_POLICY.maxFinalQuoteAgeMs,'RECEIPT_REVALIDATION_MISMATCH');
+   ensure(p.sendValidity?.valid===true&&p.sendValidity.blockhash===r.transaction.blockhash.blockhash&&p.sendValidity.lastValidBlockHeight===r.transaction.blockhash.lastValidBlockHeight&&Number.isSafeInteger(p.sendValidity.blockHeight)&&p.sendValidity.blockHeight<=p.sendValidity.lastValidBlockHeight,'RECEIPT_BLOCKHASH_VALIDITY_MISMATCH');
+  }
   const tx=VersionedTransaction.deserialize(Buffer.from(r.transaction.unsignedBase64,'base64'));
   const checked=verifyConfirmed(r.confirmation.raw,tx,r.transaction.inspection,r.walletPublicKey,strictAsset(r.analysis).asset,r.inputAmount,r.materialChange.finalMinimumOutput,r.signature);
   ensure(canonical(checked)===canonical(r.balances)&&r.actualReceivedAmount===checked.actualReceivedAmount&&(r.status==='SUCCEEDED')===checked.verified,'RECEIPT_SUCCESS_UNVERIFIED');
