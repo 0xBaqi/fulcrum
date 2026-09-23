@@ -1,5 +1,6 @@
 import {VersionedTransaction} from '@solana/web3.js';
 import {createHttp} from '../providers.mjs';
+import {hash} from '../engine.mjs';
 import {USDC,TOKEN_2022} from '../registry.mjs';
 
 import {
@@ -37,7 +38,32 @@ import {
   bundleSnapshotWithPythPro
 } from './live.mjs';
 
-export function executionPipelineWithPythPro({env=process.env,clock=Date.now,http=createHttp({clock}),rpc=rpcClient({env}),collector=collectWithPythPro,persist=fileReceiptStore(),testOnly=false,allowBroadcast=false,sleep=ms=>new Promise(r=>setTimeout(r,ms))}={}){
+import {settledCollector} from './collection.mjs';
+
+export function executionPipelineWithPythPro({
+  env=process.env,
+  clock=Date.now,
+  http=createHttp({clock}),
+  rpc=rpcClient({env}),
+  collector=null,
+  persist=fileReceiptStore(),
+  testOnly=false,
+  allowBroadcast=false,
+  sleep=ms=>new Promise(r=>setTimeout(r,ms))
+}={}){
+
+const liveCollector = collector ?? settledCollector(
+  options => collectWithPythPro({
+    ...options,
+    env,
+    clock
+  }),
+  {
+    clock,
+    sleep
+  }
+);
+
  const prepared=new WeakMap();
  const save=async r=>{r.evidence=[...http.evidence,...rpc.evidence];await persist(sealReceipt(r));};
  async function prepare(analysis,wallet){
@@ -45,7 +71,14 @@ export function executionPipelineWithPythPro({env=process.env,clock=Date.now,htt
   try{
    ensure(testOnly||analysis.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');ensure(wallet,'WALLET_PUBLIC_KEY_REQUIRED');
    const {asset}=strictAsset(analysis),amount=analysis.snapshot.order.amountRaw;
-   r.comparison=bundleSnapshotWithPythPro(await collector({amountRaw:amount,underlying:'TSLA',env,clock}));
+r.comparison=bundleSnapshotWithPythPro(
+  await liveCollector({
+    amountRaw: amount,
+    underlying: 'TSLA',
+    env,
+    clock
+  })
+);
    ensure(testOnly||r.comparison.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');
    ensure(strictAsset(r.comparison).asset.mint===asset.mint,'WINNING_REPRESENTATION_CHANGED');
    const params=new URLSearchParams({inputMint:USDC,outputMint:asset.mint,amount,taker:wallet,slippageBps:String(P.maxSlippageBps),platformFeeBps:'0',wrapAndUnwrapSol:'false',destinationTokenAccount:associated(wallet,asset.mint,TOKEN_2022)});

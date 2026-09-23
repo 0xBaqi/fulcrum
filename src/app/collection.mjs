@@ -10,11 +10,13 @@ function sourceTimes(value, out = []) {
 
   if (typeof value !== 'object') return out;
 
-  if (
-    Number.isSafeInteger(value.sourceTimestamp) &&
-    value.sourceTimestamp > 0
-  ) {
-    out.push(value.sourceTimestamp);
+  for (const key of ['sourceTimestamp', 'publishedAt']) {
+    if (
+      Number.isSafeInteger(value[key]) &&
+      value[key] > 0
+    ) {
+      out.push(value[key]);
+    }
   }
 
   const responseDate = Date.parse(value.responseHeaders?.date);
@@ -23,7 +25,12 @@ function sourceTimes(value, out = []) {
   }
 
   for (const [key, child] of Object.entries(value)) {
-    if (key === 'sourceTimestamp' || key === 'responseHeaders') continue;
+    if (
+      key === 'sourceTimestamp' ||
+      key === 'publishedAt' ||
+      key === 'responseHeaders'
+    ) continue;
+
     sourceTimes(child, out);
   }
 
@@ -44,14 +51,14 @@ export function settledCollector(
 
     const times = sourceTimes(snapshot);
 
-const settleableTimes = times.filter(timestamp => {
-  const lead = timestamp - snapshot.asOfMs;
-  return lead > 0 && lead <= maxWaitMs;
-});
+    const settleableTimes = times.filter(timestamp => {
+      const lead = timestamp - snapshot.asOfMs;
+      return lead > 0 && lead <= maxWaitMs;
+    });
 
-if (settleableTimes.length === 0) return snapshot;
+    if (settleableTimes.length === 0) return snapshot;
 
-const latest = Math.max(...settleableTimes);
+    const latest = Math.max(...settleableTimes);
 
     const waitStartedAt = clock();
     const delay = Math.max(0, latest - waitStartedAt) + 1;
@@ -60,8 +67,16 @@ const latest = Math.max(...settleableTimes);
 
     await sleep(delay);
 
-    const evaluatedAt = clock();
+let evaluatedAt = clock();
 
+if (evaluatedAt < latest) {
+  const remaining = latest - evaluatedAt;
+
+  if (remaining <= maxWaitMs) {
+    await sleep(remaining + 1);
+    evaluatedAt = clock();
+  }
+}
     onTiming({
       originalAsOfMs: snapshot.asOfMs,
       providerDateMs: latest,

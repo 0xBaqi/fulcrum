@@ -3,7 +3,7 @@ import {strictAsset,materialGuard} from './execution-guard.mjs';
 import {EXECUTION_POLICY,ensure} from '../execution/policy.mjs';
 import {VersionedTransaction} from '@solana/web3.js';
 import {verifyConfirmed} from '../execution/transaction.mjs';
-export function newReceipt(analysis,walletPublicKey,at){s
+export function newReceipt(analysis,walletPublicKey,at){
  const {asset}=strictAsset(analysis);
  return {receiptSchemaVersion:1,mode:analysis.snapshot.mode,policy:{...EXECUTION_POLICY},underlying:'TSLA',inputAsset:analysis.snapshot.order.inputMint,inputAmount:analysis.snapshot.order.amountRaw,winningRepresentation:asset.symbol,winningMint:asset.mint,issuer:asset.issuer,walletPublicKey:walletPublicKey??null,analysis,comparison:null,finalQuote:null,materialChange:null,transaction:null,simulation:null,confirmation:null,balances:null,actualReceivedAmount:null,signature:null,status:'CREATED',reasonCodes:[],events:[],evidence:[],createdAt:at};
 }
@@ -28,3 +28,4 @@ export function replayReceipt(bundle){
  }
  return r;
 }
+

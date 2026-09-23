@@ -66,22 +66,30 @@ export async function collectWithPythPro({
    * Replace only the TSLA reference. USDC and every other reference,
    * candidate, warning and piece of issuer/quote evidence remain intact.
    */
-  return {
-    ...snapshot,
+  
+const completedAt = clock();
 
-    references: {
-      ...snapshot.references,
-      TSLA: reference
-    },
+return {
+  ...snapshot,
 
-    evidence: [
-      ...snapshot.evidence.filter(
-        item =>
-          item.id !== evidence.id &&
-          item.id !== 'reference-pyth-TSLA'
-      ),
-      evidence
-    ].sort((a, b) => a.id < b.id ? -1 : 1)
-  };
+  // This snapshot now includes evidence collected after the legacy
+  // collector completed. asOfMs therefore represents completion of
+  // the full Pyth Pro collection, never an invented provider time.
+  asOfMs: Math.max(snapshot.asOfMs, completedAt),
+
+  references: {
+    ...snapshot.references,
+    TSLA: reference
+  },
+
+  evidence: [
+    ...snapshot.evidence.filter(
+      item =>
+        item.id !== evidence.id &&
+        item.id !== 'reference-pyth-TSLA'
+    ),
+    evidence
+  ].sort((a, b) => a.id < b.id ? -1 : 1)
+};
+
 }
-
