@@ -12,6 +12,7 @@
     "live": "node --use-system-ca --env-file-if-exists=.env src/cli.mjs live",
     "replay": "node src/cli.mjs replay",
     "execution:prepare": "node --use-system-ca --env-file-if-exists=.env src/app/execution-cli.mjs prepare",
+    "execution:wallet": "node --use-system-ca --env-file-if-exists=.env src/app/wallet-server.mjs",
     "execution:replay": "node src/execution/cli.mjs replay",
     "build": "node scripts/build-app.mjs",
     "start": "node --use-system-ca --env-file-if-exists=.env src/app/server.mjs",

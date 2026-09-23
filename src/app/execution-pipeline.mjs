@@ -66,7 +66,7 @@ const liveCollector = collector ?? settledCollector(
 
  const prepared=new WeakMap();
  const save=async r=>{r.evidence=[...http.evidence,...rpc.evidence];await persist(sealReceipt(r));};
- async function prepare(analysis,wallet){
+ async function prepareOnce(analysis,wallet,excludedDexes=[]){
   let r=newReceipt(analysis,wallet,clock());
   try{
    ensure(testOnly||analysis.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');ensure(wallet,'WALLET_PUBLIC_KEY_REQUIRED');
@@ -81,9 +81,14 @@ r.comparison=bundleSnapshotWithPythPro(
 );
    ensure(testOnly||r.comparison.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');
    ensure(strictAsset(r.comparison).asset.mint===asset.mint,'WINNING_REPRESENTATION_CHANGED');
-   const params=new URLSearchParams({inputMint:USDC,outputMint:asset.mint,amount,taker:wallet,slippageBps:String(P.maxSlippageBps),platformFeeBps:'0',wrapAndUnwrapSol:'false',destinationTokenAccount:associated(wallet,asset.mint,TOKEN_2022)});
+   // The inspector supports only the input/output ATAs; do not request
+   // intermediate-token accounts that it intentionally refuses to authorize.
+   r.routing={onlyDirectRoutes:true,excludedDexes:[...excludedDexes]};
+   const params=new URLSearchParams({inputMint:USDC,outputMint:asset.mint,amount,taker:wallet,slippageBps:String(P.maxSlippageBps),platformFeeBps:'0',wrapAndUnwrapSol:'false',destinationTokenAccount:associated(wallet,asset.mint,TOKEN_2022),onlyDirectRoutes:'true'});
+   if(excludedDexes.length)params.set('excludeDexes',excludedDexes.join(','));
    const e=await http.get('jupiter-build','https://api.jup.ag/swap/v2/build?'+params,{headers:env.JUPITER_API_KEY?{'x-api-key':env.JUPITER_API_KEY}:{}});
    r.finalQuote={startedAt:e.startedAt,receivedAt:e.receivedAt,raw:e.data,evidenceId:e.id};
+   ensure(e.data.routePlan?.every(x=>x.swapInfo?.inputMint===USDC&&x.swapInfo?.outputMint===asset.mint&&!excludedDexes.includes(x.swapInfo?.label)),'UNSUPPORTED_EXECUTION_ROUTE');
    const guardedAt=clock();r.materialChange=materialGuard(analysis,r.comparison,r.finalQuote,guardedAt);transition(r,'REQUOTED',['FINAL_REQUOTE_PASSED'],guardedAt);
    const inspection=inspectBuild(e.data,wallet,asset,amount),tables=await Promise.all(Object.keys(e.data.addressesByLookupTableAddress??{}).map(a=>rpc.lookup(a)));
    const block=(await rpc.call('getLatestBlockhash',[{commitment:'confirmed'}])).value;
@@ -106,7 +111,22 @@ r.comparison=bundleSnapshotWithPythPro(
     materialGuard(analysis,r.comparison,r.finalQuote,clock());transition(r,'READY_FOR_SIGNATURE',['TRANSACTION_SIMULATION_PASSED','SIMULATED_BALANCES_VERIFIED'],clock());
    }
   }catch(e){transition(r,'BLOCKED',[e.code??e.message],clock());}
-  await save(r);if(r.status==='READY_FOR_SIGNATURE')prepared.set(r,hash(r));return r;
+  await save(r);return r;
+ }
+ async function prepare(analysis,wallet){
+  let r=await prepareOnce(analysis,wallet);
+  // One fresh attempt after an actual route simulation failure, never after
+  // an economic, identity, funding or instruction-inspection failure.
+  const labels=[...new Set(r.finalQuote?.raw?.routePlan?.map(x=>x.swapInfo?.label)??[])];
+  if(r.status==='BLOCKED'&&r.reasonCodes.includes('TRANSACTION_SIMULATION_FAILED')&&
+     !r.reasonCodes.some(c=>c==='INSUFFICIENT_USDC'||c==='INSUFFICIENT_SOL')&&
+     labels.length&&labels.every(x=>typeof x==='string'&&/^[A-Za-z0-9 _+.-]{1,64}$/.test(x))){
+   const previous=sealReceipt(r);
+   r=await prepareOnce(analysis,wallet,labels);
+   r.previousAttempts=[previous];
+   await save(r);
+  }
+  if(r.status==='READY_FOR_SIGNATURE')prepared.set(r,hash(r));return r;
  }
  const used=new WeakSet();
  async function submit(r,{signTransaction,authorizeBroadcast=false}={}){

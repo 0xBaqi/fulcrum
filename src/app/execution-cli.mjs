@@ -10,7 +10,7 @@ import {
   executionPipelineWithPythPro
 } from './execution-pipeline.mjs';
 
-import {replayReceipt} from '../execution/receipt.mjs';
+import {replayReceipt} from './execution-receipt.mjs';
 import {settledCollector} from './collection.mjs';
 
 const args=process.argv.slice(2);
@@ -43,7 +43,8 @@ if(args[0]==='replay'){
   options=>collectWithPythPro({
     ...options,
     env
-  })
+  }),
+  {maxWaitMs:5000}
 );
 
   const snapshot=await liveCollector({

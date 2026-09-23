@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fulcrum · Execute Tesla</title>
+<style>body{font:17px system-ui;max-width:760px;margin:60px auto;padding:24px;background:#111827;color:#e5e7eb}h1{font-size:36px}button,select{font:inherit;padding:12px;margin:8px 8px 8px 0}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#1f2937;padding:20px}label{display:block;margin:20px 0}small{color:#a3b3c7}</style>
+<h1>Buy Tesla with 1 USDC</h1><p>Solana mainnet · TSLAx · Wallet approval required</p>
+<select id="provider"><option value="jupiter">Jupiter</option><option value="phantom">Phantom</option><option value="solflare">Solflare</option></select><button id="connect">Connect wallet</button><p id="wallet">No wallet connected</p>
+<button id="prepare" disabled>Prepare and simulate 1 USDC</button><p id="status">Connect your wallet to begin.</p>
+<pre id="review">A fresh quote, account inspection and successful simulation are required.</pre>
+<label><input type="checkbox" id="authorize"> I authorize this reviewed 1 USDC → TSLAx trade, plus the displayed SOL costs, to be signed in my wallet and broadcast once.</label>
+<button id="sign" disabled>Approve in wallet and broadcast</button><button id="reconcile" disabled>Check confirmation</button>
+<p><small>Quotes expire after 15 seconds. If approval takes longer, the transaction is blocked; prepare a fresh quote. No private key or seed phrase is requested. An uncertain broadcast must be checked before any new trade.</small></p>
+<a id="receipt" hidden>Download execution receipt</a>
+<script src="/web3.js"></script><script src="/wallet-standard.js"></script><script src="/wallet.js"></script></html>
