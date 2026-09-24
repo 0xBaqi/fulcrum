@@ -9,6 +9,9 @@ import {
 const PYTH_PRO_ENDPOINT =
   'https://pyth-lazer.dourolabs.app/v1/latest_price';
 
+const PYTH_PRO_HISTORICAL_ENDPOINT =
+  'https://pyth-lazer.dourolabs.app/v1/price';
+
 const TSLA_FEED = PYTH_PRO_FEEDS.TSLA;
 
 const PROPERTIES = Object.freeze([
@@ -22,19 +25,51 @@ const PROPERTIES = Object.freeze([
   'feedUpdateTimestamp'
 ]);
 
-export function pythProReferenceRequest(name) {
+export function pythProReferenceRequest(
+  name,
+  {atMs = null} = {}
+) {
   if (name !== 'TSLA') {
     throw Error('REFERENCE_UNSUPPORTED');
   }
 
+  const historical = atMs !== null;
+
+  if (
+    historical &&
+    (!Number.isSafeInteger(atMs) || atMs <= 0)
+  ) {
+    throw Error('REFERENCE_HISTORICAL_TIMESTAMP_INVALID');
+  }
+
+  const timestampUs = historical
+    ? atMs * 1000
+    : null;
+
+  if (
+    historical &&
+    !Number.isSafeInteger(timestampUs)
+  ) {
+    throw Error('REFERENCE_HISTORICAL_TIMESTAMP_INVALID');
+  }
+
   return Object.freeze({
-    id: 'reference-pyth-pro-TSLA',
-    url: PYTH_PRO_ENDPOINT,
+    id: historical
+      ? 'reference-pyth-pro-TSLA-session'
+      : 'reference-pyth-pro-TSLA',
+
+    url: historical
+      ? PYTH_PRO_HISTORICAL_ENDPOINT
+      : PYTH_PRO_ENDPOINT,
+
     body: Object.freeze({
       priceFeedIds: Object.freeze([TSLA_FEED.id]),
       properties: PROPERTIES,
       formats: Object.freeze([]),
-      channel: 'fixed_rate@1000ms'
+      channel: 'fixed_rate@1000ms',
+      ...(historical
+        ? {timestamp: timestampUs}
+        : {})
     })
   });
 }
@@ -63,9 +98,11 @@ export function pythValueToDecimal(value) {
 
     if (digits.length > places) {
       const split = digits.length - places;
-      result = `${digits.slice(0, split)}.${digits.slice(split)}`;
+      result =
+        `${digits.slice(0, split)}.${digits.slice(split)}`;
     } else {
-      result = `0.${'0'.repeat(places - digits.length)}${digits}`;
+      result =
+        `0.${'0'.repeat(places - digits.length)}${digits}`;
     }
   }
 
@@ -77,22 +114,56 @@ export function pythValueToDecimal(value) {
     result = '0';
   }
 
-  return negative && result !== '0' ? `-${result}` : result;
+  return negative && result !== '0'
+    ? `-${result}`
+    : result;
 }
 
-export function pythProReferenceFromEvidence(evidence, name = 'TSLA') {
+function historicalAtMsFromEvidence(evidence) {
+  const timestampUs = evidence?.request?.timestamp;
+
+  if (
+    !Number.isSafeInteger(timestampUs) ||
+    timestampUs <= 0 ||
+    timestampUs % 1000 !== 0
+  ) {
+    return null;
+  }
+
+  const atMs = timestampUs / 1000;
+
+  return Number.isSafeInteger(atMs) && atMs > 0
+    ? atMs
+    : null;
+}
+
+export function pythProReferenceFromEvidence(
+  evidence,
+  name = 'TSLA',
+  {atMs = null} = {}
+) {
   if (name !== 'TSLA') {
     throw Error('REFERENCE_UNSUPPORTED');
   }
 
+  const request =
+    pythProReferenceRequest(name, {atMs});
+
   if (
     !evidence ||
-    evidence.id !== 'reference-pyth-pro-TSLA' ||
-    evidence.source !== PYTH_PRO_ENDPOINT ||
+    evidence.id !== request.id ||
+    evidence.source !== request.url ||
     evidence.status !== 200 ||
     evidence.responseRedacted
   ) {
     throw Error('REFERENCE_SOURCE_UNVERIFIED');
+  }
+
+  if (
+    canonical(evidence.request) !==
+    canonical(request.body)
+  ) {
+    throw Error('REFERENCE_REQUEST_MISMATCH');
   }
 
   const normalized = normalizePythResponse(
@@ -108,9 +179,13 @@ export function pythProReferenceFromEvidence(evidence, name = 'TSLA') {
     throw Error('PYTH_FEED_MISSING');
   }
 
-  const publishedAt = Math.floor(feed.sourceTimestampUs / 1000);
+  const publishedAt =
+    Math.floor(feed.sourceTimestampUs / 1000);
 
-  if (!Number.isSafeInteger(publishedAt) || publishedAt <= 0) {
+  if (
+    !Number.isSafeInteger(publishedAt) ||
+    publishedAt <= 0
+  ) {
     throw Error('REFERENCE_TIMESTAMP_INVALID');
   }
 
@@ -121,7 +196,8 @@ export function pythProReferenceFromEvidence(evidence, name = 'TSLA') {
     feedId: TSLA_FEED.id,
 
     price: pythValueToDecimal(feed.price),
-confidence: pythValueToDecimal(feed.confidence),
+
+    confidence: pythValueToDecimal(feed.confidence),
     confidenceStatus: 'REPORTED',
 
     publishedAt,
@@ -146,20 +222,28 @@ confidence: pythValueToDecimal(feed.confidence),
     }),
 
     limitations: Object.freeze([
-      'HTTPS_AND_SCHEMA_VERIFIED_NOT_SIGNATURE_VERIFIED'
+      'HTTPS_AND_SCHEMA_VERIFIED_NOT_SIGNATURE_VERIFIED',
+      ...(atMs === null
+        ? []
+        : ['HISTORICAL_POINT_IN_TIME_QUERY'])
     ])
   });
 }
 
 export async function collectPythProReference({
   apiKey,
-  http = createHttp()
+  http = createHttp(),
+  atMs = null
 } = {}) {
-  if (typeof apiKey !== 'string' || !apiKey.trim()) {
+  if (
+    typeof apiKey !== 'string' ||
+    !apiKey.trim()
+  ) {
     throw Error('PYTH_PRO_API_KEY_REQUIRED');
   }
 
-  const request = pythProReferenceRequest('TSLA');
+  const request =
+    pythProReferenceRequest('TSLA', {atMs});
 
   const evidence = await http.get(
     request.id,
@@ -173,35 +257,62 @@ export async function collectPythProReference({
   );
 
   return Object.freeze({
-    reference: pythProReferenceFromEvidence(evidence, 'TSLA'),
+    reference: pythProReferenceFromEvidence(
+      evidence,
+      'TSLA',
+      {atMs}
+    ),
     evidence
   });
 }
 
-export function pythProReferenceProof(snapshot, name = 'TSLA') {
+export function pythProReferenceProof(
+  snapshot,
+  name = 'TSLA'
+) {
   const reference = snapshot?.references?.[name];
 
   let evidence = null;
   let verified = false;
 
   try {
-    if (!reference || reference.provider !== 'pyth-pro') {
+    if (
+      !reference ||
+      reference.provider !== 'pyth-pro'
+    ) {
       throw Error('REFERENCE_PROVIDER_UNAPPROVED');
     }
 
-    const request = pythProReferenceRequest(name);
+    const possibleRows =
+      (snapshot.evidence ?? []).filter(
+        row =>
+          row.id === 'reference-pyth-pro-TSLA' ||
+          row.id === 'reference-pyth-pro-TSLA-session'
+      );
 
-    const rows = (snapshot.evidence ?? []).filter(
-      row => row.id === request.id
-    );
-
-    if (rows.length !== 1) {
+    if (possibleRows.length !== 1) {
       throw Error('REFERENCE_EVIDENCE_AMBIGUOUS');
     }
 
-    evidence = rows[0];
+    evidence = possibleRows[0];
+
+    const historical =
+      evidence.id ===
+      'reference-pyth-pro-TSLA-session';
+
+    const atMs = historical
+      ? historicalAtMsFromEvidence(evidence)
+      : null;
+
+    if (historical && atMs === null) {
+      throw Error('REFERENCE_REQUEST_MISMATCH');
+    }
+
+    const request =
+      pythProReferenceRequest(name, {atMs});
 
     if (
+      evidence.id !== request.id ||
       evidence.source !== request.url ||
       evidence.status !== 200 ||
       evidence.responseRedacted
@@ -209,7 +320,10 @@ export function pythProReferenceProof(snapshot, name = 'TSLA') {
       throw Error('REFERENCE_SOURCE_UNVERIFIED');
     }
 
-    if (canonical(evidence.request) !== canonical(request.body)) {
+    if (
+      canonical(evidence.request) !==
+      canonical(request.body)
+    ) {
       throw Error('REFERENCE_REQUEST_MISMATCH');
     }
 
@@ -229,14 +343,23 @@ export function pythProReferenceProof(snapshot, name = 'TSLA') {
       .update(evidence.responseText)
       .digest('hex');
 
-    if (responseSha256 !== evidence.responseSha256) {
+    if (
+      responseSha256 !== evidence.responseSha256
+    ) {
       throw Error('REFERENCE_CAPTURE_INVALID');
     }
 
     const reconstructed =
-      pythProReferenceFromEvidence(evidence, name);
+      pythProReferenceFromEvidence(
+        evidence,
+        name,
+        {atMs}
+      );
 
-    if (canonical(reconstructed) !== canonical(reference)) {
+    if (
+      canonical(reconstructed) !==
+      canonical(reference)
+    ) {
       throw Error('REFERENCE_RECONSTRUCTION_MISMATCH');
     }
 
@@ -245,21 +368,37 @@ export function pythProReferenceProof(snapshot, name = 'TSLA') {
     verified = false;
   }
 
-  return Object.freeze([Object.freeze({
-    evidenceId: reference?.evidenceId ?? null,
-    source: evidence?.source ?? reference?.source ?? null,
-    observedAt: evidence?.receivedAt ?? null,
-    publishedAt: reference?.publishedAt ?? null,
-    sourceTimestamp: reference?.publishedAt ?? null,
-    timestampBasis: reference?.timestampBasis ?? 'UNKNOWN',
+  return Object.freeze([
+    Object.freeze({
+      evidenceId: reference?.evidenceId ?? null,
+      source:
+        evidence?.source ??
+        reference?.source ??
+        null,
+      observedAt: evidence?.receivedAt ?? null,
+      publishedAt: reference?.publishedAt ?? null,
+      sourceTimestamp:
+        reference?.publishedAt ?? null,
+      timestampBasis:
+        reference?.timestampBasis ?? 'UNKNOWN',
 
-    verificationStatus: verified ? 'VERIFIED' : reference ? 'UNVERIFIED' : 'UNKNOWN',
-    verificationBasis:
-      'APPROVED_PYTH_PRO_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED',
+      verificationStatus:
+        verified
+          ? 'VERIFIED'
+          : reference
+            ? 'UNVERIFIED'
+            : 'UNKNOWN',
 
-    responseSha256: evidence?.responseSha256 ?? null,
-    delay: reference?.delay ?? null,
-    marketSession: reference?.marketSession ?? null,
-    confidenceStatus: reference?.confidenceStatus ?? 'UNKNOWN'
-  })]);
+      verificationBasis:
+        'APPROVED_PYTH_PRO_RESPONSE_RECONSTRUCTION_OVER_HTTPS_NOT_SIGNATURE_VERIFIED',
+
+      responseSha256:
+        evidence?.responseSha256 ?? null,
+      delay: reference?.delay ?? null,
+      marketSession:
+        reference?.marketSession ?? null,
+      confidenceStatus:
+        reference?.confidenceStatus ?? 'UNKNOWN'
+    })
+  ]);
 }

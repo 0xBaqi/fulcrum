@@ -196,13 +196,28 @@ test('pythProReferenceFromEvidence produces Fulcrum-compatible TSLA reference', 
   });
 
   const reference = pythProReferenceFromEvidence({
-    id: 'reference-pyth-pro-TSLA',
-    source: 'https://pyth-lazer.dourolabs.app/v1/latest_price',
-    status: 200,
-    responseRedacted: false,
-    responseText,
-    receivedAt: 1790029070123
-  });
+  id: 'reference-pyth-pro-TSLA',
+  source: 'https://pyth-lazer.dourolabs.app/v1/latest_price',
+  request: {
+    priceFeedIds: [1435],
+    properties: [
+      'price',
+      'confidence',
+      'bestBidPrice',
+      'bestAskPrice',
+      'exponent',
+      'publisherCount',
+      'marketSession',
+      'feedUpdateTimestamp'
+    ],
+    formats: [],
+    channel: 'fixed_rate@1000ms'
+  },
+  status: 200,
+  responseRedacted: false,
+  responseText,
+  receivedAt: 1790029070123
+});
 
   assert.equal(reference.provider, 'pyth-pro');
   assert.equal(reference.symbol, 'Equity.US.TSLA/USD');

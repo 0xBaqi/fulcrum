@@ -1,6 +1,7 @@
 import {collect} from '../collect.mjs';
 import {hash} from '../engine.mjs';
 import {createHttp} from '../providers.mjs';
+import {marketSession} from '../market-session.mjs';
 
 import {evaluateV4WithPythPro} from './engine-v4.mjs';
 import {collectPythProReference} from './pyth-pro-reference.mjs';
@@ -54,11 +55,33 @@ export async function collectWithPythPro({
     clock
   });
 
-  const {reference, evidence} =
-    await collectPythProReference({
-      apiKey: env.PYTH_API_KEY,
-      http
-    });
+  const collectionTime = clock();
+const session = marketSession(collectionTime);
+
+const closed = [
+  'UNDERLYING_CLOSED',
+  'UNDERLYING_WEEKEND',
+  'UNDERLYING_HOLIDAY'
+].includes(session.state);
+
+let referenceAtMs = null;
+
+if (closed) {
+  const last = session.lastCompletedRegularSession;
+
+  if (!last) {
+    throw Error('LAST_SESSION_UNAVAILABLE');
+  }
+
+  referenceAtMs = last.regularClose;
+}
+
+const {reference, evidence} =
+  await collectPythProReference({
+    apiKey: env.PYTH_API_KEY,
+    http,
+    atMs: referenceAtMs
+  });
 
   /*
    * Do not mutate the frozen collector's snapshot.
