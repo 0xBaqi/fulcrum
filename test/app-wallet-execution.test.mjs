@@ -37,6 +37,88 @@ test('app pipeline requests direct routes and confirms verified receipt through 
  await h.pipeline.submit(r,{authorizeBroadcast:true,signTransaction:h.signTransaction});assert.equal(r.status,'SUCCEEDED');assert.equal(replayReceipt(sealReceipt(r)).actualReceivedAmount,r.actualReceivedAmount);
 });
 test('simulation failure gets exactly one fresh excluded-venue attempt with both receipts',async()=>{
+test('wallet session permits fresh preparation after unsigned pre-broadcast expiry', async () => {
+  const analysis = fixture();
+
+  let preparations = 0;
+  let submissions = 0;
+
+  const session = walletSession({
+    clock: () => analysis.snapshot.asOfMs,
+
+    collector: async () =>
+      structuredClone(analysis.snapshot),
+
+    executor: () => ({
+      prepare: async () => {
+        preparations++;
+
+        return {
+          status: 'READY_FOR_SIGNATURE',
+          inputAmount: '1000000',
+          transaction: {
+            messageSha256: `review-${preparations}`
+          }
+        };
+      },
+
+      submit: async r => {
+        submissions++;
+
+        r.status = 'BLOCKED';
+        r.reasonCodes = [
+          'BLOCKHASH_EXPIRED_REBUILD_REQUIRED'
+        ];
+
+        // Critical invariant:
+        // nothing was broadcast, therefore no signature exists.
+        r.signature = null;
+      }
+    })
+  });
+
+  const first = await session.prepare(wallet);
+
+  assert.equal(
+    first.receipt.receipt.transaction.messageSha256,
+    'review-1'
+  );
+
+  const expired = await session.submit({
+    signedTransaction: 'AAAA',
+    messageSha256: 'review-1',
+    authorizeBroadcast: true
+  });
+
+  assert.equal(expired.attempted, false);
+  assert.equal(expired.receipt.receipt.signature, null);
+
+  assert.ok(
+    expired.receipt.receipt.reasonCodes.includes(
+      'BLOCKHASH_EXPIRED_REBUILD_REQUIRED'
+    )
+  );
+
+  const second = await session.prepare(wallet);
+
+  assert.equal(preparations, 2);
+  assert.equal(submissions, 1);
+
+  assert.equal(
+    second.receipt.receipt.status,
+    'READY_FOR_SIGNATURE'
+  );
+
+  assert.equal(
+    second.receipt.receipt.transaction.messageSha256,
+    'review-2'
+  );
+
+  assert.notEqual(
+    second.receipt.receipt.transaction.messageSha256,
+    first.receipt.receipt.transaction.messageSha256
+  );
+});
  const h=harness({failFirst:true}),r=await h.pipeline.prepare(h.analysis,wallet);assert.equal(r.status,'READY_FOR_SIGNATURE',r.reasonCodes.join());assert.equal(h.urls.length,2);assert.equal(new URL(h.urls[1]).searchParams.get('excludeDexes'),'Venue A');assert.equal(replayReceipt(r.previousAttempts[0]).status,'BLOCKED');assert.ok(!h.calls.includes('sendTransaction'));
 });
 for(const [name,options,attempts,reason] of [
