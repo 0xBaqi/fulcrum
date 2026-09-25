@@ -1,4 +1,4 @@
-import http from 'node:http';
+﻿import http from 'node:http';
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {randomBytes,timingSafeEqual} from 'node:crypto';
@@ -247,7 +247,7 @@ if(
 
   createServer({wallet}).listen(
     port,
-    '127.0.0.1',
+    process.env.HOST || '127.0.0.1',
     ()=>{
       console.log(
         'Fulcrum: http://127.0.0.1:'+port+
