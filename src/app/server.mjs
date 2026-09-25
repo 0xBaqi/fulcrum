@@ -203,16 +203,25 @@ try{
         {error:{code:'ENDPOINT_NOT_FOUND'}}
       );
     }catch(e){
-      const raw=e.code??e.message;
-      const code=/^[A-Z][A-Z0-9_]+$/.test(raw)
-        ? raw
-        : 'APPLICATION_ERROR';
+  console.error('REQUEST_ERROR', e);
 
-      return json(
-        code==='JOB_NOT_FOUND'?404:400,
-        {error:{code}}
-      );
+  if(res.headersSent){
+    if(!res.writableEnded){
+      res.end();
     }
+    return;
+  }
+
+  const raw=e.code??e.message;
+  const code=/^[A-Z][A-Z0-9_]+$/.test(raw)
+    ? raw
+    : 'APPLICATION_ERROR';
+
+  return json(
+    code==='JOB_NOT_FOUND'?404:400,
+    {error:{code}}
+  );
+}
   });
 
   server.requestTimeout=15000;
