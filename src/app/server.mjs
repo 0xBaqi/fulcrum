@@ -33,26 +33,19 @@ export function createServer({
       res.writeHead(status,{'Content-Type':'application/json'});
       res.end(JSON.stringify(data));
     };
+try{
+  if(
+    req.headers.host!==new URL(origin).host ||
+    (req.headers.origin&&req.headers.origin!==origin) ||
+    (
+      req.headers['sec-fetch-site']==='cross-site' &&
+      req.method!=='GET'
+    )
+  ){
+    return json(403,{error:{code:'ORIGIN_REJECTED'}});
+  }
 
-    try{
-console.log('ORIGIN_DEBUG', {
-  expectedOrigin: origin,
-  expectedHost: new URL(origin).host,
-  host: req.headers.host,
-  forwardedHost: req.headers['x-forwarded-host'],
-  forwardedProto: req.headers['x-forwarded-proto'],
-  requestOrigin: req.headers.origin,
-  secFetchSite: req.headers['sec-fetch-site']
-});
-      if(
-        req.headers.host!==new URL(origin).host ||
-        (req.headers.origin&&req.headers.origin!==origin) ||
-        req.headers['sec-fetch-site']==='cross-site'
-      ){
-        return json(403,{error:{code:'ORIGIN_REJECTED'}});
-      }
-
-      const path=new URL(req.url,origin).pathname;
+  const path=new URL(req.url,origin).pathname;
 
       if(req.method==='GET'&&path==='/api/bootstrap'){
         return json(200,{
