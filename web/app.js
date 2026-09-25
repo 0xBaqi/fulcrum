@@ -1,4 +1,16 @@
-﻿const $=id=>document.getElementById(id);let csrf='',current=null,generation=0,catalog=[];
+﻿const $=id=>document.getElementById(id);
+
+let csrf='';
+let current=null;
+let generation=0;
+let catalog=[];
+
+let walletAdapter=null;
+let walletPublicKey=null;
+let walletRecord=null;
+let walletAttempted=false;
+let receiptDownload=null;
+
 const terminal=new Set(['STRICT_WINNER','NO_VERIFIED_REPRESENTATION','READY_FOR_SIGNATURE','SIMULATION_BLOCKED','EXECUTION_CHANGED','FAILED','CONFIRMED']);
 const stamp=ms=>Number.isFinite(ms)?new Date(ms).toISOString():'Unavailable';
 const reasonLabel=code=>{
@@ -55,10 +67,47 @@ function addReasonChips(container,codes=[]){
 }
 async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Stocklana-Token':csrf},body:JSON.stringify(body)}:{});const b=await r.json();if(!r.ok)throw Error(b.error?.code??'REQUEST_FAILED');return b;}
 function mode(){const replay=$('mode').value==='REPLAY';$('capture-label').hidden=!replay;$('amount').disabled=replay;$('mode-label').className=replay?'replay':'';$('mode-label').textContent=replay?'REPLAY  /  Historical evidence. Execution is disabled.':'LIVE  /  Current providers. No fallback to replay.';if(replay){const c=catalog.find(c=>c.id===$('capture').value);if(c)$('amount').value=String(Number(c.amountRaw)/1e6);}current=null;$('prepare').disabled=true;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';generation++;}
-function eligibility(){const ready=current?.state==='STRICT_WINNER'&&current.decision?.executionReadiness.preparationAvailable;const wallet=$('wallet').value.trim();$('prepare').disabled=!ready||!wallet;$('prepare-help').textContent=!ready?(current?.execution?'Preparation ended with '+current.state+'. Run a new analysis before retrying.':current?.state==='REQUOTING'?'Preparation is in progress.':'A live strict winner is required.'):!wallet?'Enter a public wallet address to prepare.':'Preparation obtains a fresh comparison and wallet-bound quote before inspection and simulation.';}
-function render(j){current=j;$('status').textContent=j.state;$('history').textContent=JSON.stringify(j.events,null,2);$('error').textContent=j.error?.code??'';
-    const historySummary=$('history-summary');
+function eligibility(){
+  const live=$('mode').value==='LIVE';
 
+  const decisionReady=
+    current?.state==='STRICT_WINNER' &&
+    current.decision?.executionReadiness.preparationAvailable;
+
+  const connected=Boolean(walletPublicKey);
+
+  $('prepare').disabled=
+    !live ||
+    !decisionReady ||
+    !connected ||
+    walletAttempted;
+
+  if(!live){
+    $('prepare-help').textContent=
+      'Replay mode is evidence-only. Execution is disabled.';
+  }else if(!decisionReady){
+    $('prepare-help').textContent=
+      current?.state==='REQUOTING'
+        ? 'Preparation is in progress.'
+        : 'A live strict winner is required.';
+  }else if(!connected){
+    $('prepare-help').textContent=
+      'Connect a Solana wallet to continue.';
+  }else if(walletAttempted){
+    $('prepare-help').textContent=
+      'This execution session has already submitted a transaction.';
+  }else{
+    $('prepare-help').textContent=
+      'Ready for a fresh wallet-bound quote, inspection and simulation.';
+  }
+}
+
+function render(j){
+  current=j;
+  $('status').textContent=j.state;
+  $('history').textContent=JSON.stringify(j.events??[],null,2);
+  $('error').textContent=j.error?.code??'';
+  const historySummary=$('history-summary');
 if(historySummary){
   historySummary.replaceChildren();
 
@@ -93,7 +142,7 @@ if(historySummary){
   if(states.length){
     value.textContent=states
       .map(state=>stateLabels[state]??state.replaceAll('_',' ').toLowerCase())
-      .join(' → ');
+      .join(' Ã¢â€ â€™ ');
   }else{
     value.textContent=stateLabels[j.state]??j.state??'No state history';
   }
@@ -136,7 +185,7 @@ if(d.winner && winnerCandidate){
   ]){
     const row=document.createElement('div');
     row.className='decision-reason decision-reason-pass';
-    row.textContent=`✓ ${text}`;
+   row.textContent=`PASS / ${text}`;
     decisionWhy.append(row);
   }
 }else{
@@ -157,7 +206,7 @@ if(d.winner && winnerCandidate){
       ? reasonLabel(c.reasonCodes[0])
       : 'Mandatory verification failed';
 
-    row.textContent=`× ${c.symbol}: ${firstReason}`;
+    row.textContent=`Ãƒâ€” ${c.symbol}: ${firstReason}`;
     decisionWhy.append(row);
   }
 }
@@ -182,7 +231,7 @@ if(decisionSummary){
 
   if(d.winner){
     const excluded=(d.candidates??[]).filter(c=>!c.eligible).length;
-    value.textContent=`${d.winner} selected · ${excluded} representation${excluded===1?'':'s'} excluded`;
+    value.textContent=`${d.winner} selected Ã‚Â· ${excluded} representation${excluded===1?'':'s'} excluded`;
   }else{
     value.textContent='No representation passed every mandatory gate';
   }
@@ -204,9 +253,9 @@ if(provenanceSummary){
   ?? 'Unavailable';
 
   if($('mode').value==='REPLAY'){
-    value.textContent=`${referenceKind} · historical replay evidence`;
+    value.textContent=`${referenceKind} Ã‚Â· historical replay evidence`;
   }else{
-    value.textContent=`${referenceKind} · live provider evidence`;
+    value.textContent=`${referenceKind} Ã‚Â· live provider evidence`;
   }
 
   provenanceSummary.append(label,value);
@@ -332,9 +381,387 @@ for(const c of d.candidates){
  }
  if(j.execution){const e=j.execution;$('execution').hidden=false;$('execution-state').textContent=j.state+'  /  '+e.reasonCodes.join(', ');$('material').textContent=e.materialChange?'Final requote: '+e.materialChange.reasonCodes.join(', ')+'  /  degradation '+e.materialChange.degradationBps+' bps  /  protected minimum '+e.materialChange.finalMinimumOutput+' raw units':'Final requote has not passed.';$('funds').textContent=e.preBalances?'Source USDC balance: '+e.preBalances.input+' raw units  /  SOL: '+e.preBalances.solLamports+' lamports. No funds were spent.':'Balances not reached.';$('execution-details').textContent=JSON.stringify(e,null,2);}
  eligibility();}
+function walletStatus(message){
+  $('wallet-status').textContent=message;
+}
+
+function executionAmount(raw){
+  if(raw==null)return 'Unavailable';
+  return (Number(raw)/1e8).toFixed(8)+' TSLAx';
+}
+
+function renderWallet(data){
+  walletAttempted=Boolean(data.attempted);
+  walletRecord=data.receipt?.receipt??null;
+
+  const r=walletRecord;
+
+  $('reconcile').disabled=
+    !r?.signature ||
+    Boolean(data.busy);
+
+  if(!r){
+    $('wallet-review').hidden=true;
+    $('execution-success').hidden=true;
+    eligibility();
+    return;
+  }
+
+  $('execution').hidden=false;
+  $('execution-badge').textContent=r.status;
+  $('execution-state').textContent=
+    'Execution state: '+r.status;
+
+  $('material').textContent=
+    r.materialChange
+      ? 'Final requote: '+
+        (r.materialChange.reasonCodes??[]).join(', ')+
+        ' / protected minimum '+
+        r.materialChange.finalMinimumOutput+
+        ' raw units'
+      : 'Final requote pending.';
+
+  $('funds').textContent=
+    r.preBalances
+      ? 'USDC before execution: '+
+        r.preBalances.input+
+        ' raw units / SOL: '+
+        r.preBalances.solLamports+
+        ' lamports'
+      : 'Wallet balances pending.';
+
+  $('review-spend').textContent='1.000000 USDC';
+
+  $('review-expected').textContent=
+    executionAmount(
+      r.finalQuote?.raw?.outAmount
+    );
+
+  $('review-minimum').textContent=
+    executionAmount(
+      r.materialChange?.finalMinimumOutput
+    );
+
+  const routes=
+    r.finalQuote?.raw?.routePlan
+      ?.map(x=>x.swapInfo?.label)
+      .filter(Boolean)??[];
+
+  $('review-route').textContent=
+    routes.length
+      ? routes.join(' Ã¢â€ â€™ ')
+      : 'Unavailable';
+
+  $('wallet-review').hidden=
+    r.status!=='READY_FOR_SIGNATURE';
+
+  $('sign').disabled=
+    walletAttempted ||
+    !$('authorize').checked ||
+    r.status!=='READY_FOR_SIGNATURE' ||
+    !r.authorization ||
+    Date.now()>r.authorization.expiresAt;
+
+  $('reconcile').disabled=
+    !r.signature ||
+    Boolean(data.busy);
+
+  $('execution-details').textContent=
+    JSON.stringify(r,null,2);
+
+  if(receiptDownload){
+    URL.revokeObjectURL(receiptDownload);
+  }
+
+  receiptDownload=URL.createObjectURL(
+    new Blob(
+      [JSON.stringify(data.receipt,null,2)],
+      {type:'application/json'}
+    )
+  );
+
+  $('receipt').href=receiptDownload;
+  $('receipt').download='fulcrum-execution.json';
+  $('receipt').hidden=false;
+
+  if(
+    r.status==='SUCCEEDED' ||
+    r.status==='CONFIRMED'
+  ){
+    $('wallet-review').hidden=true;
+    $('execution-success').hidden=false;
+
+    $('received-amount').textContent=
+      executionAmount(r.actualReceivedAmount);
+
+    $('execution-signature').textContent=
+      r.signature??'Unavailable';
+
+    $('execution-verification').replaceChildren();
+
+    for(const message of [
+      'Transaction confirmed on Solana.',
+      'Received amount verified from balance change.',
+      'Reviewed wallet authorization matched the signed transaction.'
+    ]){
+      const row=document.createElement('div');
+      row.className='decision-reason decision-reason-pass';
+     row.textContent='PASS / '+message;
+      $('execution-verification').append(row);
+    }
+  }else{
+    $('execution-success').hidden=true;
+  }
+
+  walletStatus(r.status);
+  eligibility();
+}
+
+async function freshWalletPrepare(
+  message='Collecting fresh evidence and simulating...'
+){
+  $('prepare').disabled=true;
+  $('authorize').checked=false;
+  walletRecord=null;
+
+  walletStatus(message);
+
+  const data=await api(
+    '/api/wallet/prepare',
+    {wallet:walletPublicKey}
+  );
+
+  renderWallet(data);
+  return data;
+}
+
+function walletSignEligibility(){
+  const r=walletRecord;
+
+  $('sign').disabled=
+    walletAttempted ||
+    !$('authorize').checked ||
+    r?.status!=='READY_FOR_SIGNATURE' ||
+    !r?.authorization ||
+    Date.now()>r.authorization.expiresAt;
+}
+
 async function poll(j,g){if(g!==generation)return;render(j);while(!terminal.has(j.state)){await new Promise(r=>setTimeout(r,700));if(g!==generation)return;j=await api('/api/jobs/'+j.id);if(g!==generation)return;render(j);}}
 $('intent').addEventListener('submit',async event=>{event.preventDefault();const g=++generation;current=null;$('error').textContent='';$('analysis').hidden=true;$('execution').hidden=true;$('prepare').disabled=true;$('analyze').disabled=true;$('status').textContent='RESOLVING';try{const j=await api('/api/analyses',{underlying:'TSLA',amount:$('amount').value,mode:$('mode').value,...($('mode').value==='REPLAY'?{captureId:$('capture').value}:{})});if(g===generation)await poll(j,g);}catch(e){$('error').textContent=e.message;$('status').textContent='FAILED';}finally{$('analyze').disabled=false;}});
-$('prepare').addEventListener('click',async()=>{const g=++generation;$('prepare').disabled=true;$('error').textContent='';try{await poll(await api('/api/jobs/'+current.id+'/prepare',{wallet:$('wallet').value.trim()}),g);}catch(e){$('error').textContent=e.message;eligibility();}});
-$('mode').addEventListener('change',mode);$('capture').addEventListener('change',mode);$('wallet').addEventListener('input',eligibility);$('amount').addEventListener('input',()=>{generation++;current=null;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';eligibility();});
-try{const b=await api('/api/bootstrap');csrf=b.csrfToken;catalog=b.captures;for(const c of catalog){const option=document.createElement('option');option.value=c.id;option.textContent=c.label+'  /  '+stamp(c.asOfMs);$('capture').append(option);}}catch(e){$('error').textContent=e.message;$('analyze').disabled=true;}
+$('prepare').addEventListener('click',async()=>{
+  try{
+    if(!walletPublicKey){
+      throw Error('Connect a wallet first.');
+    }
+
+    if(
+      current?.state!=='STRICT_WINNER' ||
+      !current.decision?.executionReadiness.preparationAvailable
+    ){
+      throw Error('A live strict winner is required.');
+    }
+
+    await freshWalletPrepare();
+  }catch(e){
+    walletStatus(e.message);
+    eligibility();
+  }
+});
+
+$('mode').addEventListener('change',mode);$('capture').addEventListener('change',mode);$('amount').addEventListener('input',()=>{generation++;current=null;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';eligibility();});
+$('authorize').addEventListener(
+  'change',
+  walletSignEligibility
+);
+
+setInterval(
+  walletSignEligibility,
+  250
+);
+
+$('connect-wallet').addEventListener(
+  'click',
+  async()=>{
+    try{
+     const provider=$('wallet-provider').value;
+
+if(!provider){
+  throw Error('Select a wallet provider first.');
+}
+
+walletAdapter=
+        provider==='jupiter'
+          ? await window.fulcrumStandardWallet('Jupiter')
+          : provider==='phantom'
+            ? window.phantom?.solana
+            : window.solflare;
+
+      if(!walletAdapter){
+        throw Error(
+          'Selected wallet was not detected in this browser.'
+        );
+      }
+
+      await walletAdapter.connect();
+
+      walletPublicKey=
+        walletAdapter.publicKey.toBase58();
+
+      $('wallet').textContent=
+        walletPublicKey;
+
+      walletStatus('Wallet connected.');
+      eligibility();
+    }catch(e){
+      walletStatus(e.message);
+    }
+  }
+);
+
+$('sign').addEventListener(
+  'click',
+  async()=>{
+    try{
+      if(
+        !$('authorize').checked ||
+        walletAttempted ||
+        walletRecord?.status!=='READY_FOR_SIGNATURE'
+      ){
+        throw Error(
+          'Explicit authorization and a fresh simulation are required.'
+        );
+      }
+
+      if(
+        walletAdapter.publicKey.toBase58()!==
+        walletRecord.walletPublicKey
+      ){
+        throw Error(
+          'Wallet changed. Prepare again.'
+        );
+      }
+
+      const reviewed=walletRecord;
+
+      $('sign').disabled=true;
+      $('prepare').disabled=true;
+
+      walletStatus(
+        'Review and approve in your wallet...'
+      );
+
+      const tx=
+        solanaWeb3.VersionedTransaction.deserialize(
+          Uint8Array.from(
+            atob(
+              reviewed.transaction.unsignedBase64
+            ),
+            c=>c.charCodeAt(0)
+          )
+        );
+
+      const signed=
+        await walletAdapter.signTransaction(tx);
+
+      if(
+        walletAdapter.publicKey.toBase58()!==
+        reviewed.walletPublicKey
+      ){
+        throw Error('Wallet changed.');
+      }
+
+      walletStatus(
+        'Revalidating, simulating signed transaction and submitting...'
+      );
+
+      const result=await api(
+        '/api/wallet/submit',
+        {
+          signedTransaction:btoa(
+            String.fromCharCode(
+              ...signed.serialize()
+            )
+          ),
+          messageSha256:
+            reviewed.transaction.messageSha256,
+          authorizeBroadcast:true
+        }
+      );
+
+      renderWallet(result);
+
+      const reasons=
+        result.receipt?.receipt?.reasonCodes??[];
+
+      if(
+        reasons.includes(
+          'BLOCKHASH_EXPIRED_REBUILD_REQUIRED'
+        ) &&
+        !result.receipt?.receipt?.signature &&
+        !result.attempted
+      ){
+        await freshWalletPrepare(
+          'Previous transaction expired before broadcast. Preparing a fresh transaction...'
+        );
+
+        walletStatus(
+          'Transaction refreshed. Review and authorize the replacement transaction.'
+        );
+      }
+    }catch(e){
+      const message=e.message;
+
+      try{
+        const state=
+          await api('/api/wallet/session');
+
+        renderWallet(state);
+        walletStatus(message);
+      }catch{
+        walletStatus(
+          'Connection uncertain. Check the execution state before trying again.'
+        );
+      }
+    }
+  }
+);
+
+$('reconcile').addEventListener(
+  'click',
+  async()=>{
+    try{
+      renderWallet(
+        await api(
+          '/api/wallet/reconcile',
+          {}
+        )
+      );
+    }catch(e){
+      walletStatus(e.message);
+    }
+  }
+);
+try{
+  const b=await api('/api/bootstrap');
+  csrf=b.csrfToken;
+  catalog=b.captures;
+
+  for(const c of catalog){
+    const option=document.createElement('option');
+    option.value=c.id;
+    option.textContent=c.label+'  /  '+stamp(c.asOfMs);
+    $('capture').append(option);
+  }
+}catch(e){
+  $('error').textContent=e.message;
+  $('analyze').disabled=true;
+}
+
+try{
+  renderWallet(
+    await api('/api/wallet/session')
+  );
+}catch(e){
+  walletStatus(e.message);
+}
 

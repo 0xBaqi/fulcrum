@@ -219,55 +219,154 @@
     </section>
 
     <section class="execution-panel">
-      <div class="panel-heading">
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">03 / EXECUTION</span>
+      <h2>Execute the verified representation.</h2>
+    </div>
+    <span class="panel-note">Solana mainnet / wallet approval required</span>
+  </div>
+
+  <div class="wallet-row">
+    <label class="wallet-field">
+      <span>WALLET</span>
+      <select id="wallet-provider">
+        <option value="jupiter">Jupiter</option>
+        <option value="phantom">Phantom</option>
+        <option value="solflare">Solflare</option>
+      </select>
+    </label>
+
+    <button id="connect-wallet" class="secondary-action" type="button">
+      Connect wallet
+    </button>
+  </div>
+
+  <div class="execution-strip">
+    <p>
+      <strong>CONNECTED WALLET</strong><br>
+      <span id="wallet">No wallet connected</span>
+    </p>
+
+    <p>
+      <strong>EXECUTION SESSION</strong><br>
+      <span id="wallet-status">Connect a wallet to begin.</span>
+    </p>
+  </div>
+
+  <button id="prepare" class="secondary-action" type="button" disabled>
+    Prepare + simulate
+  </button>
+
+  <p id="prepare-help" class="helper-line">
+    Run a live representation check and connect a wallet first.
+  </p>
+</section>
+
+   <section id="execution" class="execution-result" hidden>
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">04 / TRANSACTION AUTHORIZATION</span>
+      <h2>Review exactly what Fulcrum will execute.</h2>
+    </div>
+    <span id="execution-badge" class="status-pill">
+      PREPARING
+    </span>
+  </div>
+
+  <div class="execution-strip">
+    <p id="execution-state"></p>
+    <p id="material"></p>
+    <p id="funds"></p>
+  </div>
+
+  <div id="wallet-review" hidden>
+    <div class="decision-summary">
+      <div class="decision-primary">
+        <span>SPEND</span>
+        <strong id="review-spend">—</strong>
+      </div>
+
+      <div>
+        <span>EXPECTED</span>
+        <strong id="review-expected">—</strong>
+      </div>
+
+      <div>
+        <span>PROTECTED MINIMUM</span>
+        <strong id="review-minimum">—</strong>
+      </div>
+
+      <div>
+        <span>ROUTE</span>
+        <strong id="review-route">—</strong>
+      </div>
+    </div>
+
+    <label class="execution-authorization">
+      <input id="authorize" type="checkbox">
+      <span>
+        I authorize this reviewed transaction, including the displayed
+        USDC spend and SOL costs, to be signed in my wallet and
+        broadcast once.
+      </span>
+    </label>
+
+    <div class="wallet-row">
+      <button id="sign" class="primary-action" type="button" disabled>
+        Approve in wallet + execute
+      </button>
+
+      <button id="reconcile" class="secondary-action" type="button" disabled>
+        Check confirmation
+      </button>
+    </div>
+  </div>
+
+  <div id="execution-success" class="fulcrum-decision decision-success" hidden>
+    <div class="decision-verdict">
+      <div class="decision-verdict-top">
+        <span class="decision-kicker">EXECUTION PROOF</span>
+        <span class="decision-badge">CONFIRMED</span>
+      </div>
+
+      <div class="decision-verdict-main">
         <div>
-          <span class="eyebrow">03 / EXECUTION PREPARATION</span>
-          <h2>Bind the winning route to a wallet.</h2>
+          <h3>TSLAx received on Solana</h3>
+          <p class="decision-explanation">
+            Fulcrum verified the representation, revalidated the market,
+            obtained wallet authorization, broadcast the transaction and
+            verified the resulting balance change.
+          </p>
         </div>
-        <span class="panel-note">Public address only / no private keys</span>
-      </div>
 
-      <div class="wallet-row">
-        <label class="wallet-field">
-          <span>SOLANA WALLET</span>
-          <input
-            id="wallet"
-            type="text"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="Enter public Solana address"
-          >
-        </label>
-
-        <button id="prepare" class="secondary-action" disabled>
-          Prepare + simulate
-        </button>
-      </div>
-
-      <p id="prepare-help" class="helper-line">
-        A live strict winner is required.
-      </p>
-    </section>
-
-    <section id="execution" class="execution-result" hidden>
-      <div class="panel-heading">
-        <div>
-          <span class="eyebrow">04 / TRANSACTION READINESS</span>
-          <h2>Final quote and simulation evidence</h2>
+        <div class="decision-exposure">
+          <strong id="received-amount">—</strong>
+          <span>TSLAx received</span>
         </div>
       </div>
+    </div>
 
-      <div class="execution-strip">
-        <p id="execution-state"></p>
-        <p id="material"></p>
-        <p id="funds"></p>
+    <div class="decision-reasoning">
+      <div class="reasoning-column">
+        <span class="reasoning-label">TRANSACTION SIGNATURE</span>
+        <code id="execution-signature" class="candidate-mint"></code>
       </div>
 
-      <details open>
-        <summary>Preparation / inspection / simulation</summary>
-        <pre id="execution-details"></pre>
-      </details>
-    </section>
+      <div class="reasoning-column">
+        <span class="reasoning-label">VERIFICATION</span>
+        <div id="execution-verification"></div>
+      </div>
+    </div>
+  </div>
+
+  <details>
+    <summary>Preparation / inspection / simulation / receipt</summary>
+    <pre id="execution-details"></pre>
+  </details>
+
+  <a id="receipt" hidden>Download execution receipt</a>
+</section>
 
     <details class="audit-card system-history">
   <summary>System state history</summary>
@@ -289,6 +388,8 @@
       <span>TSLA / V1</span>
     </footer>
   </main>
+<script src="/web3.js"></script>
+<script src="/wallet-standard.js"></script>
 </body>
 </html>
 
