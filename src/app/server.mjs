@@ -1,4 +1,4 @@
-﻿import http from 'node:http';
+import http from 'node:http';
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {randomBytes,timingSafeEqual} from 'node:crypto';
@@ -13,7 +13,8 @@ export function createServer({
   const nonce=randomBytes(32).toString('hex');
 
   const server=http.createServer(async(req,res)=>{
-    const origin='http://127.0.0.1:'+server.address().port;
+    const origin=process.env.PUBLIC_ORIGIN ||
+      'http://127.0.0.1:'+server.address().port;
 
     res.setHeader('Cache-Control','no-store');
     res.setHeader('X-Content-Type-Options','nosniff');
