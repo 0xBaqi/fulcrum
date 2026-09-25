@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #e6edf3;
   background: #080b0f;
@@ -569,7 +569,7 @@ footer span:first-child {
     margin-right: 18px;
   }
 }
-/* M4.2 — representation decision lanes */
+/* M4.2 â€” representation decision lanes */
 
 .candidate-row {
   transition: background 120ms ease;
@@ -753,7 +753,7 @@ footer span:first-child {
     min-width: 240px;
   }
 }
-/* M4.3 — Fulcrum decision surface */
+/* M4.3 â€” Fulcrum decision surface */
 
 .fulcrum-decision {
   margin: 18px 0 22px;
@@ -931,7 +931,7 @@ footer span:first-child {
     border-top: 1px solid #20272e;
   }
 }
-/* M4.4 — progressive audit disclosure */
+/* M4.4 â€” progressive audit disclosure */
 
 .audit-summary {
   display: flex;
@@ -962,4 +962,314 @@ footer span:first-child {
   color: var(--muted);
   font-size: 0.78rem;
   cursor: pointer;
+}
+
+/* FINAL POLISH â€” terminal hierarchy + execution states */
+:root {
+  --bg: #070a0d;
+  --panel: #0c1116;
+  --panel-raised: #10161c;
+  --line: #252e37;
+  --line-soft: #1b232b;
+  --text: #e9f0f5;
+  --muted: #74818d;
+  --green: #8dffb3;
+  --green-soft: #102018;
+  --red: #ff8f8f;
+  --red-soft: #211212;
+  --amber: #efc775;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% -10%, rgba(141,255,179,.055), transparent 32rem),
+    #070a0d;
+}
+
+.terminal-shell {
+  box-shadow: 0 24px 80px rgba(0,0,0,.32);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(12,16,21,.94);
+  backdrop-filter: blur(14px);
+}
+
+.brand-mark {
+  position: relative;
+  background: #0b1510;
+  box-shadow: inset 0 0 24px rgba(141,255,179,.06);
+}
+
+.thesis-bar {
+  background:
+    linear-gradient(110deg, rgba(141,255,179,.035), transparent 42%),
+    #0c1015;
+}
+
+.thesis-flow strong {
+  border-color: #31533c;
+  color: #a9f6be;
+  background: #0c1711;
+}
+
+.intent-panel,
+.decision-workspace,
+.execution-panel,
+.execution-result {
+  scroll-margin-top: 82px;
+}
+
+.primary-action,
+.secondary-action {
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease, opacity 120ms ease;
+}
+
+.primary-action:not(:disabled):hover,
+.secondary-action:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.primary-action:not(:disabled):hover {
+  background: #a1ffc0;
+}
+
+.secondary-action:not(:disabled):hover {
+  border-color: #64717d;
+  background: #1a222a;
+}
+
+.decision-summary,
+.representation-board,
+.audit-card,
+.execution-strip,
+.execution-result > details {
+  background: rgba(8,12,16,.42);
+}
+
+.candidate-winner {
+  box-shadow: inset 3px 0 0 var(--green), 0 0 0 1px rgba(141,255,179,.03);
+}
+
+.execution-panel {
+  background:
+    linear-gradient(90deg, rgba(141,255,179,.025), transparent 34%),
+    #0c1015;
+}
+
+.wallet-row {
+  max-width: 760px;
+}
+
+.wallet-field select {
+  min-width: 240px;
+}
+
+#connect-wallet {
+  min-width: 150px;
+}
+
+#prepare {
+  margin-top: 2px;
+  min-width: 190px;
+}
+
+#wallet {
+  color: #d9e4eb;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+#wallet-status {
+  color: #8fa0ac;
+}
+
+.execution-result {
+  background:
+    linear-gradient(180deg, rgba(141,255,179,.018), transparent 220px),
+    #0b0f13;
+}
+
+#execution-badge {
+  width: auto;
+}
+
+#wallet-review {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid #31533c;
+  background: #0b1510;
+  box-shadow: inset 3px 0 0 var(--green);
+}
+
+#wallet-review .decision-summary {
+  margin-bottom: 16px;
+  background: #09100c;
+}
+
+.execution-authorization {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid #344039;
+  background: #0c1210;
+  color: #aebbb3;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.execution-authorization input {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin-top: 2px;
+  accent-color: var(--green);
+}
+
+.execution-authorization > span {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: normal;
+}
+
+.execution-denied {
+  margin: 16px 0;
+  border: 1px solid #603838;
+  background:
+    linear-gradient(110deg, rgba(255,143,143,.055), transparent 48%),
+    #140d0e;
+  box-shadow: inset 3px 0 0 #d97878;
+}
+
+.execution-denied-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 22px 12px;
+}
+
+.execution-denied h3 {
+  margin: 6px 0 0;
+  color: #ffd1d1;
+  font-size: clamp(22px,3vw,32px);
+  letter-spacing: -.035em;
+}
+
+.denied-badge {
+  padding: 6px 8px;
+  border: 1px solid #673c3c;
+  background: #201112;
+  color: #f1a0a0;
+  font: 700 8px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .09em;
+}
+
+.denial-explanation {
+  max-width: 850px;
+  margin: 0;
+  padding: 0 22px 18px;
+  color: #ad8989;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.denial-facts {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  border-top: 1px solid #3d2728;
+  border-bottom: 1px solid #3d2728;
+}
+
+.denial-facts > div {
+  padding: 14px 16px;
+  border-right: 1px solid #3d2728;
+}
+
+.denial-facts > div:last-child {
+  border-right: 0;
+}
+
+.denial-facts span {
+  display: block;
+  margin-bottom: 8px;
+  color: #805f60;
+  font: 700 8px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .1em;
+}
+
+.denial-facts strong {
+  color: #d9b0b0;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.retry-action {
+  margin: 16px 22px 20px;
+}
+
+#execution-success {
+  margin-top: 16px;
+}
+
+#receipt {
+  display: inline-flex;
+  margin-top: 12px;
+  color: #9feab4;
+  font: 600 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  text-decoration: none;
+  border-bottom: 1px solid #31533c;
+}
+
+.system-history {
+  background: #0a0e12;
+}
+
+footer {
+  background: #090d11;
+}
+
+@media (max-width: 760px) {
+  .denial-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .denial-facts > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .denial-facts > div:nth-child(-n+2) {
+    border-bottom: 1px solid #3d2728;
+  }
+
+  .execution-denied-head {
+    flex-direction: column;
+  }
+
+  .wallet-field select,
+  #connect-wallet,
+  #prepare {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .denial-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .denial-facts > div {
+    border-right: 0;
+    border-bottom: 1px solid #3d2728;
+  }
+
+  .denial-facts > div:last-child {
+    border-bottom: 0;
+  }
 }

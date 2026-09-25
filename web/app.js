@@ -1,4 +1,4 @@
-﻿const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id);
 
 let csrf='';
 let current=null;
@@ -65,7 +65,7 @@ function addReasonChips(container,codes=[]){
 
   container.append(wrap);
 }
-async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Stocklana-Token':csrf},body:JSON.stringify(body)}:{});const b=await r.json();if(!r.ok)throw Error(b.error?.code??'REQUEST_FAILED');return b;}
+async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Stocklana-Token':csrf},body:JSON.stringify(body)}:{});const b=await r.json();if(!r.ok)throw Error(b.error?.code??b.error??'REQUEST_FAILED');return b;}
 function mode(){const replay=$('mode').value==='REPLAY';$('capture-label').hidden=!replay;$('amount').disabled=replay;$('mode-label').className=replay?'replay':'';$('mode-label').textContent=replay?'REPLAY  /  Historical evidence. Execution is disabled.':'LIVE  /  Current providers. No fallback to replay.';if(replay){const c=catalog.find(c=>c.id===$('capture').value);if(c)$('amount').value=String(Number(c.amountRaw)/1e6);}current=null;$('prepare').disabled=true;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';generation++;}
 function eligibility(){
   const live=$('mode').value==='LIVE';
@@ -75,11 +75,13 @@ function eligibility(){
     current.decision?.executionReadiness.preparationAvailable;
 
   const connected=Boolean(walletPublicKey);
+  const amountReady=Number($('amount').value)===1;
 
   $('prepare').disabled=
     !live ||
     !decisionReady ||
     !connected ||
+    !amountReady ||
     walletAttempted;
 
   if(!live){
@@ -93,6 +95,9 @@ function eligibility(){
   }else if(!connected){
     $('prepare-help').textContent=
       'Connect a Solana wallet to continue.';
+  }else if(!amountReady){
+    $('prepare-help').textContent=
+      'Wallet execution is fixed to 1 USDC for this hackathon build. Set order size to 1 USDC and rerun the live check.';
   }else if(walletAttempted){
     $('prepare-help').textContent=
       'This execution session has already submitted a transaction.';
@@ -142,7 +147,7 @@ if(historySummary){
   if(states.length){
     value.textContent=states
       .map(state=>stateLabels[state]??state.replaceAll('_',' ').toLowerCase())
-      .join(' Ã¢â€ â€™ ');
+      .join(' -> ');
   }else{
     value.textContent=stateLabels[j.state]??j.state??'No state history';
   }
@@ -206,7 +211,7 @@ if(d.winner && winnerCandidate){
       ? reasonLabel(c.reasonCodes[0])
       : 'Mandatory verification failed';
 
-    row.textContent=`Ãƒâ€” ${c.symbol}: ${firstReason}`;
+    row.textContent=`FAIL / ${c.symbol}: ${firstReason}`;
     decisionWhy.append(row);
   }
 }
@@ -231,7 +236,7 @@ if(decisionSummary){
 
   if(d.winner){
     const excluded=(d.candidates??[]).filter(c=>!c.eligible).length;
-    value.textContent=`${d.winner} selected Ã‚Â· ${excluded} representation${excluded===1?'':'s'} excluded`;
+    value.textContent=`${d.winner} selected / ${excluded} representation${excluded===1?'':'s'} excluded`;
   }else{
     value.textContent='No representation passed every mandatory gate';
   }
@@ -253,9 +258,9 @@ if(provenanceSummary){
   ?? 'Unavailable';
 
   if($('mode').value==='REPLAY'){
-    value.textContent=`${referenceKind} Ã‚Â· historical replay evidence`;
+    value.textContent=`${referenceKind} / historical replay evidence`;
   }else{
-    value.textContent=`${referenceKind} Ã‚Â· live provider evidence`;
+    value.textContent=`${referenceKind} / live provider evidence`;
   }
 
   provenanceSummary.append(label,value);
@@ -403,6 +408,8 @@ function renderWallet(data){
   if(!r){
     $('wallet-review').hidden=true;
     $('execution-success').hidden=true;
+    $('execution-denied').hidden=true;
+    $('receipt').hidden=true;
     eligibility();
     return;
   }
@@ -449,7 +456,7 @@ function renderWallet(data){
 
   $('review-route').textContent=
     routes.length
-      ? routes.join(' Ã¢â€ â€™ ')
+      ? routes.join(' -> ')
       : 'Unavailable';
 
   $('wallet-review').hidden=
@@ -482,13 +489,33 @@ function renderWallet(data){
 
   $('receipt').href=receiptDownload;
   $('receipt').download='fulcrum-execution.json';
-  $('receipt').hidden=false;
+  $('receipt').hidden=!(
+    r.status==='SUCCEEDED' ||
+    r.status==='CONFIRMED'
+  );
+
+  const denied=r.status==='BLOCKED' || r.status==='SIMULATION_BLOCKED';
+  $('execution-denied').hidden=!denied;
+
+  if(denied){
+    const reason=(r.reasonCodes??[])[0]??'EXECUTION_POLICY_BLOCKED';
+    $('denial-reason').textContent=reasonLabel(reason);
+    $('denial-explanation').textContent=
+      reason==='UNSUPPORTED_EXECUTION_ROUTE'
+        ? 'The current Jupiter route is outside Fulcrum\'s verified execution policy. Fulcrum stopped before wallet signature or broadcast.'
+        : 'The current transaction did not satisfy Fulcrum\'s execution policy. Fulcrum stopped before wallet signature or broadcast.';
+    $('execution-badge').textContent='EXECUTION DENIED';
+    $('execution-state').textContent='Policy decision: execution denied.';
+    $('material').textContent='No authorized execution route was produced.';
+    $('funds').textContent='No signature / no broadcast / no funds spent.';
+  }
 
   if(
     r.status==='SUCCEEDED' ||
     r.status==='CONFIRMED'
   ){
     $('wallet-review').hidden=true;
+    $('execution-denied').hidden=true;
     $('execution-success').hidden=false;
 
     $('received-amount').textContent=
@@ -561,6 +588,10 @@ $('prepare').addEventListener('click',async()=>{
       throw Error('A live strict winner is required.');
     }
 
+    if(Number($('amount').value)!==1){
+      throw Error('Set order size to exactly 1 USDC and rerun the live representation check.');
+    }
+
     await freshWalletPrepare();
   }catch(e){
     walletStatus(e.message);
@@ -608,9 +639,11 @@ walletAdapter=
         walletAdapter.publicKey.toBase58();
 
       $('wallet').textContent=
-        walletPublicKey;
+        walletPublicKey.slice(0,6)+'...'+walletPublicKey.slice(-6);
 
-      walletStatus('Wallet connected.');
+      $('wallet').title=walletPublicKey;
+      $('connect-wallet').textContent='Change wallet';
+      walletStatus('Connected / '+walletPublicKey.slice(0,6)+'...'+walletPublicKey.slice(-6));
       eligibility();
     }catch(e){
       walletStatus(e.message);
@@ -726,6 +759,21 @@ $('sign').addEventListener(
   }
 );
 
+
+$('retry-route').addEventListener(
+  'click',
+  async()=>{
+    try{
+      if(!walletPublicKey)throw Error('Connect a wallet first.');
+      if(walletAttempted)throw Error('This execution session has already submitted a transaction.');
+      await freshWalletPrepare('Refreshing market evidence and requesting a new route...');
+    }catch(e){
+      walletStatus(e.message);
+      eligibility();
+    }
+  }
+);
+
 $('reconcile').addEventListener(
   'click',
   async()=>{
@@ -764,4 +812,3 @@ try{
 }catch(e){
   walletStatus(e.message);
 }
-

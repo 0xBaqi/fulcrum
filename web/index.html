@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -73,7 +73,7 @@
           <label>
             <span>ORDER SIZE</span>
             <div class="input-with-unit">
-              <input id="amount" type="text" inputmode="decimal" value="100" required>
+              <input id="amount" type="text" inputmode="decimal" value="1" required>
               <b>USDC</b>
             </div>
           </label>
@@ -280,6 +280,44 @@
     <p id="funds"></p>
   </div>
 
+
+  <div id="execution-denied" class="execution-denied" hidden>
+    <div class="execution-denied-head">
+      <div>
+        <span class="decision-kicker">POLICY ENFORCEMENT</span>
+        <h3>Execution denied</h3>
+      </div>
+      <span class="denied-badge">NO BROADCAST</span>
+    </div>
+
+    <p id="denial-explanation" class="denial-explanation">
+      Fulcrum refused the current execution route because it did not satisfy the verified execution policy.
+    </p>
+
+    <div class="denial-facts">
+      <div>
+        <span>REASON</span>
+        <strong id="denial-reason">Unavailable</strong>
+      </div>
+      <div>
+        <span>SIGNATURE</span>
+        <strong>Not requested</strong>
+      </div>
+      <div>
+        <span>BROADCAST</span>
+        <strong>Not attempted</strong>
+      </div>
+      <div>
+        <span>FUNDS</span>
+        <strong>Not spent</strong>
+      </div>
+    </div>
+
+    <button id="retry-route" class="secondary-action retry-action" type="button">
+      Retry with fresh route
+    </button>
+  </div>
+
   <div id="wallet-review" hidden>
     <div class="decision-summary">
       <div class="decision-primary">
@@ -392,4 +430,3 @@
 <script src="/wallet-standard.js"></script>
 </body>
 </html>
-
