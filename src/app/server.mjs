@@ -35,6 +35,15 @@ export function createServer({
     };
 
     try{
+console.log('ORIGIN_DEBUG', {
+  expectedOrigin: origin,
+  expectedHost: new URL(origin).host,
+  host: req.headers.host,
+  forwardedHost: req.headers['x-forwarded-host'],
+  forwardedProto: req.headers['x-forwarded-proto'],
+  requestOrigin: req.headers.origin,
+  secFetchSite: req.headers['sec-fetch-site']
+});
       if(
         req.headers.host!==new URL(origin).host ||
         (req.headers.origin&&req.headers.origin!==origin) ||
