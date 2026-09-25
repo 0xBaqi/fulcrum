@@ -1,3 +1,4 @@
+import {createRequire} from 'node:module';
 import http from 'node:http';
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
@@ -5,6 +6,12 @@ import {randomBytes,timingSafeEqual} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import {appService,ROOT} from './service.mjs';
 import {walletSession} from './wallet-session.mjs';
+
+const require=createRequire(import.meta.url);
+
+const WEB3_BROWSER_FILE=require.resolve(
+  '@solana/web3.js/lib/index.iife.min.js'
+);
 
 export function createServer({
   service=appService(),
@@ -173,15 +180,21 @@ try{
       }
 
       const files={
-        '/':['index.html','text/html'],
-        '/app.js':['app.js','text/javascript'],
-        '/style.css':['style.css','text/css'],
-        '/wallet-standard.js':['wallet-standard.js','text/javascript'],
-        '/web3.js':[
-          '../node_modules/@solana/web3.js/lib/index.iife.min.js',
-          'text/javascript'
-        ]
-      };
+  '/':['index.html','text/html'],
+  '/app.js':['app.js','text/javascript'],
+  '/style.css':['style.css','text/css'],
+  '/wallet-standard.js':['wallet-standard.js','text/javascript']
+};
+
+if(req.method==='GET'&&path==='/web3.js'){
+  const body=await readFile(WEB3_BROWSER_FILE);
+
+  res.writeHead(200,{
+    'Content-Type':'text/javascript'
+  });
+  res.end(body);
+  return;
+}
 
       if(req.method==='GET'&&files[path]){
         const [file,type]=files[path];
@@ -202,26 +215,27 @@ try{
         404,
         {error:{code:'ENDPOINT_NOT_FOUND'}}
       );
-    }catch(e){
-  console.error('REQUEST_ERROR', e);
 
-  if(res.headersSent){
-    if(!res.writableEnded){
-      res.end();
+      }catch(e){
+      console.error('REQUEST_ERROR',e);
+
+      if(res.headersSent){
+        if(!res.writableEnded){
+          res.end();
+        }
+        return;
+      }
+
+      const raw=e.code??e.message;
+      const code=/^[A-Z][A-Z0-9_]+$/.test(raw)
+        ? raw
+        : 'APPLICATION_ERROR';
+
+      return json(
+        code==='JOB_NOT_FOUND'?404:400,
+        {error:{code}}
+      );
     }
-    return;
-  }
-
-  const raw=e.code??e.message;
-  const code=/^[A-Z][A-Z0-9_]+$/.test(raw)
-    ? raw
-    : 'APPLICATION_ERROR';
-
-  return json(
-    code==='JOB_NOT_FOUND'?404:400,
-    {error:{code}}
-  );
-}
   });
 
   server.requestTimeout=15000;
