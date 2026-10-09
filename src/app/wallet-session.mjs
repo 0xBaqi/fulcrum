@@ -4,6 +4,7 @@ import {executionPipelineWithPythPro} from './execution-pipeline.mjs';
 import {sealReceipt} from './execution-receipt.mjs';
 import {ensure} from '../execution/policy.mjs';
 import {PublicKey} from '@solana/web3.js';
+import {logFreshAnalysis,requireWinner} from './analysis-diagnostics.mjs';
 
 // One broadcast-capable trade per local session.
 // A preparation that never produced a transaction signature may be rebuilt.
@@ -53,10 +54,11 @@ export function walletSession({
       })
     );
 
-    ensure(
-      analysis.result.status==='WINNER',
-      'NO_STRICT_WINNER'
-    );
+    // Record this fresh decision, not the earlier representation-check history.
+    // Deliberately omit wallets, URLs, requests and raw provider responses.
+    logFreshAnalysis('[FULCRUM][WALLET_PREPARE][FRESH_ANALYSIS]',analysis);
+
+    requireWinner(analysis);
 
     pipeline=executor({
       env,

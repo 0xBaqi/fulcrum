@@ -15,6 +15,9 @@ const terminal=new Set(['STRICT_WINNER','NO_VERIFIED_REPRESENTATION','READY_FOR_
 const stamp=ms=>Number.isFinite(ms)?new Date(ms).toISOString():'Unavailable';
 const reasonLabel=code=>{
   const labels={
+    NO_STRICT_WINNER:'The fresh preparation check found no verified winner',
+    MINT_CHAIN_UNVERIFIED:'Required mint-chain evidence is missing or unverified',
+    TIMEOUT:'Provider request timed out',
     ALL_MANDATORY_GATES_PASSED:'All mandatory checks passed',
     SINGLE_VERIFIED_SURVIVOR:'Only verified representation',
     CLOSED_MARKET_REFERENCE:'Using last qualified market reference',
@@ -65,7 +68,7 @@ function addReasonChips(container,codes=[]){
 
   container.append(wrap);
 }
-async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Stocklana-Token':csrf},body:JSON.stringify(body)}:{});const b=await r.json();if(!r.ok)throw Error(b.error?.code??b.error??'REQUEST_FAILED');return b;}
+async function api(path,body){const r=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Stocklana-Token':csrf},body:JSON.stringify(body)}:{});const b=await r.json();if(!r.ok){const code=b.error?.code??b.error??'REQUEST_FAILED';throw Error(code==='NO_STRICT_WINNER'?reasonLabel(code)+': '+(b.error.reasonCodes??[]).map(reasonLabel).join('; '):code);}return b;}
 function mode(){const replay=$('mode').value==='REPLAY';$('capture-label').hidden=!replay;$('amount').disabled=replay;$('mode-label').className=replay?'replay':'';$('mode-label').textContent=replay?'REPLAY  /  Historical evidence. Execution is disabled.':'LIVE  /  Current providers. No fallback to replay.';if(replay){const c=catalog.find(c=>c.id===$('capture').value);if(c)$('amount').value=String(Number(c.amountRaw)/1e6);}current=null;$('prepare').disabled=true;$('analysis').hidden=true;$('execution').hidden=true;$('status').textContent='IDLE';generation++;}
 function eligibility(){
   const live=$('mode').value==='LIVE';
@@ -499,7 +502,7 @@ function renderWallet(data){
 
   if(denied){
     const reason=(r.reasonCodes??[])[0]??'EXECUTION_POLICY_BLOCKED';
-    $('denial-reason').textContent=reasonLabel(reason);
+    $('denial-reason').textContent=(r.reasonCodes??[reason]).map(reasonLabel).join('; ');
     $('denial-explanation').textContent=
       reason==='UNSUPPORTED_EXECUTION_ROUTE'
         ? 'The current Jupiter route is outside Fulcrum\'s verified execution policy. Fulcrum stopped before wallet signature or broadcast.'

@@ -5,6 +5,7 @@ import {marketSession} from '../market-session.mjs';
 
 import {evaluateV4WithPythPro} from './engine-v4.mjs';
 import {collectPythProReference} from './pyth-pro-reference.mjs';
+import {providerFetch} from './provider-fetch.mjs';
 
 export function bundleSnapshotWithPythPro(snapshot) {
   return Object.freeze({
@@ -21,6 +22,14 @@ export async function collectWithPythPro({
   fetchImpl = fetch,
   clock = Date.now
 } = {}) {
+  const retryEvidence=[];
+  const appFetch=providerFetch(fetchImpl,{
+    rpcUrl:env.SOLANA_RPC_URL||'https://api.mainnet-beta.solana.com',clock,
+    onRetry:({method,startedAt,receivedAt,status,code})=>{
+      const id=(method==='getMultipleAccounts'?'solana-mints':'solana-blocktime')+'-attempt-1';
+      retryEvidence.push({id,source:id,startedAt,receivedAt,status,error:{code}});
+    }
+  });
   /*
    * The frozen collector knows about the old Pyth provider.
    * Never give the Pyth Pro credential to that provider.
@@ -30,13 +39,14 @@ export async function collectWithPythPro({
     PYTH_API_KEY: ''
   };
 
-  const snapshot = await collect({
+  const collected = await collect({
     amountRaw,
     underlying,
     env: legacyEnv,
-    fetchImpl,
+    fetchImpl:appFetch,
     clock
   });
+  const snapshot={...collected,evidence:[...collected.evidence,...retryEvidence].sort((a,b)=>a.id<b.id?-1:1)};
 
   /*
    * Pyth Pro is currently an explicitly supported TSLA reference path.
@@ -51,7 +61,7 @@ export async function collectWithPythPro({
   }
 
   const http = createHttp({
-    fetchImpl,
+    fetchImpl:appFetch,
     clock
   });
 

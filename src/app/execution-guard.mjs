@@ -3,6 +3,7 @@ import {atomic,decimal,rational,sub,mul,div,abs,cmp,display,json} from '../math.
 import {EXECUTION_POLICY,ensure} from '../execution/policy.mjs';
 import {canonical,hash} from '../engine.mjs';
 import {evaluateV4WithPythPro} from './engine-v4.mjs';
+import {requireWinner} from './analysis-diagnostics.mjs';
 export function replayWithPythPro(bundle) {
   ensure(
     bundle?.snapshotSha256 === hash(bundle?.snapshot),
@@ -21,7 +22,7 @@ export function replayWithPythPro(bundle) {
 export function strictAsset(bundle){
  const result=replayWithPythPro(bundle);
  ensure(bundle.snapshot.order?.underlying==='TSLA','UNSUPPORTED_EXECUTION_UNDERLYING');
- ensure(result.status==='WINNER'&&result.winner,'NO_STRICT_WINNER');
+ requireWinner({result});
  const asset=resolve('TSLA').find(a=>a.symbol===result.winner),candidate=bundle.snapshot.candidates.find(c=>c.symbol===result.winner);
  ensure(asset&&candidate?.mint===asset.mint&&candidate.metadata?.identityVerified&&candidate.metadata?.chainVerified,'UNVERIFIED_WINNING_MINT');
  return {asset,candidate,result};

@@ -217,7 +217,7 @@ if(req.method==='GET'&&path==='/web3.js'){
       );
 
       }catch(e){
-      console.error('REQUEST_ERROR',e);
+      console.error('REQUEST_ERROR',/^[A-Z][A-Z0-9_]+$/.test(e.code??e.message)?e.code??e.message:'APPLICATION_ERROR');
 
       if(res.headersSent){
         if(!res.writableEnded){
@@ -233,7 +233,7 @@ if(req.method==='GET'&&path==='/web3.js'){
 
       return json(
         code==='JOB_NOT_FOUND'?404:400,
-        {error:{code}}
+        {error:{code,...(code==='NO_STRICT_WINNER'?{reasonCodes:e.denialReasonCodes??[]}: {})}}
       );
     }
   });

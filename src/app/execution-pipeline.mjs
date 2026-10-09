@@ -38,6 +38,7 @@ import {
 } from './live.mjs';
 
 import {settledCollector} from './collection.mjs';
+import {logFreshAnalysis} from './analysis-diagnostics.mjs';
 import {AUTHORIZATION_POLICY,approvalWindow,revalidationGuard} from './authorization.mjs';
 
 export function executionPipelineWithPythPro({
@@ -79,6 +80,7 @@ r.comparison=bundleSnapshotWithPythPro(
     clock
   })
 );
+   logFreshAnalysis('[FULCRUM][EXECUTION_PREPARE][FRESH_ANALYSIS]',r.comparison);
    ensure(testOnly||r.comparison.snapshot.mode==='live','SYNTHETIC_ANALYSIS_FORBIDDEN');
    ensure(strictAsset(r.comparison).asset.mint===asset.mint,'WINNING_REPRESENTATION_CHANGED');
    // The inspector supports only the input/output ATAs; do not request
@@ -113,7 +115,7 @@ r.comparison=bundleSnapshotWithPythPro(
     r.authorization={policy:{...AUTHORIZATION_POLICY},expiresAt:r.finalQuote.startedAt+AUTHORIZATION_POLICY.maxApprovalAgeMs};
     transition(r,'READY_FOR_SIGNATURE',['TRANSACTION_SIMULATION_PASSED','SIMULATED_BALANCES_VERIFIED'],clock());
    }
-  }catch(e){transition(r,'BLOCKED',[e.code??e.message],clock());}
+  }catch(e){transition(r,'BLOCKED',[e.code??e.message,...(e.denialReasonCodes??[])],clock());}
   await save(r);return r;
  }
  async function prepare(analysis,wallet){
