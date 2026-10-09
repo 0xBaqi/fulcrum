@@ -12,6 +12,7 @@ let walletAttempted=false;
 let receiptDownload=null;
 
 const terminal=new Set(['STRICT_WINNER','NO_VERIFIED_REPRESENTATION','READY_FOR_SIGNATURE','SIMULATION_BLOCKED','EXECUTION_CHANGED','FAILED','CONFIRMED']);
+const formatUSDC=raw=>{if(typeof raw!=='string'||!/^\d+$/.test(raw))return 'Unavailable';const n=BigInt(raw);return (n/1000000n)+'.'+(n%1000000n).toString().padStart(6,'0')+' USDC';};
 const stamp=ms=>Number.isFinite(ms)?new Date(ms).toISOString():'Unavailable';
 const reasonLabel=code=>{
   const labels={
@@ -38,8 +39,17 @@ const reasonLabel=code=>{
 
     FINAL_REQUOTE_PASSED:'Final execution quote passed',
     EXECUTION_MATERIALLY_CHANGED:'Execution changed materially',
-    INSUFFICIENT_USDC:'Wallet does not contain enough USDC',
-    TRANSACTION_SIMULATION_FAILED:'Transaction simulation failed'
+    INSUFFICIENT_USDC:'Insufficient USDC',
+    BALANCE_UNAVAILABLE:'Wallet balance could not be verified. Retry preparation.',
+    BALANCE_STALE:'Wallet balance evidence is stale. Retry preparation.',
+    SIMULATION_ROUTING_FAILED:'The route failed. Request a fresh quote.',
+    SIMULATION_ACCOUNT_FAILED:'A transaction account could not be used.',
+    SIMULATION_RPC_FAILED:'The network could not verify this transaction. Retry preparation.',
+    SIMULATION_UNKNOWN_FAILED:'Simulation failed for an unverified reason. No execution was authorized.',
+    TRANSACTION_SIMULATION_FAILED:'Transaction simulation failed',
+    INSUFFICIENT_SOL:'Insufficient SOL for the network fee',
+    TOKEN_ACCOUNT_UNVERIFIED:'Wallet token account could not be verified',
+    RPC_simulateTransaction_FAILED:'RPC could not complete simulation'
   };
 
   return labels[code] ?? code
@@ -387,7 +397,7 @@ for(const c of d.candidates){
 }
  $('decision-details').textContent=JSON.stringify({reasonCodes:d.reasonCodes,exclusions:d.exclusions,comparisonGates:d.comparisonGates},null,2);$('provenance').textContent=JSON.stringify({mode:d.mode,replay:j.replay,collectionTiming:j.collectionTiming,references:d.references,reference:d.reference,evidence:d.evidence},null,2);
  }
- if(j.execution){const e=j.execution;$('execution').hidden=false;$('execution-state').textContent=j.state+'  /  '+e.reasonCodes.join(', ');$('material').textContent=e.materialChange?'Final requote: '+e.materialChange.reasonCodes.join(', ')+'  /  degradation '+e.materialChange.degradationBps+' bps  /  protected minimum '+e.materialChange.finalMinimumOutput+' raw units':'Final requote has not passed.';$('funds').textContent=e.preBalances?'Source USDC balance: '+e.preBalances.input+' raw units  /  SOL: '+e.preBalances.solLamports+' lamports. No funds were spent.':'Balances not reached.';$('execution-details').textContent=JSON.stringify(e,null,2);}
+ if(j.execution){const e=j.execution;$('execution').hidden=false;$('execution-state').textContent=j.state+'  /  '+e.reasonCodes.map(reasonLabel).join('; ');$('material').textContent=e.materialChange?'Final requote: '+e.materialChange.reasonCodes.join(', ')+'  /  degradation '+e.materialChange.degradationBps+' bps  /  protected minimum '+e.materialChange.finalMinimumOutput+' raw units':'Final requote has not passed.';$('funds').textContent=e.preBalances?'Verified USDC balance: '+formatUSDC(e.preBalances.input)+(Number.isSafeInteger(e.preBalances.solLamports)?' / SOL: '+e.preBalances.solLamports+' lamports.':'.'):'Balances not reached.';$('execution-details').textContent=JSON.stringify(e,null,2);}
  eligibility();}
 function walletStatus(message){
   $('wallet-status').textContent=message;
@@ -433,11 +443,8 @@ function renderWallet(data){
 
   $('funds').textContent=
     r.preBalances
-      ? 'USDC before execution: '+
-        r.preBalances.input+
-        ' raw units / SOL: '+
-        r.preBalances.solLamports+
-        ' lamports'
+      ? 'USDC before execution: '+formatUSDC(r.preBalances.input)+
+        (Number.isSafeInteger(r.preBalances.solLamports)?' / SOL: '+r.preBalances.solLamports+' lamports':'')
       : 'Wallet balances pending.';
 
   $('review-spend').textContent='1.000000 USDC';
@@ -492,25 +499,32 @@ function renderWallet(data){
 
   $('receipt').href=receiptDownload;
   $('receipt').download='fulcrum-execution.json';
-  $('receipt').hidden=!(
-    r.status==='SUCCEEDED' ||
-    r.status==='CONFIRMED'
-  );
+  $('receipt').hidden=false;
 
   const denied=r.status==='BLOCKED' || r.status==='SIMULATION_BLOCKED';
   $('execution-denied').hidden=!denied;
 
   if(denied){
-    const reason=(r.reasonCodes??[])[0]??'EXECUTION_POLICY_BLOCKED';
-    $('denial-reason').textContent=(r.reasonCodes??[reason]).map(reasonLabel).join('; ');
+    const reason=['INSUFFICIENT_USDC','BALANCE_UNAVAILABLE','BALANCE_STALE','SIMULATION_ACCOUNT_FAILED','SIMULATION_ROUTING_FAILED','SIMULATION_RPC_FAILED','SIMULATION_UNKNOWN_FAILED'].find(c=>r.reasonCodes.includes(c))??(r.reasonCodes??[])[0]??'EXECUTION_POLICY_BLOCKED';
+    $('denial-reason').textContent=reasonLabel(reason);
     $('denial-explanation').textContent=
-      reason==='UNSUPPORTED_EXECUTION_ROUTE'
+      r.reasonCodes.includes('INSUFFICIENT_USDC')
+        ? 'Your verified USDC balance is below the quoted amount. Add USDC to this wallet, then prepare again. SOL cannot cover the USDC input.'
+        : ['BALANCE_UNAVAILABLE','BALANCE_STALE'].includes(reason)
+        ? 'Fulcrum could not verify a fresh wallet balance. Retry preparation when the network is available.'
+        : reason==='SIMULATION_ACCOUNT_FAILED'
+        ? 'A transaction account is invalid or unavailable. Prepare again; if this persists, review the technical receipt.'
+        : reason==='SIMULATION_RPC_FAILED'
+        ? 'The network could not complete the simulation. Retry preparation.'
+        : reason==='SIMULATION_UNKNOWN_FAILED'
+        ? 'The simulation returned an error whose cause is unverified. Review the technical receipt before retrying.'
+        : reason==='UNSUPPORTED_EXECUTION_ROUTE'
         ? 'The current Jupiter route is outside Fulcrum\'s verified execution policy. Fulcrum stopped before wallet signature or broadcast.'
-        : 'The current transaction did not satisfy Fulcrum\'s execution policy. Fulcrum stopped before wallet signature or broadcast.';
+        : 'The transaction did not pass the required checks. See the technical receipt for details.';
     $('execution-badge').textContent='EXECUTION DENIED';
     $('execution-state').textContent='Policy decision: execution denied.';
-    $('material').textContent='No authorized execution route was produced.';
-    $('funds').textContent='No signature / no broadcast / no funds spent.';
+    $('material').textContent=r.materialChange?'Final quote checks passed; wallet execution is blocked.':'Final quote checks have not passed.';
+    $('funds').textContent=(r.walletPreflight?.availableRaw!=null?'Verified USDC balance: '+formatUSDC(r.walletPreflight.availableRaw)+'. Required: '+formatUSDC(r.walletPreflight.requiredRaw)+'. ':'')+(r.signature?'See the technical receipt for signature and broadcast status.':'No broadcast / no funds spent.');
   }
 
   if(

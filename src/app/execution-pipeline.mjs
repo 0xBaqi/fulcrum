@@ -1,3 +1,4 @@
+import {walletPreflight,simulationCategory,failureCategory,simulate,freshBalance} from '../execution/preflight.mjs';
 import {VersionedTransaction} from '@solana/web3.js';
 import {createHttp} from '../providers.mjs';
 import {hash} from '../engine.mjs';
@@ -45,7 +46,7 @@ export function executionPipelineWithPythPro({
   env=process.env,
   clock=Date.now,
   http=createHttp({clock}),
-  rpc=rpcClient({env}),
+  rpc=rpcClient({env,http:createHttp({clock})}),
   collector=null,
   persist=fileReceiptStore(),
   testOnly=false,
@@ -93,17 +94,19 @@ r.comparison=bundleSnapshotWithPythPro(
    ensure(e.data.routePlan?.every(x=>x.swapInfo?.inputMint===USDC&&x.swapInfo?.outputMint===asset.mint&&!excludedDexes.includes(x.swapInfo?.label)),'UNSUPPORTED_EXECUTION_ROUTE');
    const guardedAt=clock();r.materialChange=materialGuard(analysis,r.comparison,r.finalQuote,guardedAt);transition(r,'REQUOTED',['FINAL_REQUOTE_PASSED'],guardedAt);
    const inspection=inspectBuild(e.data,wallet,asset,amount),tables=await Promise.all(Object.keys(e.data.addressesByLookupTableAddress??{}).map(a=>rpc.lookup(a)));
-   const block=(await rpc.call('getLatestBlockhash',[{commitment:'confirmed'}])).value;
+   const blockResponse=await rpc.call('getLatestBlockhash',[{commitment:'confirmed'}]);const block=blockResponse.value;
    ensure(typeof block?.blockhash==='string'&&Number.isSafeInteger(block.lastValidBlockHeight)&&block.lastValidBlockHeight>0,'BLOCKHASH_VALIDITY_UNVERIFIED');
    const tx=construct(e.data,wallet,block.blockhash,tables);
    r.transaction={unsignedBase64:Buffer.from(tx.serialize()).toString('base64'),messageSha256:hash(Array.from(tx.message.serialize())),inspection,blockhash:block};transition(r,'CONSTRUCTED',['TRANSACTION_INSPECTED'],clock());await save(r);
-   const accounts=await rpc.call('getMultipleAccounts',[[inspection.inputAccount,inspection.outputAccount],{encoding:'base64',commitment:'confirmed'}]);
-   const input=tokenBalance(accounts.value[0],wallet,USDC,TOKEN),output=tokenBalance(accounts.value[1],wallet,asset.mint,TOKEN_2022);
+   ensure(testOnly||Number.isSafeInteger(blockResponse.context?.slot),'BALANCE_UNAVAILABLE');
+   const {accounts,input}=await walletPreflight({rpc,clock,wallet,inspection,receipt:r,testOnly,minContextSlot:blockResponse.context?.slot});
+   const output=tokenBalance(accounts.value[1],wallet,asset.mint,TOKEN_2022);
    const sol=await rpc.call('getBalance',[wallet,{commitment:'confirmed'}]);
-   r.preBalances={input,output,solLamports:sol.value,slot:accounts.context.slot};
-   const fee=await rpc.call('getFeeForMessage',[Buffer.from(tx.message.serialize()).toString('base64'),{commitment:'confirmed'}]);ensure(Number.isSafeInteger(fee.value)&&fee.value<=P.maxNetworkFeeLamports,'NETWORK_FEE_UNVERIFIED');r.networkFeeLamports=fee.value;
-   r.simulation=await rpc.call('simulateTransaction',[r.transaction.unsignedBase64,{encoding:'base64',sigVerify:false,replaceRecentBlockhash:false,commitment:'confirmed',accounts:{encoding:'base64',addresses:[wallet,inspection.inputAccount,inspection.outputAccount]}}]);transition(r,'SIMULATED',['TRANSACTION_SIMULATION_ATTEMPTED'],clock());
-   const reasons=[];if(BigInt(input)<BigInt(amount))reasons.push('INSUFFICIENT_USDC');if(sol.value<fee.value)reasons.push('INSUFFICIENT_SOL');if(r.simulation.value?.err!==null)reasons.push('TRANSACTION_SIMULATION_FAILED');
+   r.preBalances={input,output,solLamports:sol.value,slot:accounts.context.slot};ensure(Number.isSafeInteger(sol.value)&&sol.value>=0,'BALANCE_UNAVAILABLE');
+   const fee=await rpc.call('getFeeForMessage',[Buffer.from(tx.message.serialize()).toString('base64'),{commitment:'confirmed'}]);ensure(Number.isSafeInteger(fee.value)&&fee.value<=P.maxNetworkFeeLamports,'NETWORK_FEE_UNVERIFIED');r.networkFeeLamports=fee.value;ensure(sol.value>=fee.value,'INSUFFICIENT_SOL');
+   freshBalance(r,clock);
+   r.simulation=await simulate(rpc,[r.transaction.unsignedBase64,{encoding:'base64',sigVerify:false,replaceRecentBlockhash:false,commitment:'confirmed',accounts:{encoding:'base64',addresses:[wallet,inspection.inputAccount,inspection.outputAccount]}}],r);transition(r,'SIMULATED',['TRANSACTION_SIMULATION_ATTEMPTED'],clock());
+   const reasons=[];if(r.simulation?.value?.err!==null){r.failureCategory=simulationCategory(r.simulation);reasons.push('TRANSACTION_SIMULATION_FAILED','SIMULATION_'+r.failureCategory+'_FAILED');}
    if(reasons.length)transition(r,'BLOCKED',reasons,clock());else{
     const simulated=r.simulation.value.accounts;ensure(simulated?.length===3&&simulated[0]&&simulated[1]&&simulated[2],'SIMULATED_BALANCES_UNVERIFIABLE');
     const afterInput=tokenBalance(simulated[1],wallet,USDC,TOKEN),afterOutput=tokenBalance(simulated[2],wallet,asset.mint,TOKEN_2022);
@@ -115,7 +118,7 @@ r.comparison=bundleSnapshotWithPythPro(
     r.authorization={policy:{...AUTHORIZATION_POLICY},expiresAt:r.finalQuote.startedAt+AUTHORIZATION_POLICY.maxApprovalAgeMs};
     transition(r,'READY_FOR_SIGNATURE',['TRANSACTION_SIMULATION_PASSED','SIMULATED_BALANCES_VERIFIED'],clock());
    }
-  }catch(e){transition(r,'BLOCKED',[e.code??e.message,...(e.denialReasonCodes??[])],clock());}
+  }catch(e){r.failureCategory=r.failureCategory??r.walletPreflight?.failureCategory??failureCategory(e.code??'UNKNOWN');r.technicalError={code:e.code??null,message:e.message};transition(r,'BLOCKED',[e.code??e.message,...(e.denialReasonCodes??[])],clock());}
   await save(r);return r;
  }
  async function prepare(analysis,wallet){
@@ -123,7 +126,7 @@ r.comparison=bundleSnapshotWithPythPro(
   // One fresh attempt after an actual route simulation failure, never after
   // an economic, identity, funding or instruction-inspection failure.
   const labels=[...new Set(r.finalQuote?.raw?.routePlan?.map(x=>x.swapInfo?.label)??[])];
-  if(r.status==='BLOCKED'&&r.reasonCodes.includes('TRANSACTION_SIMULATION_FAILED')&&
+  if(r.status==='BLOCKED'&&r.reasonCodes.includes('SIMULATION_ROUTING_FAILED')&&
      !r.reasonCodes.some(c=>c==='INSUFFICIENT_USDC'||c==='INSUFFICIENT_SOL')&&
      labels.length&&labels.every(x=>typeof x==='string'&&/^[A-Za-z0-9 _+.-]{1,64}$/.test(x))){
    const previous=sealReceipt(r);
@@ -152,6 +155,9 @@ r.comparison=bundleSnapshotWithPythPro(
    ensure(allowBroadcast&&authorizeBroadcast,'BROADCAST_NOT_AUTHORIZED');ensure(r.status==='READY_FOR_SIGNATURE'&&!used.has(r)&&prepared.get(r)===hash(r),'EXECUTION_ALREADY_USED_OR_BLOCKED');used.add(r);
    const {asset}=strictAsset(r.analysis),amount=r.inputAmount,tx=VersionedTransaction.deserialize(Buffer.from(r.transaction.unsignedBase64,'base64'));
    approvalWindow(r,clock());await checkValidity(r);
+   await walletPreflight({rpc,clock,wallet:r.walletPublicKey,inspection:r.transaction.inspection,receipt:r,testOnly,minContextSlot:r.walletPreflight.slot});
+   r.preSignatureBalance=structuredClone(r.walletPreflight);
+
    let encoded;try{encoded=await signTransaction(r.transaction.unsignedBase64);}catch{ensure(false,'USER_SIGNATURE_REJECTED');}
    const signed=signedTransaction(encoded,tx,r.walletPublicKey);approvalWindow(r,clock());
    const comparison=bundleSnapshotWithPythPro(await liveCollector({amountRaw:amount,underlying:'TSLA',env,clock}));
@@ -162,14 +168,14 @@ r.comparison=bundleSnapshotWithPythPro(
    const quote={startedAt:e.startedAt,receivedAt:e.receivedAt,raw:e.data,evidenceId:e.id};
    revalidationGuard(r,comparison,quote,clock());
    const inspection=r.transaction.inspection;
-   const before=await rpc.call('getMultipleAccounts',[[inspection.inputAccount,inspection.outputAccount],{encoding:'base64',commitment:'confirmed'}]);
-   const input=tokenBalance(before.value[0],r.walletPublicKey,USDC,TOKEN),output=tokenBalance(before.value[1],r.walletPublicKey,asset.mint,TOKEN_2022);
+   const {accounts:before,input}=await walletPreflight({rpc,clock,wallet:r.walletPublicKey,inspection,receipt:r,testOnly,minContextSlot:r.walletPreflight.slot});
+   const output=tokenBalance(before.value[1],r.walletPublicKey,asset.mint,TOKEN_2022);
    const sol=(await rpc.call('getBalance',[r.walletPublicKey,{commitment:'confirmed'}])).value;
    const fee=(await rpc.call('getFeeForMessage',[Buffer.from(tx.message.serialize()).toString('base64'),{commitment:'confirmed'}])).value;
    ensure(Number.isSafeInteger(fee)&&fee<=P.maxNetworkFeeLamports,'NETWORK_FEE_UNVERIFIED');
-   ensure(BigInt(input)>=BigInt(amount),'INSUFFICIENT_USDC');ensure(sol>=fee,'INSUFFICIENT_SOL');
+   ensure(Number.isSafeInteger(sol)&&sol>=0,'BALANCE_UNAVAILABLE');ensure(sol>=fee,'INSUFFICIENT_SOL');freshBalance(r,clock);
    r.signedSimulationStartedAt=clock();
-   const sim=await rpc.call('simulateTransaction',[encoded,{encoding:'base64',sigVerify:true,replaceRecentBlockhash:false,commitment:'confirmed',accounts:{encoding:'base64',addresses:[r.walletPublicKey,inspection.inputAccount,inspection.outputAccount]}}]);r.signedSimulation=sim;ensure(sim.value?.err===null,'TRANSACTION_SIMULATION_FAILED');
+   const sim=await simulate(rpc,[encoded,{encoding:'base64',sigVerify:true,replaceRecentBlockhash:false,commitment:'confirmed',accounts:{encoding:'base64',addresses:[r.walletPublicKey,inspection.inputAccount,inspection.outputAccount]}}],r,'signedSimulation');r.signedSimulation=sim;if(sim?.value?.err!==null){r.failureCategory=simulationCategory(sim);transition(r,'BLOCKED',['SIMULATION_'+r.failureCategory+'_FAILED'],clock());}ensure(sim?.value?.err===null,'TRANSACTION_SIMULATION_FAILED');
    const accounts=sim.value.accounts;ensure(accounts?.length===3&&accounts.every(Boolean),'SIMULATED_BALANCES_UNVERIFIABLE');
    const afterInput=tokenBalance(accounts[1],r.walletPublicKey,USDC,TOKEN),afterOutput=tokenBalance(accounts[2],r.walletPublicKey,asset.mint,TOKEN_2022);
    ensure(BigInt(input)-BigInt(afterInput)===BigInt(amount),'SIMULATED_INPUT_AMOUNT_MISMATCH');
@@ -194,7 +200,7 @@ r.comparison=bundleSnapshotWithPythPro(
      transition(r,r.balances.verified?'SUCCEEDED':'CONFIRMED_BELOW_MINIMUM',['TRANSACTION_CONFIRMED',r.balances.verified?'RECEIVED_AMOUNT_VERIFIED':'RECEIVED_AMOUNT_BELOW_MINIMUM'],clock());await save(r);return r;
     }await sleep(P.confirmationPollMs);}
    transition(r,'CONFIRMATION_PENDING',['TRANSACTION_CONFIRMATION_TIMEOUT'],clock());
-  }catch(e){if(!broadcastStarted)r.signature=null;transition(r,r.signature?'VERIFICATION_BLOCKED':'BLOCKED',[e.code??e.message],clock());}
+  }catch(e){if(!broadcastStarted)r.signature=null;r.failureCategory=r.failureCategory??r.walletPreflight?.failureCategory??failureCategory(e.code??'UNKNOWN');r.technicalError={code:e.code??null,message:e.message};transition(r,r.signature?'VERIFICATION_BLOCKED':'BLOCKED',[e.code??e.message,...(e.denialReasonCodes??[])],clock());}
   await save(r);return r;
  }
  async function reconcile(r){

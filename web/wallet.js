@@ -132,7 +132,7 @@ function render(data) {
     $('receipt').download = 'fulcrum-execution.json';
     $('receipt').hidden = false;
 
-    status(r.status);
+    status(r.reasonCodes?.includes('INSUFFICIENT_USDC')?'Insufficient USDC. Add USDC to this wallet, then prepare again.':r.reasonCodes?.some(c=>c==='BALANCE_UNAVAILABLE'||c==='BALANCE_STALE')?'Wallet balance could not be verified. Retry preparation.':r.reasonCodes?.includes('SIMULATION_RPC_FAILED')?'RPC could not complete simulation. Retry preparation.':r.reasonCodes?.includes('SIMULATION_ACCOUNT_FAILED')?'A transaction account could not be used. Review the receipt.':r.reasonCodes?.includes('SIMULATION_ROUTING_FAILED')?'The route failed. Prepare a fresh quote.':r.reasonCodes?.includes('SIMULATION_UNKNOWN_FAILED')?'Simulation failed for an unverified reason. Review the receipt.':r.status);
   }
 
   eligibility();
