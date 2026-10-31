@@ -1,4 +1,29 @@
-# Stocklana — core engine (Milestone 1.2, session-aware Tesla validation)
+# Stocklana — Tokenized Equity Execution Comparison
+
+**Compare tokenized stock routes by actual share exposure, not misleading token quantities.**
+
+Stocklana is a wallet-free Solana research and execution-comparison engine for tokenized U.S. equities. It resolves issuer-backed representations of the same underlying stock, gathers live route quotes, normalizes token amounts into comparable underlying-share exposure, and applies deterministic evidence and market-session gates before selecting a qualified route.
+
+**[Source code](https://github.com/0xBaqi/fulcrum)** · No public app deployment (core engine and CLI only).
+
+> **Project status:** Experimental core engine, milestone 1.2. No UI, wallet connection, signing, trading or deployed application. A reported best route is not an executable transaction; `executionReady` remains false.
+
+## Why it matters
+
+Two tokenized representations of the same stock may use different share multipliers and trading routes. Comparing their raw token amounts can produce the wrong conclusion. Stocklana compares the minimum underlying-equivalent shares for an equal USDC input and makes missing or stale evidence visible rather than inventing a winner.
+
+## What you can try
+
+- Run a synthetic demonstration of how share normalization changes route rankings.
+- Collect live TSLA or NVDA route evidence when providers are available.
+- Replay captured evidence under its original recorded policy and observation time.
+- Inspect provider provenance, session classification, eligibility gates and explicit NO_WINNER outcomes.
+
+## Technical documentation
+
+The original milestone details, exact commands, sources, acceptance evidence, and limitations are preserved below.
+
+## Stocklana — core engine (Milestone 1.2, session-aware Tesla validation)
 
 Milestone 1.2 adds a versioned Nasdaq session calendar and separates common-USDC execution ranking from USD conversion. New captures use schema 4; schemas 1–3 retain their original replay behavior. All 97 previous tests and their evidence are preserved. See [MILESTONE_1_2.md](MILESTONE_1_2.md) for the strict live TSLAx winner, exact commands, files, quote ages and limitations. The Milestone 1.1 reports remain historical records.
 
